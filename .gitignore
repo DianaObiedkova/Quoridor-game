@@ -1,0 +1,16 @@
+# Ignore everything
+/**
+
+# Except directories
+!*/
+
+# And source code files
+!*.cs
+!*.js
+!*.css
+!*.cshtml
+
+# And these files
+!.gitignore
+!README.md
+!LICENSE

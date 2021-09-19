@@ -10,6 +10,8 @@ namespace Quoridor.Models
         public string Name { get; set; }
         public Position position { get; set; }
 
+        private int availableWalls = 10; 
+
         public Player(Position position)
         {
             this.position = position;
@@ -21,5 +23,10 @@ namespace Quoridor.Models
             this.position = position;
             Name = name;
         }
+
+        public void SubtractWall()
+        {
+            availableWalls -= 1;
+        } 
     }
 }

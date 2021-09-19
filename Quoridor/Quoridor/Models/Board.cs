@@ -7,5 +7,7 @@ namespace Quoridor.Models
 {
     public class Board
     {
+        public int Size { get; set; }
+        
     }
 }

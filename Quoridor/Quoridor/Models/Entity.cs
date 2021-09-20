@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Models
 {
-    public class Entity
+    public abstract class Entity
     {
         public int Id { get; set; }
     }

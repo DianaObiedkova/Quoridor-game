@@ -8,6 +8,14 @@ namespace Quoridor.Models
     public class Board
     {
         public int Size { get; set; }
-        
+
+        //ставим перегородку
+        public void SetFence() { }
+
+        //можно ли поставить перегородку?
+        public bool IsFencePossible()
+        {
+            return default;
+        }
     }
 }

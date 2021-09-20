@@ -9,6 +9,7 @@ namespace Quoridor.Models
     {
         public string Name { get; set; }
         public Position position { get; set; }
+        public int CurrentWalls => availableWalls;
 
         private int availableWalls = 10; 
 
@@ -27,6 +28,11 @@ namespace Quoridor.Models
         public void SubtractWall()
         {
             availableWalls -= 1;
-        } 
+        }
+         
+        //ход фишкой
+        public void PlayPawn() { }
+        //ход - поставить перегородку
+        public void PlayFence() { }
     }
 }

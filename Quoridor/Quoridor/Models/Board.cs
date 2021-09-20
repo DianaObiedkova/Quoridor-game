@@ -10,22 +10,22 @@ namespace Quoridor.Models
         public static int Size { get; set; } = 9;
 
         //сетка клеток размером Size x Size
-        Cell[][] cells = new Cell[Size][Size];
+        Cell[,] cells = new Cell[Size,Size];
 
         public Board() {
-            foreach (var cell in cells[0])
+
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                cell.northEdge = true;
+                cells[0, i].northEdge = true;
+                cells[Size - 1, i].southEdge = true;
             }
-            foreach (var cell in cells[Size-1])
+
+            for (int i = 0; i < cells.GetLength(1); i++)
             {
-                cell.southEdge = true;
+                cells[i, 0].westEdge = true;
+                cells[Size - 1, 0].eastEdge = true;
             }
-            foreach (var row in cells)
-            {
-                row[0].westEdge = true;
-                row[Size-1].eastEdge = true;
-            }
+
         }
 
         //ставим перегородку

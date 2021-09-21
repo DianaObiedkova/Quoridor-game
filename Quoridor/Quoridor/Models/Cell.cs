@@ -19,10 +19,10 @@ namespace Quoridor.Models
         public bool southEdge { get; set; }
         public bool westEdge { get; set; }
 
-        public Cell(int id,string name)
-        {
-            Id = id;
-            Name = name;
-        }
+        //public Cell(int id,string name)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //}
     }
 }

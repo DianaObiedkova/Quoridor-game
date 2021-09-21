@@ -14,34 +14,41 @@ namespace Quoridor.Models
         readonly char[] letters = { 'a','b','c','d','e','f','g','h','i' };
 
         public Board() {
+            InitMethod();
+        }
 
+        public void InitMethod()
+        {
             for (int i = 0; i < cells.GetLength(0); i++)
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                    cells[i, j].Id = Size * j + (i + 1);
+                    cells[i, j] = new Cell
+                    {
+                        Id = Size * j + (i + 1)
+                    };
                 }
-            }
-
-            for (int i = 0; i < cells.GetLength(0); i++)
-            {
                 cells[0, i].northEdge = true;
                 cells[Size - 1, i].southEdge = true;
             }
+
+            //for (int i = 0; i < cells.GetLength(0); i++)
+            //{
+            //    cells[0, i].northEdge = true;
+            //    cells[Size - 1, i].southEdge = true;
+            //}
 
             for (int i = 0; i < cells.GetLength(1); i++)
             {
                 cells[i, 0].westEdge = true;
                 cells[Size - 1, 0].eastEdge = true;
 
-                for(int j = 0; j < letters.Length; j++)
+                for (int j = 0; j < letters.Length; j++)
                 {
                     cells[i, j].Name = letters[j].ToString() + i;
                 }
             }
-
         }
-
 
         //ставим перегородку
         //передать какие-то хотя бы 2 пары координат (для каждой половины по 1)

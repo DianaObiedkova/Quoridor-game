@@ -7,7 +7,7 @@ namespace Quoridor.Models
 {
     public class Player: Entity
     {
-        public string Name { get; set; }
+        //public string Name { get; set; }
         public Position position { get; set; }
         public int CurrentWalls => availableWalls;
 

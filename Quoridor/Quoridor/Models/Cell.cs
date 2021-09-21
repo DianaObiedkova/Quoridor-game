@@ -5,18 +5,24 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Models
 {
-    public class Cell
+    public class Cell:Entity
     {
         //наличие стен вокруг клетки
-        private bool northWall { get; set; }
+        public  bool northWall { get; private set; }
         private bool eastWall { get; set; }
         private bool southWall { get; set; }
         private bool westWall { get; set; }
 
         //наличие края доски рядом с клеткой
-        private bool northEdge { get; set; }
-        private bool eastEdge { get; set; }
-        private bool southEdge { get; set; }
-        private bool westEdge { get; set; }
+        public bool northEdge { get; set; }
+        public bool eastEdge { get; set; }
+        public bool southEdge { get; set; }
+        public bool westEdge { get; set; }
+
+        public Cell(int id,string name)
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }

@@ -9,14 +9,17 @@ namespace Quoridor.Models
     {
         //public string Name { get; set; }
         public Position position { get; set; }
-        public int CurrentWalls => availableWalls;
+        public const int maxFences = 10;
+        public int CurrentFences { get; private set; } = 10;
 
-        private int availableWalls = 10; 
+        public Fence[] fences;
 
         public Player(Position position)
         {
             this.position = position;
             Name = "Player " + Id;
+
+            fences = new Fence[maxFences];
         }
 
         public Player(string name, Position position)
@@ -27,7 +30,7 @@ namespace Quoridor.Models
 
         public void SubtractWall()
         {
-            availableWalls -= 1;
+            CurrentFences -= 1;
         }
          
         //ход фишкой

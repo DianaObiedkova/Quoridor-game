@@ -48,6 +48,8 @@ namespace Quoridor.Models
         {
             // ставятся две половины перегородки
             // каждая половина ставится  в обе смежные клетки (north+south east+west)
+
+            //ищу индекс первого пустого элемента в массиве
             int index = Array.FindIndex(CurrentP.fences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
             if(index != null)
             {
@@ -75,7 +77,9 @@ namespace Quoridor.Models
                     };
                 }
             }
-            
+
+            CurrentP.PlayFence(X,Y);
+
         }
 
         //можно ли поставить перегородку?

@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Models
 {
-    public class Position
+    public class Pawn:Entity
     {
-        public char X { get; set; }
-        public int Y { get; set; }
+        public Position Position { get; set; }
     }
 }

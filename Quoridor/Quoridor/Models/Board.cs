@@ -8,12 +8,13 @@ namespace Quoridor.Models
     public class Board
     {
         public static int Size { get; set; } = 9;
-
+        public Fence[] AllFences { get; set; } = new Fence[20];
         //сетка клеток размером Size x Size
         readonly Cell[,] cells = new Cell[Size,Size];
         readonly char[] letters = { 'a','b','c','d','e','f','g','h','i' };
 
         public Board() {
+
             InitMethod();
         }
 

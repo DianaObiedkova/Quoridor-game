@@ -24,5 +24,6 @@ namespace Quoridor.Models
         //    Id = id;
         //    Name = name;
         //}
+
     }
 }

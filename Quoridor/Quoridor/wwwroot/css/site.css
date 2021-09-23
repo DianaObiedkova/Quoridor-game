@@ -1,6 +1,31 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+/*:root {
+    --board-table-side-length: 90vmin;
+    --long-short-ratio: 3.2;
+    --short-length-number-in-board-table: calc(9 * var(--long-short-ratio) + 8);
+    --short-length: calc(var(--board-table-side-length) / var(--short-length-number-in-board-table));
+    --long-length: calc(var(--long-short-ratio) * var(--short-length));
+    --wall-gap: calc(var(--short-length) * 0.25);
+    --wall-length: calc(2 * var(--long-length) + var(--short-length) - 2 * var(--wall-gap));
+    --wall-width: calc(var(--short-length) - 2 * var(--wall-gap));
+    --font-size: 18px;
+    --color-black: #232629;
+}*/
+/* size of iPad screen is 768px x 1024px in portrait mode */
+/*@media only screen and (min-width: 768px) and (min-height: 768px) {
+    :root {
+        --font-size: 30px;
+    }
+}
+
+@media only screen and (min-width: 768px), (orientation: landscape) {
+    :root {
+        --board-table-side-length: 70vmin;
+    }
+}*/
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -27,7 +52,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
@@ -54,13 +79,14 @@ button.accept-policy {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 .footer {
   position: absolute;
@@ -69,3 +95,70 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+table.geek {
+    empty-cells: show;
+    width:680px;
+    height:680px;
+}
+
+td.col {
+    text-align: center;
+    width:60px;
+   /* height:100px;*/
+}
+
+td.between_cols {
+    width: 10px;
+}
+
+tr.between_rows {
+    height: 10px;
+}
+
+.between_rows td {
+    height: 10px;
+}
+
+/*td.between_rows {
+    height: 10px;
+}*/
+
+/*
+table {
+    table-layout: fixed;
+    border-radius: 0.5%;
+    background-color: rgb(68, 117, 221);
+    border-collapse: collapse;
+    text-align: center;
+    width: var(--board-table-side-length);
+    height: var(--board-table-side-length);
+    padding: 0;
+}
+
+td {
+    position: relative;
+    padding: 0;
+}
+
+tr.row {
+    height: var(--long-length);
+}
+
+td.col {
+    width: var(--long-length);
+}
+
+tr.between_rows {
+    height: var(--short-length);
+}
+
+td.between_cols {
+    width: var(--short-length);
+}
+tr.row td.col {
+    background-color: rgb(207, 207, 207);
+    border-radius: 5%;
+}*/
+

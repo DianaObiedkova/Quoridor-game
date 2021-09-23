@@ -7,6 +7,6 @@ namespace Quoridor.Models
 {
     public class Pawn:Entity
     {
-        public Position Position { get; set; }
+        public Cell Cell { get; set; }
     }
 }

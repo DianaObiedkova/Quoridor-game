@@ -50,34 +50,40 @@ namespace Quoridor.Models
             // каждая половина ставится  в обе смежные клетки (north+south east+west)
 
             //ищу индекс первого пустого элемента в массиве
-            int index = Array.FindIndex(CurrentP.fences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
-            if(index != null)
+
+            bool exists = Array.Exists(CurrentP.Fences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
+            int index = 0;
+
+            if (exists)
             {
-                //if(IsFencePossible(передать координаты)) {
-                //    
-                //}
-
-                //наименование перегородок + ИД
-                //горизонтальные
-                if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
-                {
-                    CurrentP.fences[index] = new Fence()
-                    {
-                        Id = CurrentP.fences.Count(x => x != null),
-                        Name = X.Name.Substring(1, 1) + X.Name.Substring(0, 1) + Y.Name.Substring(0, 1)
-                    };
-                }
-                //вертикальные
-                else if(X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
-                {
-                    CurrentP.fences[index] = new Fence()
-                    {
-                        Id = CurrentP.fences.Count(x => x != null),
-                        Name = X.Name.Substring(0, 1) + X.Name.Substring(1, 1) + Y.Name.Substring(1, 1)
-                    };
-                }
+                index = Array.FindIndex(CurrentP.Fences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
             }
+            else return;
+            
+            //if(IsFencePossible(передать координаты)) {
+            //    
+            //}
 
+            //наименование перегородок + ИД
+            //горизонтальные
+            if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
+            {
+                CurrentP.Fences[index] = new Fence()
+                {
+                    Id = CurrentP.Fences.Count(x => x != null),
+                    Name = X.Name.Substring(1, 1) + X.Name.Substring(0, 1) + Y.Name.Substring(0, 1)
+                };
+            }
+            //вертикальные
+            else if(X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
+            {
+                CurrentP.Fences[index] = new Fence()
+                {
+                    Id = CurrentP.Fences.Count(x => x != null),
+                    Name = X.Name.Substring(0, 1) + X.Name.Substring(1, 1) + Y.Name.Substring(1, 1)
+                };
+            }
+            
             CurrentP.PlayFence(X,Y);
 
         }
@@ -91,6 +97,34 @@ namespace Quoridor.Models
 
         // отдельно выделить алгоритм поиска пути в графе
         // для проверки IsFencePossible()
+
+        public void MovePawn(Direction direction)
+        {
+            int index = board.indexes.FirstOrDefault(x => x.Value == CurrentP.Pawn.Cell.X).Key;
+
+            //если рядом нет пешки
+            if (direction == Direction.East && !CurrentP.Pawn.Cell.X.Contains("i")
+                && !CurrentP.Pawn.Cell.EastWall) // d3 -> e3
+            {
+                CurrentP.Pawn.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y;
+            }
+            else if (direction == Direction.West && !CurrentP.Pawn.Cell.X.Contains("a")
+                && !CurrentP.Pawn.Cell.WestWall)// e3 -> d3
+            {
+                CurrentP.Pawn.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y;
+            }
+            else if (direction == Direction.North && !CurrentP.Pawn.Cell.Y.Equals(0)
+                && !CurrentP.Pawn.Cell.NorthWall)// e3 -> e2
+            {
+                CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y-1).ToString();
+            }
+            else if (direction == Direction.South && !CurrentP.Pawn.Cell.Y.Equals(8)
+                && !CurrentP.Pawn.Cell.SouthWall)// e3 -> e4
+            {
+                CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 1).ToString();
+            }
+           
+        }
 
         private bool IsCellHasPawn()
         {

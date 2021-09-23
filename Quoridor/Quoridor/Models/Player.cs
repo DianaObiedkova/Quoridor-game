@@ -12,14 +12,14 @@ namespace Quoridor.Models
         public const int maxFences = 10;
         public Pawn Pawn { get; set; }
         public int CurrentFences { get; private set; } = 10;
-        public Fence[] fences;
+        public Fence[] Fences { get; set; }
 
         public Player(Pawn pawn)
         {
             Pawn = pawn;
             Name = "Player " + Id;
 
-            fences = new Fence[maxFences];
+            Fences = new Fence[maxFences];
         }
 
         public Player(string name, Pawn pawn)
@@ -36,8 +36,8 @@ namespace Quoridor.Models
         //ход фишкой
         public void PlayPawn(Cell cell) 
         {
-            Pawn.Position.X = cell.Name.Substring(0,1)[0];
-            Pawn.Position.Y = Convert.ToInt32(cell.Name.Substring(1, 1));
+            Pawn.Cell.X = Convert.ToString(cell.Name.Substring(0,1)[0]);
+            Pawn.Cell.Y = Convert.ToInt32(cell.Name.Substring(1, 1));
         }
         //ход - поставить перегородку
         public void PlayFence(Cell X, Cell Y) 

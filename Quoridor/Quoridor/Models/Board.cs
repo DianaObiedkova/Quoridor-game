@@ -11,8 +11,8 @@ namespace Quoridor.Models
         public Fence[] AllFences { get; set; } = new Fence[20];
         //сетка клеток размером Size x Size
         readonly Cell[,] cells = new Cell[Size,Size];
-        readonly char[] letters = { 'a','b','c','d','e','f','g','h','i' };
-
+        readonly string[] letters = { "a","b","c","d", "e", "f", "g", "h", "i" };
+        public readonly Dictionary<int, string> indexes = new Dictionary<int, string>();
         public Board() {
 
             InitMethod();
@@ -20,6 +20,11 @@ namespace Quoridor.Models
 
         public void InitMethod()
         {
+            for (int i = 0; i < letters.Length; i++)
+            {
+                indexes.Add(i, letters[i]);
+            }
+
             for (int i = 0; i < cells.GetLength(0); i++)
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
@@ -29,8 +34,8 @@ namespace Quoridor.Models
                         Id = Size * j + (i + 1)
                     };
                 }
-                cells[0, i].northEdge = true;
-                cells[Size - 1, i].southEdge = true;
+                cells[0, i].NorthEdge = true;
+                cells[Size - 1, i].SouthEdge = true;
             }
 
             //for (int i = 0; i < cells.GetLength(0); i++)
@@ -41,8 +46,8 @@ namespace Quoridor.Models
 
             for (int i = 0; i < cells.GetLength(1); i++)
             {
-                cells[i, 0].westEdge = true;
-                cells[Size - 1, 0].eastEdge = true;
+                cells[i, 0].WestEdge = true;
+                cells[Size - 1, 0].EastEdge = true;
 
                 for (int j = 0; j < letters.Length; j++)
                 {
@@ -50,6 +55,5 @@ namespace Quoridor.Models
                 }
             }
         }
-
     }
 }

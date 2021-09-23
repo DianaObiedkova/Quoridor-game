@@ -8,16 +8,19 @@ namespace Quoridor.Models
     public class Cell:Entity
     {
         //наличие стен вокруг клетки
-        public  bool northWall { get; private set; }
-        private bool eastWall { get; set; }
-        private bool southWall { get; set; }
-        private bool westWall { get; set; }
+        public  bool NorthWall { get; private set; }
+        public bool EastWall { get; set; }
+        public bool SouthWall { get; set; }
+        public bool WestWall { get; set; }
 
         //наличие края доски рядом с клеткой
-        public bool northEdge { get; set; }
-        public bool eastEdge { get; set; }
-        public bool southEdge { get; set; }
-        public bool westEdge { get; set; }
+        public bool NorthEdge { get; set; }
+        public bool EastEdge { get; set; }
+        public bool SouthEdge { get; set; }
+        public bool WestEdge { get; set; }
+
+        public string X { get; set; }
+        public int Y { get; set; }
 
         //public Cell(int id,string name)
         //{

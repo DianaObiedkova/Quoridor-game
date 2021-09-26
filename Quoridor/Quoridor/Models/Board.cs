@@ -36,23 +36,6 @@ namespace Quoridor.Models
                     cells[i, j].Name = letters[j].ToString() + i;
                 }
             }
-
-            //InitEdges();
-        }
-
-        private void InitEdges()
-        {
-            for (int i = 0; i < cells.GetLength(0); i++)
-            {
-                cells[0, i].northEdge = true;
-                cells[Size - 1, i].southEdge = true;
-            }
-
-            for (int i = 0; i < cells.GetLength(1); i++)
-            {
-                cells[i, 0].WestEdge = true;
-                cells[Size - 1, 0].EastEdge = true;
-            }
         }
     }
 }

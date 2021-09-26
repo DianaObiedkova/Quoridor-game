@@ -13,12 +13,6 @@ namespace Quoridor.Models
         public bool SouthWall { get; set; }
         public bool WestWall { get; set; }
 
-        //наличие края доски рядом с клеткой
-        public bool NorthEdge { get; set; }
-        public bool EastEdge { get; set; }
-        public bool SouthEdge { get; set; }
-        public bool WestEdge { get; set; }
-
         public string X { get; set; }
         public int Y { get; set; }
 

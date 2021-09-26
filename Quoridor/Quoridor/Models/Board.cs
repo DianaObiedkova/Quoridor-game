@@ -13,18 +13,18 @@ namespace Quoridor.Models
         readonly Cell[,] cells = new Cell[Size,Size];
         readonly string[] letters = { "a","b","c","d", "e", "f", "g", "h", "i" };
         public readonly Dictionary<int, string> indexes = new Dictionary<int, string>();
-        public Board() {
 
-            InitMethod();
-        }
-
-        public void InitMethod()
+        public Board() 
         {
             for (int i = 0; i < letters.Length; i++)
             {
                 indexes.Add(i, letters[i]);
             }
+            InitCells();
+        }
 
+        public void InitCells()
+        {
             for (int i = 0; i < cells.GetLength(0); i++)
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
@@ -33,26 +33,25 @@ namespace Quoridor.Models
                     {
                         Id = Size * j + (i + 1)
                     };
+                    cells[i, j].Name = letters[j].ToString() + i;
                 }
-                cells[0, i].NorthEdge = true;
-                cells[Size - 1, i].SouthEdge = true;
             }
 
-            //for (int i = 0; i < cells.GetLength(0); i++)
-            //{
-            //    cells[0, i].northEdge = true;
-            //    cells[Size - 1, i].southEdge = true;
-            //}
+            //InitEdges();
+        }
+
+        private void InitEdges()
+        {
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                cells[0, i].northEdge = true;
+                cells[Size - 1, i].southEdge = true;
+            }
 
             for (int i = 0; i < cells.GetLength(1); i++)
             {
                 cells[i, 0].WestEdge = true;
                 cells[Size - 1, 0].EastEdge = true;
-
-                for (int j = 0; j < letters.Length; j++)
-                {
-                    cells[i, j].Name = letters[j].ToString() + i;
-                }
             }
         }
     }

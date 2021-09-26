@@ -84,7 +84,7 @@ namespace Quoridor.Models
                 };
             }
             
-            CurrentP.PlayFence(X,Y);
+            CurrentP.PlayFence();
 
         }
 

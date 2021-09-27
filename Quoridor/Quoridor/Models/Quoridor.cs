@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Quoridor.Models
 {
@@ -29,14 +27,11 @@ namespace Quoridor.Models
             CurrentP = CurrentP == firstP ? secondP : firstP;
         }
 
-        private bool isFencePossibleForCurrentUser()
+        private bool IsFencePossibleForCurrentUser()
         {
-            if (IsFencePossible())
+            if (IsFencePossible() && CurrentP.CurrentFences > 0)
             {
-                if (CurrentP.CurrentFences > 0)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
@@ -51,41 +46,40 @@ namespace Quoridor.Models
 
             //ищу индекс первого пустого элемента в массиве
 
-            bool exists = Array.Exists(CurrentP.Fences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
+            bool exists = Array.Exists(board.AllFences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
             int index = 0;
 
             if (exists)
             {
-                index = Array.FindIndex(CurrentP.Fences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
+                index = Array.FindIndex(board.AllFences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
             }
             else return;
-            
-            //if(IsFencePossible(передать координаты)) {
-            //    
-            //}
 
-            //наименование перегородок + ИД
-            //горизонтальные
-            if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
+            if (IsFencePossibleForCurrentUser())
             {
-                CurrentP.Fences[index] = new Fence()
+                //наименование перегородок + ИД
+                //горизонтальные
+                if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
                 {
-                    Id = CurrentP.Fences.Count(x => x != null),
-                    Name = X.Name.Substring(1, 1) + X.Name.Substring(0, 1) + Y.Name.Substring(0, 1)
-                };
-            }
-            //вертикальные
-            else if(X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
-            {
-                CurrentP.Fences[index] = new Fence()
+                    board.AllFences[index] = new Fence()
+                    {
+                        Id = board.AllFences.Count(x => x != null),
+                        Name = X.Name.Substring(1, 1) + X.Name.Substring(0, 1) + Y.Name.Substring(0, 1)
+                    };
+                }
+                //вертикальные
+                else if (X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
                 {
-                    Id = CurrentP.Fences.Count(x => x != null),
-                    Name = X.Name.Substring(0, 1) + X.Name.Substring(1, 1) + Y.Name.Substring(1, 1)
-                };
-            }
-            
-            CurrentP.PlayFence();
+                    board.AllFences[index] = new Fence()
+                    {
+                        Id = board.AllFences.Count(x => x != null),
+                        Name = X.Name.Substring(0, 1) + X.Name.Substring(1, 1) + Y.Name.Substring(1, 1)
+                    };
+                }
 
+                CurrentP.PlayFence();
+
+            }
         }
 
         //можно ли поставить перегородку?

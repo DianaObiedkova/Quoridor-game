@@ -21,6 +21,17 @@ namespace Quoridor.Models
         //    Id = id;
         //    Name = name;
         //}
-
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Cell p = (Cell)obj;
+                return p.X == X && p.Y == Y;
+            }
+        }
     }
 }

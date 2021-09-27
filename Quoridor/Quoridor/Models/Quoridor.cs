@@ -96,33 +96,122 @@ namespace Quoridor.Models
         {
             int index = board.indexes.FirstOrDefault(x => x.Value == CurrentP.Pawn.Cell.X).Key;
 
-            //если рядом нет пешки
-            if (direction == Direction.East && !CurrentP.Pawn.Cell.X.Contains("i")
-                && !CurrentP.Pawn.Cell.EastWall) // d3 -> e3
+            switch (direction)
             {
-                CurrentP.Pawn.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y;
+                case Direction.East:
+                    {
+                        if (index + 1 < Board.Size)//чтоб след.проверка и выборка по массиву не давала IndexOutOfRange
+                        {
+                            if (!IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y])) //если рядом нет пешки
+                            {
+                                if (!CurrentP.Pawn.Cell.X.Contains("i")
+                                && !CurrentP.Pawn.Cell.EastWall) // d3 -> e3
+                                {
+                                    CurrentP.Pawn.Cell.X = board.indexes[index + 1];
+                                    CurrentP.Pawn.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y;
+                                }
+                            }
+                            else //если есть 
+                            {
+                                if (!board.cells[index + 1, CurrentP.Pawn.Cell.Y].X.Contains("i")
+                               && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].EastWall) // d3 -> f3
+                                {
+                                    CurrentP.Pawn.Cell.X = board.indexes[index + 2];
+                                    CurrentP.Pawn.Name = board.indexes[index + 2] + CurrentP.Pawn.Cell.Y;
+                                }
+                            }
+                        }
+                        
+                        break;
+                    }
+                case Direction.West:
+                    {
+                        if (index > 0)//чтоб след.проверка и выборка по массиву не давала IndexOutOfRange
+                        {
+                            if (!IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y])) //если рядом нет пешки
+                            {
+                                if (!CurrentP.Pawn.Cell.X.Contains("a")
+                                && !CurrentP.Pawn.Cell.WestWall) // e3 -> d3
+                                {
+                                    CurrentP.Pawn.Cell.X = board.indexes[index - 1];
+                                    CurrentP.Pawn.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y;
+                                }
+                            }
+                            else //если есть 
+                            {
+                                if (!board.cells[index - 1, CurrentP.Pawn.Cell.Y].X.Contains("a")
+                               && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall) // f3 -> d3
+                                {
+                                    CurrentP.Pawn.Cell.X = board.indexes[index - 2];
+                                    CurrentP.Pawn.Name = board.indexes[index - 2] + CurrentP.Pawn.Cell.Y;
+                                }
+                            }
+                        }
+
+                        break;
+                    }
+                case Direction.North:
+                    {
+                        if (CurrentP.Pawn.Cell.Y > 0)
+                        {
+                            if (!IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1])) //если рядом нет пешки
+                            {
+                                if (!CurrentP.Pawn.Cell.Y.Equals(0)
+                                && !CurrentP.Pawn.Cell.NorthWall)// e3 -> e2
+                                {
+                                    CurrentP.Pawn.Cell.Y -= 1;
+                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y - 1).ToString();
+                                }
+                            }
+                            else //если есть 
+                            {
+                                if (!board.cells[index, CurrentP.Pawn.Cell.Y - 1].Y.Equals(0)
+                               && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall) // e3 -> e1
+                                {
+                                    CurrentP.Pawn.Cell.Y -= 2;
+                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y - 2).ToString();
+                                }
+                            }
+                        }
+                        
+                        break;
+                    }
+                case Direction.South:
+                    {
+                        if (CurrentP.Pawn.Cell.Y + 1 < Board.Size)
+                        {
+                            if (!IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y + 1])) //если рядом нет пешки
+                            {
+                                if (!CurrentP.Pawn.Cell.Y.Equals(Board.Size - 1)
+                                && !CurrentP.Pawn.Cell.SouthWall)// e2 -> e3
+                                {
+                                    CurrentP.Pawn.Cell.Y += 1;
+                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 1).ToString();
+                                }
+                            }
+                            else //если есть 
+                            {
+                                if (!board.cells[index, CurrentP.Pawn.Cell.Y + 1].Y.Equals(Board.Size - 1)
+                               && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].WestWall) // e1 -> e3
+                                {
+                                    CurrentP.Pawn.Cell.Y += 2;
+                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 2).ToString();
+                                }
+                            }
+                        }
+                        break;
+                    }
+                default: break; 
             }
-            else if (direction == Direction.West && !CurrentP.Pawn.Cell.X.Contains("a")
-                && !CurrentP.Pawn.Cell.WestWall)// e3 -> d3
-            {
-                CurrentP.Pawn.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y;
-            }
-            else if (direction == Direction.North && !CurrentP.Pawn.Cell.Y.Equals(0)
-                && !CurrentP.Pawn.Cell.NorthWall)// e3 -> e2
-            {
-                CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y-1).ToString();
-            }
-            else if (direction == Direction.South && !CurrentP.Pawn.Cell.Y.Equals(8)
-                && !CurrentP.Pawn.Cell.SouthWall)// e3 -> e4
-            {
-                CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 1).ToString();
-            }
-           
         }
 
-        private bool IsCellHasPawn()
+        private bool IsCellHasPawn(Cell cell)
         {
-            return default;
+            if (firstP.Pawn.Cell.Equals(cell))
+            {
+                return true;
+            }
+            return false;
         }
 
         public void EndGame() { }

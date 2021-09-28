@@ -5,10 +5,23 @@ namespace Quoridor.Models
     public abstract class Player
     {
         //оставила логику в Player, поскольку она будет общей и для человека, и для бота
+        private int startRow;
         public int Id { get; set; }
         public string Name { get; set; }
         public int CurrentFences { get; private set; } = 10;
         public Pawn Pawn { get; set; }
+        public int StartRow
+        {
+            get { return startRow; }
+            set
+            {
+                if (value < 0 || value > 8)
+                    throw new ArgumentOutOfRangeException(
+                          $"{nameof(value)} must be between 0 and 8.");
+
+                startRow = value;
+            }
+        }
 
         protected void SubtractFence()
         {

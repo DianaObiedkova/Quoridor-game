@@ -33,5 +33,9 @@ namespace Quoridor.Models
                 return p.X == X && p.Y == Y;
             }
         }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
     }
 }

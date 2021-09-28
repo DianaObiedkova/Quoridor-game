@@ -9,6 +9,8 @@ namespace Quoridor.Models
         private readonly Player secondP;
         private readonly Board board;
         public Player CurrentP { get; private set; }
+        public Player Winner { get; private set; }
+        public bool IsEnded { get; private set; }
 
         public Quoridor(Player firstP, Player secondP)
         {
@@ -166,7 +168,7 @@ namespace Quoridor.Models
                             else //если есть 
                             {
                                 if (!board.cells[index, CurrentP.Pawn.Cell.Y - 1].Y.Equals(0)
-                               && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall) // e3 -> e1
+                               && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].NorthWall) // e3 -> e1
                                 {
                                     CurrentP.Pawn.Cell.Y -= 2;
                                     CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y - 2).ToString();
@@ -192,7 +194,7 @@ namespace Quoridor.Models
                             else //если есть 
                             {
                                 if (!board.cells[index, CurrentP.Pawn.Cell.Y + 1].Y.Equals(Board.Size - 1)
-                               && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].WestWall) // e1 -> e3
+                               && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].SouthWall) // e1 -> e3
                                 {
                                     CurrentP.Pawn.Cell.Y += 2;
                                     CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 2).ToString();
@@ -201,8 +203,17 @@ namespace Quoridor.Models
                         }
                         break;
                     }
+                //case Direction.NorthEast:
+                //    {
+                //        if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1])){
+
+                //        }
+                //        break;
+                //    }
                 default: break; 
             }
+
+            CheckGameEnd();
         }
 
         private bool IsCellHasPawn(Cell cell)
@@ -214,8 +225,22 @@ namespace Quoridor.Models
             return false;
         }
 
-        public void EndGame() { }
-        
-        
+        public virtual void EndGame(Player winner = null)
+        {
+            Winner = winner;
+            IsEnded = true;
+        }  
+
+        private void CheckGameEnd()
+        {
+            if(secondP.Pawn.Cell.Y == Board.Size - secondP.StartRow)
+            {
+                EndGame(secondP);
+            }
+            else if (firstP.Pawn.Cell.Y == Board.Size - secondP.StartRow)
+            {
+                EndGame(firstP);
+            }
+        }
     }
 }

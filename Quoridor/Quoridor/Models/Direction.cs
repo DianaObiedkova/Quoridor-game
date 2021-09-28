@@ -10,6 +10,10 @@ namespace Quoridor.Models
         North,
         East,
         South,
-        West
+        West,
+        Northwest,
+        Southwest,
+        NorthEast,
+        SouthEast
     }
 }

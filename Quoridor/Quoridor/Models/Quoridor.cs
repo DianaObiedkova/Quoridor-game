@@ -203,16 +203,36 @@ namespace Quoridor.Models
                         }
                         break;
                     }
-                //case Direction.NorthEast:
-                //    {
-                //        if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1])){
+                case Direction.NorthEast:
+                    {
+                        if (index + 1 < Board.Size && CurrentP.Pawn.Cell.Y - 1 > 0)
+                        {
+                            if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1]))//сверху вражеская пешка
+                            {
+                                if((board.cells[index, CurrentP.Pawn.Cell.Y - 1].NorthWall || CurrentP.Pawn.Cell.Y == 1)
+                                    && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].SouthWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y -= 1;
+                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y - 1).ToString(); //суть одна, но условия разные
+                                }
+                            }
+                            else if (IsCellHasPawn(board.cells[index+1, CurrentP.Pawn.Cell.Y]))//справа вражеская пешка
+                            {
+                                if ((board.cells[index + 1, CurrentP.Pawn.Cell.Y].EastWall || index == Board.Size - 1)
+                                    && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].NorthWall && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].WestWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y -= 1;
+                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y - 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                }
+                            }
 
-                //        }
-                //        break;
-                //    }
+                        }
+                        break;
+                    }
                 default: break; 
             }
 
+            SwitchPlayers();
             CheckGameEnd();
         }
 

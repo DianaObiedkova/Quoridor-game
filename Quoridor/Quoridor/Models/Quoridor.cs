@@ -229,6 +229,84 @@ namespace Quoridor.Models
                         }
                         break;
                     }
+                case Direction.SouthEast:
+                    {
+                        if (index + 1 < Board.Size && CurrentP.Pawn.Cell.Y + 1 < Board.Size)
+                        {
+                            if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y + 1]))//снизу вражеская пешка
+                            {
+                                if ((board.cells[index, CurrentP.Pawn.Cell.Y + 1].SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1)
+                                    && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].NorthWall && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].EastWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y += 1;
+                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y + 1).ToString(); //суть одна, но условия разные
+                                }
+                            }
+                            else if (IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y]))//справа вражеская пешка
+                            {
+                                if ((board.cells[index + 1, CurrentP.Pawn.Cell.Y].EastWall || index == Board.Size - 1)
+                                    && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].SouthWall && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].WestWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y += 1;
+                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y + 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+                case Direction.SouthWest:
+                    {
+                        if (index > 0 && CurrentP.Pawn.Cell.Y + 1 < Board.Size)
+                        {
+                            if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y + 1]))//снизу вражеская пешка
+                            {
+                                if ((board.cells[index, CurrentP.Pawn.Cell.Y + 1].SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1)
+                                    && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].NorthWall && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].EastWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y += 1;
+                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y + 1).ToString(); //суть одна, но условия разные
+                                }
+                            }
+                            else if (IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y]))//слева вражеская пешка
+                            {
+                                if ((board.cells[index - 1, CurrentP.Pawn.Cell.Y].EastWall || index == 1)
+                                    && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].SouthWall && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y += 1;
+                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y + 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+                case Direction.NorthWest:
+                    {
+                        if (index > 0 && CurrentP.Pawn.Cell.Y > 0)
+                        {
+                            if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1]))//сверху вражеская пешка
+                            {
+                                if ((board.cells[index, CurrentP.Pawn.Cell.Y - 1].NorthWall || CurrentP.Pawn.Cell.Y == 1)
+                                    && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].SouthWall && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y -= 1;
+                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y - 1).ToString(); //суть одна, но условия разные
+                                }
+                            }
+                            else if (IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y]))//слева вражеская пешка
+                            {
+                                if ((board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall || index == 1)
+                                    && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].NorthWall && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].EastWall)
+                                {
+                                    CurrentP.Pawn.Cell.Y -= 1;
+                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y - 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                }
+                            }
+
+                        }
+                        break;
+                    }
                 default: break; 
             }
 

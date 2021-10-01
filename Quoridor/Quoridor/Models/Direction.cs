@@ -11,8 +11,8 @@ namespace Quoridor.Models
         East,
         South,
         West,
-        Northwest,
-        Southwest,
+        NorthWest,
+        SouthWest,
         NorthEast,
         SouthEast
     }

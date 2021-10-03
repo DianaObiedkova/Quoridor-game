@@ -10,6 +10,7 @@ namespace Quoridor.Models
         public string Name { get; set; }
         public int CurrentFences { get; private set; } = 10;
         public Pawn Pawn { get; set; }
+
         public int StartRow
         {
             get { return startRow; }

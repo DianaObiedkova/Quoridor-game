@@ -84,16 +84,6 @@ namespace Quoridor.Models
             }
         }
 
-        //можно ли поставить перегородку?
-        public bool IsFencePossible()
-        {
-            //проверить по каждым координатам (из 2 пар) для двух клеток по сторонам от них
-            return default;
-        }
-
-        // отдельно выделить алгоритм поиска пути в графе
-        // для проверки IsFencePossible()
-
         public void MovePawn(Direction direction)
         {
             int index = board.indexes.FirstOrDefault(x => x.Value == CurrentP.Pawn.Cell.X).Key;

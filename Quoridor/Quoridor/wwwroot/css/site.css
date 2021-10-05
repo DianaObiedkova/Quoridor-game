@@ -160,6 +160,21 @@ tr.row td.col {
     background-color: rgb(207, 207, 207);
     border-radius: 5%;
 }*/
+a,
+a:link,
+a:visited {
+    color: #0074cc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0a95ff;
+}
+
+a:active {
+    color: #0a95ff;
+}
+
 
 *, *:before, *:after {
     box-sizing: inherit;
@@ -190,6 +205,7 @@ td.col {
 }
 
 td.between_cols {
+    position: relative;
     width: 10px;
     background-color: darksalmon;
 }
@@ -206,6 +222,7 @@ table tr.between_rows {
 
 td.between_rows {
     height: 10px;
+    position: relative;
 }
 
 div.pawn {
@@ -226,7 +243,43 @@ div.pawn.pawn1 {
     background-color: rgb(51, 25, 25);
 }
 
+/*div.horizontal_wall, div.vertical_wall {
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 0.5px;
+    background-color: black;*//*rgb(202, 168, 106);*/
+/*}*/
 
+div.horizontal_wall {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: black;
+    width: 140px; /*var(--wall-length);*/
+    height: 9px; /*var(--wall-width);*/
+    z-index: 2;
+}
+
+
+div.vertical_wall {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    background-color: black;
+    width: 9px;
+    z-index: 2;
+    height: 140px;
+}
+
+div.horizontal_wall.shadow, div.vertical_wall.shadow {
+    opacity: 0.5;
+}
+
+div.pawn.shadow {
+    opacity: 0.3;
+}
 /*
 table {
     table-layout: fixed;

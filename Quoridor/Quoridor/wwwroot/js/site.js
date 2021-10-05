@@ -5,49 +5,91 @@
 
 const cell = document.querySelectorAll(".cell");
 
-var counter = 0;
-
+let counter = 0;
 
 const htmlPawns = [document.getElementById("pawn0"), document.getElementById("pawn1")];
 const htmlBoardTable = document.getElementById("board_table");
 
 //init();
 //_renderPawnPositions();
+_renderValidNextWalls();
+//console.log(htmlBoardTable.rows[0].cells[1]);
 
-function init() {
-    removeWalls();
-    this.htmlPawns[0].classList.remove("hidden");
-    this.htmlPawns[1].classList.remove("hidden");
-
-    // initialize number of left walls box
-    let symbolPawnList = document.getElementsByClassName("pawn symbol");
-    let wallNumList = document.getElementsByClassName("wall_num");
-    if (this.game.board.pawns[0].goalRow === 8) {
-        symbolPawnList[0].classList.remove("pawn1");
-        wallNumList[0].classList.remove("pawn1");
-        symbolPawnList[0].classList.add("pawn0");
-        wallNumList[0].classList.add("pawn0");
-
-        symbolPawnList[1].classList.remove("pawn0");
-        wallNumList[1].classList.remove("pawn0");
-        symbolPawnList[1].classList.add("pawn1");
-        wallNumList[1].classList.add("pawn1");
-        this.htmlWallNum = { pawn0: wallNumList[0], pawn1: wallNumList[1] };
+function horizontalWallShadow(x, turnOn) {
+    if (turnOn === true) {
+        const _horizontalWallShadow = document.createElement("div");
+        _horizontalWallShadow.classList.add("horizontal_wall");
+        _horizontalWallShadow.classList.add("shadow");
+        x.appendChild(_horizontalWallShadow);
     } else {
-        symbolPawnList[0].classList.remove("pawn0");
-        wallNumList[0].classList.remove("pawn0");
-        symbolPawnList[0].classList.add("pawn1");
-        wallNumList[0].classList.add("pawn1");
+        while (x.firstChild) {
+            x.removeChild(x.firstChild);
+        }
+    }
+}
 
-        symbolPawnList[1].classList.remove("pawn1");
-        wallNumList[1].classList.remove("pawn1");
-        symbolPawnList[1].classList.add("pawn0");
-        wallNumList[1].classList.add("pawn0");
-        this.htmlWallNum = { pawn0: wallNumList[1], pawn1: wallNumList[0] };
-
+function verticalWallShadow(x, turnOn) {
+    if (turnOn === true) {
+        const _verticalWallShadow = document.createElement("div");
+        _verticalWallShadow.classList.add("vertical_wall");
+        _verticalWallShadow.classList.add("shadow");
+        x.appendChild(_verticalWallShadow);
+    } else {
+        while (x.firstChild) {
+            x.removeChild(x.firstChild);
+        }
     }
 
 }
+
+function _renderValidNextWalls() {
+    
+    let onclickNextHorizontalWall, onclickNextVerticalWall;
+    
+    onclickNextHorizontalWall = function (e) {
+        const x = e.currentTarget;
+        horizontalWallShadow(x, false);
+        //const row = (x.parentElement.rowIndex - 1) / 2;
+        //const col = x.cellIndex / 2;
+        //this.controller.doMove([null, [row, col], null]);
+    };
+    onclickNextVerticalWall = function (e) {
+        const x = e.currentTarget;
+        verticalWallShadow(x, false);
+        //const row = x.parentElement.rowIndex / 2;
+        //const col = (x.cellIndex - 1) / 2;
+        //this.controller.doMove([null, null, [row, col]]);
+    };
+
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+           //if (this.game.validNextWalls.horizontal[i][j] === true) {
+
+           
+                let element = htmlBoardTable.rows[i * 2 + 1].cells[j * 2];
+                
+                element.setAttribute("onmouseenter", "horizontalWallShadow(this, true)");
+                element.setAttribute("onmouseleave", "horizontalWallShadow(this, false)");
+                
+                //element.onclick = onclickNextHorizontalWall.bind(this);
+            //}
+            //if (this.game.validNextWalls.vertical[i][j] === true) {
+                
+            //}
+        }
+    }
+
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            let element = htmlBoardTable.rows[i * 2].cells[j * 2 + 1];
+
+            element.setAttribute("onmouseenter", "verticalWallShadow(this, true)");
+            element.setAttribute("onmouseleave", "verticalWallShadow(this, false)");
+                //element.onclick = onclickNextVerticalWall.bind(this);
+        }
+    }
+}
+
 
 function selectCell(e) {
 

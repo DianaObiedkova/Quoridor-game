@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,17 +47,17 @@ namespace Quoridor.Models
         // пригодится для поиска по графу
         public bool IsMovePawnPossible(Cell currentCell, Direction direction)
         {
-            if (Direction.South)
-                return NoCellSouthFence(currentCell);
-            else if (Direction.North)
-                return NoCellNorthFence(currentCell);
-            else if (Direction.West)
-                return NoCellWestFence(currentCell);
-            else if (Direction.East)
-                return NoCellEastFence(currentCell);
-            else
-                Debug.LogError("CanMovePawn error");
-                return false;
+            //if (Direction.South)
+            //    return NoCellSouthFence(currentCell);
+            //else if (Direction.North)
+            //    return NoCellNorthFence(currentCell);
+            //else if (Direction.West)
+            //    return NoCellWestFence(currentCell);
+            //else if (Direction.East)
+            //    return NoCellEastFence(currentCell);
+            //else
+            //    Debug.LogError("CanMovePawn error");
+            //    return false;
         }
         private bool NoCellSouthFence(Cell currentCell)
         {
@@ -73,7 +74,27 @@ namespace Quoridor.Models
         private bool NoCellEastFence(Cell currentCell)
         {
             return !(currentCell.EastWall);
-        } 
+        }
+
+        //IsMovePawnPossible - равноценная замена
+        public bool NoCellFence(Cell currentCell, Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.South:
+                    return !currentCell.SouthWall;
+                case Direction.North:
+                    return !currentCell.NorthWall;
+                case Direction.West:
+                    return !currentCell.WestWall;
+                case Direction.East:
+                    return !currentCell.EastWall;
+                default:
+                    break;
+            }
+            throw new ArgumentException("Wrong direction was chosen.");
+            //return false;
+        }
 
         //pawn check
         /*private bool NoCellPawn(Cell currentCell)

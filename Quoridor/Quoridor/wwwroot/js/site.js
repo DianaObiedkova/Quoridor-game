@@ -90,6 +90,15 @@ function _renderValidNextWalls() {
     }
 }
 
+//function removePreviousFadeInoutBox() {
+//    let previousBoxes;
+//    if (previousBoxes = document.getElementsByClassName("fade_box inout")) {
+//        while (previousBoxes.length !== 0) {
+//            previousBoxes[0].remove();
+//        }
+//    }
+//}
+
 
 function selectCell(e) {
 
@@ -103,14 +112,37 @@ function selectCell(e) {
     if (counter % 2 === 0) {
         pawn1.remove();
         pawn.classList.add("pawn1");
+        //if (e.target.closest(".row1") !== null)
+        //    printGameResultMessage("Player 2 wins!")
     }
     else {
         pawn0.remove();
         pawn.classList.add("pawn0");
+        //if (e.target.closest(".row10") !== null)
+        //    printGameResultMessage("Player 1 wins!")
     }
 
-    console.log(e);
     e.target.appendChild(pawn);
+
+
+
+
+    if (e.target.closest(".row10") !== null) {
+
+        console.log(e.target.closest(".row10") !== null)
+
+        const box = document.createElement("div");
+        box.classList.add("fade_box")
+        box.classList.add("in");
+        box.id = "game_result_message_box";
+        box.innerHTML = "Player 1 wins!";
+        const boardTableContainer = document.getElementById("board_table_container");
+        boardTableContainer.appendChild(box);
+    }
+    
+
+    //if (e.target.closest(".row10") !== null)
+    //    printGameResultMessage("Player 1 wins!")
 }
 
 cell.forEach((element) => {
@@ -132,4 +164,15 @@ cell.forEach((element) => {
 function _renderPawnPositions() {
     this.htmlBoardTable.rows[0].cells[4].appendChild(this.htmlPawns[0]);
     this.htmlBoardTable.rows[8].cells[4].appendChild(this.htmlPawns[1]);
+}
+
+function printGameResultMessage(message) {
+    //removePreviousFadeInoutBox();
+    const box = document.createElement("div");
+    box.classList.add("fade_box")
+    box.classList.add("inout");
+    box.id = "game_result_message_box";
+    box.innerHTML = message;
+    const boardTableContainer = document.getElementById("board_table_container");
+    boardTableContainer.appendChild(box);
 }

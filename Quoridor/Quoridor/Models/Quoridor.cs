@@ -31,7 +31,7 @@ namespace Quoridor.Models
 
         private bool IsFencePossibleForCurrentUser()
         {
-            if (IsFencePossible() && CurrentP.CurrentFences > 0)
+            if (board.IsFencePossible() && CurrentP.CurrentFences > 0)
             {
                 return true;
             }

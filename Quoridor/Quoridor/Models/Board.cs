@@ -58,6 +58,7 @@ namespace Quoridor.Models
             //else
             //    Debug.LogError("CanMovePawn error");
             //    return false;
+            return NoCellFence(currentCell, direction);
         }
         private bool NoCellSouthFence(Cell currentCell)
         {

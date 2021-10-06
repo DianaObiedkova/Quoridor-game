@@ -243,6 +243,81 @@ div.pawn.pawn1 {
     background-color: rgb(51, 25, 25);
 }
 
+.fade_box {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    top: 45px;
+    left: 0;
+    width: 680px;
+    height: 90px;
+    font-size: var(--font-size);
+    padding-left: var(--font-size);
+    padding-right: var(--font-size);
+    text-align: center;
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.fade_box.in {
+    z-index: 10;
+    visibility: visible;
+    opacity: 1;
+    animation-name: fade_in;
+    animation-duration: 1s;
+}
+
+.fade_box.in.about {
+    justify-content: flex-start;
+    top: 0;
+    height: 270px;
+    overflow: visible;
+    text-align: left;
+}
+
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade_box.inout {
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+    animation-name: fade_inout;
+}
+
+@keyframes fade_inout {
+    0% {
+        visibility: visible;
+        z-index: 10;
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        visibility: hidden;
+        z-index: 10;
+        opacity: 0;
+    }
+}
+
 /*div.horizontal_wall, div.vertical_wall {
     display: inline-block;
     position: absolute;
@@ -262,7 +337,9 @@ div.horizontal_wall {
     z-index: 2;
 }
 
-
+#game_result_message_box, button.restart {
+    background-color: rgba(0, 81, 255, 0.85);
+}
 div.vertical_wall {
     display: inline-block;
     position: absolute;

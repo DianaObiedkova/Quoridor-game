@@ -7,15 +7,15 @@ namespace Quoridor.Models
 {
     public class Vertex 
     {
-        public int value
+        public int value;
         public bool IsChecked { get; set; }
-        public Vertex prevVertex { get; set; }
+        public Vertex PrevVertex { get; set; }
 
         public Vertex(int value, bool IsChecked)
         {
             this.value = value;
             this.IsChecked = IsChecked;
-            prevVertex = new Vertex();
+            PrevVertex = new Vertex();
         }
         public Vertex()
         {
@@ -25,36 +25,36 @@ namespace Quoridor.Models
 
     public class Edge
     {
-        public Vertex firstVertex { get; private set; }
-        public Vertex secondVertex { get; private set; }
-        public int weight { get; private set; }
+        public Vertex FirstVertex { get; private set; }
+        public Vertex SecondVertex { get; private set; }
+        public int Weight { get; private set; }
 
         public Edge(Vertex first, Vertex second, int weightValue)
         {
-            firstVertex = first;
-            secondVertex = second;
-            weight = weightValue;
+            FirstVertex = first;
+            SecondVertex = second;
+            Weight = weightValue;
         }
     }
 
     public static class Dijkstra
     {
-        public Vertex[] vertices { get; private set; }
-        public Edge[] edges { get; private set; }
-        public Vertex startVertex
+        public static Vertex[] Vertices { get; private set; }
+        public static Edge[] Edges { get; private set; }
+        public static Vertex startVertex;
 
-        public Dijkstra(Vertex[] graphVertices, Edge[] graphEdges)
-        {
-            vertices = graphVertices;
-            edges = graphEdges;
-        }
+        //public Dijkstra(Vertex[] graphVertices, Edge[] graphEdges)
+        //{
+        //    vertices = graphVertices;
+        //    edges = graphEdges;
+        //}
 
         //start.weight = 0
         //othervertices[index].weight = INT_MAX
         //allvertices[index].IsChecked = false
         public static int FindShortestPathLength(Vertex start)
         {
-            if (this.vertices.Count() == 0 || this.edges.Count() == 0)
+            if (Vertices.Any() || Edges.Any())
             {
                 throw new Exception("dijkstra data error");
             }
@@ -63,17 +63,19 @@ namespace Quoridor.Models
             //первая итерация
             IterateDijkstra(startVertex);
             //в цикл foreach vert in vertices
-                //Vertex nextVertex = ближайшая к ней unchecked // = GetNearestUnchecked()
-                /*if(nextVertex != null)
-                {
-                    IterateDijkstra(nextVertex);
-                }
-                else
-                    break;
-                */
-                //if all vertices are checked, exit/break
+            //Vertex nextVertex = ближайшая к ней unchecked // = GetNearestUnchecked()
+            /*if(nextVertex != null)
+            {
+                IterateDijkstra(nextVertex);
+            }
+            else
+                break;
+            */
+            //if all vertices are checked, exit/break
+
+            return default;
         }
-        public void IterateDijkstra(Vertex currentVertex)
+        static public void IterateDijkstra(Vertex currentVertex)
         {
             //todo:
             //получить neigbours = GetNeighbours(currentVertex)

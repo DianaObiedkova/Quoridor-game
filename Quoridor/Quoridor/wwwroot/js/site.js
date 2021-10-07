@@ -85,7 +85,7 @@ function _renderValidNextWalls() {
 
             element.setAttribute("onmouseenter", "verticalWallShadow(this, true)");
             element.setAttribute("onmouseleave", "verticalWallShadow(this, false)");
-                //element.onclick = onclickNextVerticalWall.bind(this);
+            //element.onclick = onclickNextVerticalWall.bind(this);
         }
     }
 }
@@ -112,37 +112,36 @@ function selectCell(e) {
     if (counter % 2 === 0) {
         pawn1.remove();
         pawn.classList.add("pawn1");
-        //if (e.target.closest(".row1") !== null)
-        //    printGameResultMessage("Player 2 wins!")
+
+        if (e.target.closest(".row1") !== null) {
+
+            const box = document.createElement("div");
+            box.classList.add("fade_box")
+            box.classList.add("in");
+            box.id = "game_result_message_box";
+            box.innerHTML = "Player 2 wins!";
+            const boardTableContainer = document.getElementById("board_table_container");
+            boardTableContainer.appendChild(box);
+        }
     }
     else {
         pawn0.remove();
         pawn.classList.add("pawn0");
-        //if (e.target.closest(".row10") !== null)
-        //    printGameResultMessage("Player 1 wins!")
+
+        if (e.target.closest(".row10") !== null) {
+
+            const box = document.createElement("div");
+            box.classList.add("fade_box")
+            box.classList.add("in");
+            box.id = "game_result_message_box";
+            box.innerHTML = "Player 1 wins!";
+            const boardTableContainer = document.getElementById("board_table_container");
+            boardTableContainer.appendChild(box);
+        }
     }
 
     e.target.appendChild(pawn);
 
-
-
-
-    if (e.target.closest(".row10") !== null) {
-
-        console.log(e.target.closest(".row10") !== null)
-
-        const box = document.createElement("div");
-        box.classList.add("fade_box")
-        box.classList.add("in");
-        box.id = "game_result_message_box";
-        box.innerHTML = "Player 1 wins!";
-        const boardTableContainer = document.getElementById("board_table_container");
-        boardTableContainer.appendChild(box);
-    }
-    
-
-    //if (e.target.closest(".row10") !== null)
-    //    printGameResultMessage("Player 1 wins!")
 }
 
 cell.forEach((element) => {

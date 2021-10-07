@@ -250,8 +250,8 @@ div.pawn.pawn1 {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    top: 45px;
-    left: 0;
+    top: 450px;
+    left: inherit;
     width: 680px;
     height: 90px;
     font-size: var(--font-size);

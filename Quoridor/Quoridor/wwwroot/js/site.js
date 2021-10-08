@@ -9,11 +9,10 @@ let counter = 0;
 
 const htmlPawns = [document.getElementById("pawn0"), document.getElementById("pawn1")];
 const htmlBoardTable = document.getElementById("board_table");
+const hwall = document.querySelectorAll(".hwall");
+const vwall = document.querySelectorAll(".vwall");
 
-//init();
-//_renderPawnPositions();
 _renderValidNextWalls();
-//console.log(htmlBoardTable.rows[0].cells[1]);
 
 function horizontalWallShadow(x, turnOn) {
     if (turnOn === true) {
@@ -43,62 +42,26 @@ function verticalWallShadow(x, turnOn) {
 }
 
 function _renderValidNextWalls() {
-    
-    let onclickNextHorizontalWall, onclickNextVerticalWall;
-    
-    onclickNextHorizontalWall = function (e) {
-        const x = e.currentTarget;
-        horizontalWallShadow(x, false);
-        //const row = (x.parentElement.rowIndex - 1) / 2;
-        //const col = x.cellIndex / 2;
-        //this.controller.doMove([null, [row, col], null]);
-    };
-    onclickNextVerticalWall = function (e) {
-        const x = e.currentTarget;
-        verticalWallShadow(x, false);
-        //const row = x.parentElement.rowIndex / 2;
-        //const col = (x.cellIndex - 1) / 2;
-        //this.controller.doMove([null, null, [row, col]]);
-    };
 
     for (let i = 0; i < 8; i++) {
         for (let j = 0; j < 8; j++) {
-           //if (this.game.validNextWalls.horizontal[i][j] === true) {
 
-           
                 let element = htmlBoardTable.rows[i * 2 + 1].cells[j * 2];
-                
                 element.setAttribute("onmouseenter", "horizontalWallShadow(this, true)");
                 element.setAttribute("onmouseleave", "horizontalWallShadow(this, false)");
-                
-                //element.onclick = onclickNextHorizontalWall.bind(this);
-            //}
-            //if (this.game.validNextWalls.vertical[i][j] === true) {
-                
-            //}
+
         }
     }
 
     for (let i = 0; i < 8; i++) {
         for (let j = 0; j < 8; j++) {
-            let element = htmlBoardTable.rows[i * 2].cells[j * 2 + 1];
 
+            let element = htmlBoardTable.rows[i * 2].cells[j * 2 + 1];
             element.setAttribute("onmouseenter", "verticalWallShadow(this, true)");
             element.setAttribute("onmouseleave", "verticalWallShadow(this, false)");
-            //element.onclick = onclickNextVerticalWall.bind(this);
         }
     }
 }
-
-//function removePreviousFadeInoutBox() {
-//    let previousBoxes;
-//    if (previousBoxes = document.getElementsByClassName("fade_box inout")) {
-//        while (previousBoxes.length !== 0) {
-//            previousBoxes[0].remove();
-//        }
-//    }
-//}
-
 
 function selectCell(e) {
 
@@ -144,21 +107,50 @@ function selectCell(e) {
 
 }
 
+function selectHWall(e) {
+
+    let parent = e.target.closest(".hwall");
+
+    counter++;
+    let wall = document.createElement('div');
+    wall.classList.add("horizontal_wall");
+
+    parent.removeAttribute("onmouseenter");
+    parent.removeAttribute("onmouseleave");
+    e.target.classList.remove("shadow");
+
+    console.log(parent);
+}
+
+function selectVWall(e) {
+
+    let parent = e.target.closest(".vwall");
+    
+    counter++;
+    let wall = document.createElement('div');
+    wall.classList.add("vertical_wall");
+    
+    parent.removeAttribute("onmouseenter");
+    parent.removeAttribute("onmouseleave");
+    e.target.classList.remove("shadow");
+
+    console.log(parent);
+}
+
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
 cell.forEach((element) => {
     element.addEventListener('click', selectCell);
 });
 
-//function removeWalls() {
-//    let previousWalls = document.querySelectorAll("td > .horizontal_wall");
-//    for (let i = 0; i < previousWalls.length; i++) {
-//        previousWalls[i].remove();
-//    }
-//    previousWalls = document.querySelectorAll("td > .vertical_wall");
-//    for (let i = 0; i < previousWalls.length; i++) {
-//        previousWalls[i].remove();
-//    }
-//}
-
+hwall.forEach((el) => {
+    el.addEventListener('click', selectHWall);
+});
+vwall.forEach((el) => {
+    el.addEventListener('click', selectVWall);
+});
 
 function _renderPawnPositions() {
     this.htmlBoardTable.rows[0].cells[4].appendChild(this.htmlPawns[0]);
@@ -166,7 +158,6 @@ function _renderPawnPositions() {
 }
 
 function printGameResultMessage(message) {
-    //removePreviousFadeInoutBox();
     const box = document.createElement("div");
     box.classList.add("fade_box")
     box.classList.add("inout");

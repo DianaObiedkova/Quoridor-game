@@ -20,5 +20,11 @@ namespace Quoridor.Controllers
         {
             return View(Game);
         }
+
+        public IActionResult MovePawn(Direction direction)
+        {
+            Game.MovePawn(direction);
+            return Ok();
+        }
     }
 }

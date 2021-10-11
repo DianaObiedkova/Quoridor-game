@@ -52,9 +52,9 @@ namespace Quoridor.Models
         //start.weight = 0
         //othervertices[index].weight = INT_MAX
         //allvertices[index].IsChecked = false
-        public static int FindShortestPathLength(Vertex start)
+        public static void FindShortestPath(Vertex start)
         {
-            if (Vertices.Any() || Edges.Any())
+            if (!Vertices.Any() || !Edges.Any())
             {
                 throw new Exception("dijkstra data error");
             }
@@ -62,48 +62,87 @@ namespace Quoridor.Models
 
             //первая итерация
             IterateDijkstra(startVertex);
-            //в цикл foreach vert in vertices
-            //Vertex nextVertex = ближайшая к ней unchecked // = GetNearestUnchecked()
-            /*if(nextVertex != null)
+            foreach(Vertex vert in Vertices)
             {
-                IterateDijkstra(nextVertex);
+                Vertex nextVertex = GetNearestUnchecked();
+                if(nextVertex != null)
+                {
+                    IterateDijkstra(nextVertex);
+                }
+                else
+                {
+                    break;
+                }
             }
-            else
-                break;
-            */
-            //if all vertices are checked, exit/break
-
-            return default;
         }
         static public void IterateDijkstra(Vertex currentVertex)
         {
-            //todo:
-            //получить neigbours = GetNeighbours(currentVertex)
-            //пройтись по ним foreach item in neigbours:
-            //  if(item.IsChecked==false)
-            //  {
-            //      int newvalue = currentVertex.value + GetEdge(item, currentVertex).weight
-            //      если item.value > newvalue
-            //          то назначить для item.value = newwalue, item.prevVertex = currentVertex
-            //      иначе else {} //ничего не делать
-            //  }
-            
-            //в конце
+            IEnumerable<Vertex> neigbours = GetNeighbours(currentVertex);
+            foreach(Vertex item in neigbours)
+            {
+                if(item.IsChecked == false)
+                {
+                    int newvalue = currentVertex.value + GetEdge(item, currentVertex).weight;
+                    if(item.value > newvalue)
+                    {
+                        item.value = newvalue;
+                        item.prevVertex = currentVertex;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
             currentVertex.IsChecked = true;
         }
 
-        //todo: метод для получения списка соседей GetNeighbours(Vertex current): 
-        //  Concat списков (secondVertex где у ребер firstVertex==current)+(firstVertex где у ребер secondVertex==current)
-
-        //todo: поиск ребра между двумя вершинами GetEdge(Vertex first, Vertex second) returns Edge
-
-        /*private Vertex GetNearestUnchecked()
+        //last - точки нужного края поля, метод принимает по одной
+        //если current.prevVertex == null, то пути нет(!)
+        //если нет пути ни в одну точку по итогам вызова для всех клеток края, то установка стены запрещена
+        public static List<Vertex> GetShortestPath(Vertex last)
         {
-            //список Vertex unchecked = выбрать vert из this.vertices где vert.IsChecked == false
+            List<Vertex> path = new List<Vertex>();
+            Vertex current = last;
+            while (current != startVertex)
+            {
+                path.Add(current);
+                current = current.prevVertex;
+            }
+            return path;
+        }
+
+        private IEnumerable<Vertex> GetNeighbours(Vertex current)
+        {
+            IEnumerable<Vertex> first = from ed in Edges where ed.FirstVertex == current select ed.SecondVertex;
+            IEnumerable<Vertex> second = from ed in Edges where ed.SecondVertex == current select ed.FirstVertex;
+            IEnumerable<Vertex> result = first.Concat<Vertex>(second);
+            return result;
+        }
+
+        private Edge GetEdge(Vertex first, Vertex second)
+        {
+            IEnumerable<Edge> newEdges = from ed in Edges where (ed.FirstVertex == first & ed.SecondVertex == second) ||
+                (ed.FirstVertex == second & ed.SecondVertex == first) select ed;
+            if(newEdges.Count == 0)
+            {
+                throw new Exception("edge not found"); //тогда путь не найден (?) 
+                //нужно обработать в try catch, чтобы всё не падало
+                //это нормальная ситуация, много других клеток поля могут быть недостижимы
+            }
+            else
+            {
+                return newEdges.First();
+            }
+        }
+
+        private Vertex GetNearestUnchecked()
+        {
+            IEnumerable<Vertex> unchecked = from vert in Vertices where vert.IsChecked == false select vert;
             if(unchecked.Count != 0)
             {
-                Vertex minVertex = unchecked[0]; // нужен первый элемент
-                int minValue = unchecked[0].value; //нужен первый элемент
+                Vertex minVertex = unchecked.First();
+                int minValue = unchecked.First().value;
                 foreach (Vertex vert in unchecked)
                 {
                     if(vert.value < minValue)
@@ -115,7 +154,9 @@ namespace Quoridor.Models
                 return minVertex;
             }
             else
+            {
                 return null;
-        }*/
+            }
+        }
     }
 }

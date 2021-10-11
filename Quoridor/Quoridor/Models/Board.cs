@@ -110,7 +110,31 @@ namespace Quoridor.Models
             return default;
         }
 
-        // отдельно выделить алгоритм поиска пути в графе
-        // для проверки IsFencePossible()
+        public bool CallDijkstra(Cell currentCell)
+        {
+            //Dijkstra.Vertices = клетки Cells в виде new Vertex(INT_MAX, false)
+                //возможно, добавить в Vertex свойство Name для идентификации
+            //отловить в Dijkstra.Vertices currentCell в виде Vertex и установить её value=0
+            //Dijkstra.Edges = добавлять new Edge(f, s, 1), где
+                //f берём из Dijkstra.Vertices по имени1
+                //s берём Dijkstra.Vertices по имени2
+                //имя1 - надо вытащить имя клетки из имени перегородки(?)
+                //имя2 - надо вытащить имя клетки из имени перегородки(?)
+                //перегородка касается 4 клеток, поэтому 1 перегородка == 2 ребра в графе
+            Dijkstra.FindShortestPath(currentCell);
+            List<Vertex> finalCells = new List<Vertex>();
+            //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices(!)
+            foreach(Vertex final in finalCells)
+            {
+                try{
+                    Dijkstra.GetShortestPath(final);
+                }
+                catch(NullReferenceException e){
+                    continue;
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

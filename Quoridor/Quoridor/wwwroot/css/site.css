@@ -269,6 +269,7 @@ div.pawn.pawn1 {
     opacity: 1;
     animation-name: fade_in;
     animation-duration: 1s;
+    background-color:gold;
 }
 
 .fade_box.in.about {
@@ -356,6 +357,42 @@ div.horizontal_wall.shadow, div.vertical_wall.shadow {
 
 div.pawn.shadow {
     opacity: 0.3;
+}
+
+.buttons {
+    /*grid-column: 1 / span 2;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 680px;
+}
+.button {
+    display: inline-block;
+    height: calc(3 * var(--font-size));
+    width: 20%;
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    color: white;
+    font-size: calc(var(--font-size) * 1.2);
+    text-align: center;
+    text-decoration: none;
+    margin: 2%;
+}
+div.pawn.hidden {
+    visibility: hidden;
+}
+
+div.pawn.clicked {
+    opacity: 0.7;
+}
+
+.fade_box.in.hidden, button.button.hidden, input.hidden {
+    display: none;
+}
+
+.hidden{display:none;
+        visibility:hidden;
 }
 /*
 table {

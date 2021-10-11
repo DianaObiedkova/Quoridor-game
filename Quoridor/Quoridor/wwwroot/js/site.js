@@ -11,8 +11,41 @@ const htmlPawns = [document.getElementById("pawn0"), document.getElementById("pa
 const htmlBoardTable = document.getElementById("board_table");
 const hwall = document.querySelectorAll(".hwall");
 const vwall = document.querySelectorAll(".vwall");
+const htmlRestartMessageBox = document.getElementById("restart_message_box");
 
 _renderValidNextWalls();
+
+
+const restartButton = document.getElementById("restart");
+
+restartButton.onclick = function onclickRestartButton() {
+    removePreviousFadeInoutBox();
+    htmlRestartMessageBox.classList.remove("hidden");
+};
+
+const restartYesNoButton = {
+    yes: document.getElementById("restart_yes"),
+    no: document.getElementById("restart_no")
+};
+const onclickRestartYesNoButton = function (e) {
+    const x = e.target;
+    htmlRestartMessageBox.classList.add("hidden");
+    
+    if (x.id === "restart_yes") {
+        restart();
+    }
+}
+restartYesNoButton.yes.onclick = onclickRestartYesNoButton;
+restartYesNoButton.no.onclick = onclickRestartYesNoButton;
+
+function removePreviousFadeInoutBox() {
+    let previousBoxes;
+    if (previousBoxes === document.getElementsByClassName("fade_box inout")) {
+        while (previousBoxes.length !== 0) {
+            previousBoxes[0].remove();
+        }
+    }
+}
 
 function horizontalWallShadow(x, turnOn) {
     if (turnOn === true) {
@@ -137,9 +170,6 @@ function selectVWall(e) {
     console.log(parent);
 }
 
-function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 
 cell.forEach((element) => {
     element.addEventListener('click', selectCell);
@@ -152,9 +182,13 @@ vwall.forEach((el) => {
     el.addEventListener('click', selectVWall);
 });
 
-function _renderPawnPositions() {
-    this.htmlBoardTable.rows[0].cells[4].appendChild(this.htmlPawns[0]);
-    this.htmlBoardTable.rows[8].cells[4].appendChild(this.htmlPawns[1]);
+function renderPawnPositions() {
+
+    let pawns = [document.querySelector(".pawn0"), document.querySelector(".pawn1")];
+    pawns.forEach((el) => { el.remove(); });
+
+    htmlBoardTable.rows[0].cells[8].appendChild(htmlPawns[0]);
+    htmlBoardTable.rows[16].cells[8].appendChild(htmlPawns[1]);
 }
 
 function printGameResultMessage(message) {
@@ -165,4 +199,33 @@ function printGameResultMessage(message) {
     box.innerHTML = message;
     const boardTableContainer = document.getElementById("board_table_container");
     boardTableContainer.appendChild(box);
+}
+
+function removePreviousRender() {
+    for (let i = 0; i < htmlBoardTable.rows.length; i++) {
+        for (let j = 0; j < htmlBoardTable.rows[0].cells.length; j++) {
+            let element = htmlBoardTable.rows[i].cells[j];
+            element.removeAttribute("onmouseenter");
+            element.removeAttribute("onmouseleave");
+            element.onclick = null;
+        }
+    }
+    // remove pawn shadows which are for previous board
+    let previousPawnShadows = document.getElementsByClassName("pawn shadow");
+    while (previousPawnShadows.length !== 0) {
+        previousPawnShadows[0].remove();
+    }
+}
+
+function restart() {
+    removePreviousRender();
+    counter = 1;
+    let vwalls = document.querySelectorAll(".vertical_wall");
+    let hwalls = document.querySelectorAll(".horizontal_wall");
+
+    vwalls.forEach((el) => { el.remove(); });
+    hwalls.forEach((el) => { el.remove(); });
+
+
+    renderPawnPositions();
 }

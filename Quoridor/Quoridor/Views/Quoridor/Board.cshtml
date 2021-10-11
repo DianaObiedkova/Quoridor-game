@@ -7,333 +7,345 @@
 
 <p>Let's play!</p>
 
-<div id="board_table_container">
-    <table id="board_table" class="geek" border="1">
-        <tr class="row1">
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-        <tr class="between_rows">
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-            <td class="between_cols"></td>
-            <td class="col hwall"></td>
-        </tr>
-        <tr class="row10">
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"><div class="pawn pawn1" id="pawn1"></div></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-            <td class="between_cols vwall"></td>
-            <td class="col cell"></td>
-        </tr>
-    </table>
+<div class="buttons">
+    <button type="button" id="restart" class="button above restart">New game</button>
 </div>
+<div id="board_table_container">
+    <div class="fade_box in hidden" id="restart_message_box">
+        Are you sure to start a new game?
+        <br>
+        (Current game will be lost.)
+        <div class="button_container in_message_box">
+            <button type="button" class="restart_yes_no" id="restart_no">Cancel</button>
+            <button type="button" class="restart_yes_no" id="restart_yes">Start</button>
+        </div>
+    </div>
+        <table id="board_table" class="geek" border="1">
+            <tr class="row1">
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+            <tr class="between_rows">
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+                <td class="between_cols"></td>
+                <td class="col hwall"></td>
+            </tr>
+            <tr class="row10">
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"><div class="pawn pawn1" id="pawn1"></div></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+                <td class="between_cols vwall"></td>
+                <td class="col cell"></td>
+            </tr>
+        </table>
+    </div>
 
 
     @*<table>

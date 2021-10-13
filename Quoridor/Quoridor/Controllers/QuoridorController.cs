@@ -13,11 +13,15 @@ namespace Quoridor.Controllers
 
         public QuoridorController()
         {
-            Game = new Game();
+            Game = new Game(); 
+            ViewData["fPwalls"] = Game.FirstPWalls;
+            ViewData["sPwalls"] = Game.FirstPWalls;
         }
 
         public IActionResult Board()
         {
+            ViewData["fPwalls"] = Game.FirstPWalls;
+            ViewData["sPwalls"] = Game.FirstPWalls;
             return View(Game);
         }
 
@@ -28,6 +32,8 @@ namespace Quoridor.Controllers
         }
         public IActionResult SetFence(Cell c1, Cell c2)
         {
+            ViewData["fPwalls"] = Game.FirstPWalls;
+            ViewData["sPwalls"] = Game.FirstPWalls;
             Game.SetFence(c1, c2);
             return Ok();
         }

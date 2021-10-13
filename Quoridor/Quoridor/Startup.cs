@@ -48,10 +48,15 @@ namespace Quoridor
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(name: "board",
+                    pattern: "board",
+                    defaults: new { controller = "Player", action = "Board" });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

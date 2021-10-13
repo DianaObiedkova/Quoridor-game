@@ -444,11 +444,23 @@ div.horizontal_wall.symbol {
     margin-right: calc(var(--font-size) / 6);
     
 }
-div.pawn.symbol {
+div.symbol1 {
+    display: inline-block;
+    border-radius: 50%;
     vertical-align: middle;
     width: var(--font-size);
     height: var(--font-size);
     margin-right: calc(var(--font-size) / 2);
+    background-color: rgb(195, 164, 23);
+}
+div.symbol2 {
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+    width: var(--font-size);
+    height: var(--font-size);
+    margin-right: calc(var(--font-size) / 2);
+    background-color: rgb(51, 25, 25);
 }
 /*
 table {

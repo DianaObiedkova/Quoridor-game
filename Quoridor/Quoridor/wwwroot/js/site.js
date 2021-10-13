@@ -6,6 +6,8 @@
 const cell = document.querySelectorAll(".cell");
 
 let counter = 0;
+let firstPWalls = 10;
+let secondPWalls = 10;
 
 const htmlPawns = [document.getElementById("pawn0"), document.getElementById("pawn1")];
 const htmlBoardTable = document.getElementById("board_table");
@@ -145,14 +147,44 @@ function selectHWall(e) {
     let parent = e.target.closest(".hwall");
 
     counter++;
-    let wall = document.createElement('div');
-    wall.classList.add("horizontal_wall");
 
-    parent.removeAttribute("onmouseenter");
-    parent.removeAttribute("onmouseleave");
-    e.target.classList.remove("shadow");
+    if (counter % 2 === 0) {
 
-    console.log(parent);
+        if (secondPWalls > 0) {
+            secondPWalls -= 1;
+            let wall = document.createElement('div');
+            wall.classList.add("horizontal_wall");
+
+            parent.removeAttribute("onmouseenter");
+            parent.removeAttribute("onmouseleave");
+            e.target.classList.remove("shadow");
+
+            updateWalls();
+        }
+        else {
+            counter--;
+            alert("Player 2, You're out of walls");
+        }
+    }
+    else {
+       
+        if (firstPWalls > 0) {
+            firstPWalls -= 1;
+            let wall = document.createElement('div');
+            wall.classList.add("horizontal_wall");
+
+            parent.removeAttribute("onmouseenter");
+            parent.removeAttribute("onmouseleave");
+            e.target.classList.remove("shadow");
+
+            updateWalls();
+        }
+        else {
+            counter--;
+            alert("Player 1, You're out of walls!");
+        }
+    }
+
 }
 
 function selectVWall(e) {
@@ -160,16 +192,53 @@ function selectVWall(e) {
     let parent = e.target.closest(".vwall");
     
     counter++;
-    let wall = document.createElement('div');
-    wall.classList.add("vertical_wall");
-    
-    parent.removeAttribute("onmouseenter");
-    parent.removeAttribute("onmouseleave");
-    e.target.classList.remove("shadow");
 
-    console.log(parent);
+    if (counter % 2 === 0) {
+
+        if (secondPWalls > 0) {
+
+            secondPWalls -= 1;
+            let wall = document.createElement('div');
+            wall.classList.add("vertical_wall");
+    
+            parent.removeAttribute("onmouseenter");
+            parent.removeAttribute("onmouseleave");
+            e.target.classList.remove("shadow");
+
+            updateWalls();
+        }
+        else {
+            counter--;
+            alert("Player 2, You're out of walls");
+        }
+    }
+    else {
+        
+        if (firstPWalls > 0) {
+            firstPWalls -= 1;
+            let wall = document.createElement('div');
+            wall.classList.add("vertical_wall");
+
+            parent.removeAttribute("onmouseenter");
+            parent.removeAttribute("onmouseleave");
+            e.target.classList.remove("shadow");
+
+            updateWalls();
+        }
+        else {
+            counter--;
+            alert("Player 1, You're out of walls");
+        }
+    }
 }
 
+function updateWalls() {
+    let num1 = document.getElementById("num1");
+    let num2 = document.getElementById("num2");
+
+    num1.innerHTML = firstPWalls;
+    num2.innerHTML = secondPWalls;
+}
 
 cell.forEach((element) => {
     element.addEventListener('click', selectCell);
@@ -178,6 +247,7 @@ cell.forEach((element) => {
 hwall.forEach((el) => {
     el.addEventListener('click', selectHWall);
 });
+
 vwall.forEach((el) => {
     el.addEventListener('click', selectVWall);
 });

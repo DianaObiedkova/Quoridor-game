@@ -12,11 +12,16 @@ namespace Quoridor.Models
         public Player Winner { get; private set; }
         public bool IsEnded { get; private set; }
 
+        public int FirstPWalls { get; private set; }
+        public int SecondPWalls { get; private set; }
+
         public Game(Player firstP, Player secondP)
         {
             board = new Board();
             this.firstP = firstP;
             this.secondP = secondP;
+            FirstPWalls = firstP.CurrentFences;
+            SecondPWalls = firstP.CurrentFences;
         }
 
         public Game()
@@ -24,6 +29,8 @@ namespace Quoridor.Models
             board = new Board();
             firstP = new HumanPlayer(new Pawn() { Cell = board.cells[0, 4] });
             secondP = new HumanPlayer(new Pawn() { Cell = board.cells[8, 4] });
+            FirstPWalls = firstP.CurrentFences;
+            SecondPWalls = firstP.CurrentFences;
         }
 
         public void StartGame()
@@ -38,7 +45,7 @@ namespace Quoridor.Models
 
         private bool IsFencePossibleForCurrentUser()
         {
-            if (IsFencePossible() && CurrentP.CurrentFences > 0)
+            if (board.IsFencePossible() && CurrentP.CurrentFences > 0)
             {
                 return true;
             }
@@ -48,7 +55,7 @@ namespace Quoridor.Models
 
         //ставим перегородку
         //передать какие-то хотя бы 2 пары координат (для каждой половины по 1)
-        public void SetFence(Cell X, Cell Y)
+        public bool SetFence(Cell X, Cell Y)
         {
             // ставятся две половины перегородки
             // каждая половина ставится  в обе смежные клетки (north+south east+west)
@@ -62,7 +69,7 @@ namespace Quoridor.Models
             {
                 index = Array.FindIndex(board.AllFences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
             }
-            else return;
+            else return false;
 
             if (IsFencePossibleForCurrentUser())
             {
@@ -85,21 +92,17 @@ namespace Quoridor.Models
                         Name = X.Name.Substring(0, 1) + X.Name.Substring(1, 1) + Y.Name.Substring(1, 1)
                     };
                 }
+                else
+                {
+                    return false;
+                }
 
                 CurrentP.PlayFence();
-
+                Console.WriteLine(FirstPWalls + " " + SecondPWalls);
             }
-        }
 
-        //можно ли поставить перегородку?
-        public bool IsFencePossible()
-        {
-            //проверить по каждым координатам (из 2 пар) для двух клеток по сторонам от них
-            return default;
+            return true;
         }
-
-        // отдельно выделить алгоритм поиска пути в графе
-        // для проверки IsFencePossible()
 
         public void MovePawn(Direction direction)
         {
@@ -130,7 +133,7 @@ namespace Quoridor.Models
                                 }
                             }
                         }
-                        
+
                         break;
                     }
                 case Direction.West:
@@ -182,7 +185,7 @@ namespace Quoridor.Models
                                 }
                             }
                         }
-                        
+
                         break;
                     }
                 case Direction.South:
@@ -216,14 +219,14 @@ namespace Quoridor.Models
                         {
                             if (IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1]))//сверху вражеская пешка
                             {
-                                if((board.cells[index, CurrentP.Pawn.Cell.Y - 1].NorthWall || CurrentP.Pawn.Cell.Y == 1)
+                                if ((board.cells[index, CurrentP.Pawn.Cell.Y - 1].NorthWall || CurrentP.Pawn.Cell.Y == 1)
                                     && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].SouthWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
                                     CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y - 1).ToString(); //суть одна, но условия разные
                                 }
                             }
-                            else if (IsCellHasPawn(board.cells[index+1, CurrentP.Pawn.Cell.Y]))//справа вражеская пешка
+                            else if (IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y]))//справа вражеская пешка
                             {
                                 if ((board.cells[index + 1, CurrentP.Pawn.Cell.Y].EastWall || index == Board.Size - 1)
                                     && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].NorthWall && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].WestWall)
@@ -314,7 +317,7 @@ namespace Quoridor.Models
                         }
                         break;
                     }
-                default: break; 
+                default: break;
             }
 
             SwitchPlayers();
@@ -334,11 +337,11 @@ namespace Quoridor.Models
         {
             Winner = winner;
             IsEnded = true;
-        }  
+        }
 
         private void CheckGameEnd()
         {
-            if(secondP.Pawn.Cell.Y == Board.Size - secondP.StartRow)
+            if (secondP.Pawn.Cell.Y == Board.Size - secondP.StartRow)
             {
                 EndGame(secondP);
             }

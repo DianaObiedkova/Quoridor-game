@@ -82,11 +82,11 @@ namespace Quoridor.Models
             {
                 if(item.IsChecked == false)
                 {
-                    int newvalue = currentVertex.value + GetEdge(item, currentVertex).weight;
+                    int newvalue = currentVertex.value + GetEdge(item, currentVertex).Weight;
                     if(item.value > newvalue)
                     {
                         item.value = newvalue;
-                        item.prevVertex = currentVertex;
+                        item.PrevVertex = currentVertex;
                     }
                     else
                     {
@@ -107,12 +107,12 @@ namespace Quoridor.Models
             while (current != startVertex)
             {
                 path.Add(current);
-                current = current.prevVertex;
+                current = current.PrevVertex;
             }
             return path;
         }
 
-        private IEnumerable<Vertex> GetNeighbours(Vertex current)
+        private static IEnumerable<Vertex> GetNeighbours(Vertex current)
         {
             IEnumerable<Vertex> first = from ed in Edges where ed.FirstVertex == current select ed.SecondVertex;
             IEnumerable<Vertex> second = from ed in Edges where ed.SecondVertex == current select ed.FirstVertex;
@@ -120,11 +120,11 @@ namespace Quoridor.Models
             return result;
         }
 
-        private Edge GetEdge(Vertex first, Vertex second)
+        private static Edge GetEdge(Vertex first, Vertex second)
         {
             IEnumerable<Edge> newEdges = from ed in Edges where (ed.FirstVertex == first & ed.SecondVertex == second) ||
                 (ed.FirstVertex == second & ed.SecondVertex == first) select ed;
-            if(newEdges.Count == 0)
+            if(newEdges.Count() == 0)
             {
                 throw new Exception("edge not found"); //тогда путь не найден (?) 
                 //нужно обработать в try catch, чтобы всё не падало
@@ -136,14 +136,14 @@ namespace Quoridor.Models
             }
         }
 
-        private Vertex GetNearestUnchecked()
+        private static Vertex GetNearestUnchecked()
         {
-            IEnumerable<Vertex> unchecked = from vert in Vertices where vert.IsChecked == false select vert;
-            if(unchecked.Count != 0)
+            IEnumerable<Vertex> @unchecked = from vert in Vertices where !vert.IsChecked select vert;
+            if(!@unchecked.Any())
             {
-                Vertex minVertex = unchecked.First();
-                int minValue = unchecked.First().value;
-                foreach (Vertex vert in unchecked)
+                Vertex minVertex = @unchecked.First();
+                int minValue = @unchecked.First().value;
+                foreach (Vertex vert in @unchecked)
                 {
                     if(vert.value < minValue)
                     {

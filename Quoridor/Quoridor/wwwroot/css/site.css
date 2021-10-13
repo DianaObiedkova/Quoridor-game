@@ -108,17 +108,25 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
-/*
+
 .gridcontainer0 {
-    display: grid;
+    /*display: grid;*/
     width: 100%;
     height: 100vh;
-    justify-content: center;
+    /*justify-content: center;
     align-content: center;
     grid-template-rows: calc(3 * var(--font-size)) var(--board-table-side-length) calc(8 * var(--font-size));
     grid-template-columns: var(--board-table-side-length);
-    grid-gap: 10px;
+    grid-gap: 10px;*/
 }
+.gridcontainer2 {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+/*
 #board_table_container {
     position: relative;
     grid-row-start: 2;
@@ -393,6 +401,54 @@ div.pawn.clicked {
 
 .hidden{display:none;
         visibility:hidden;
+}
+
+#number_of_left_walls_box {
+    padding:0;
+    width: 680px;
+    height:80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size);
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.mul_sign_wall_num_container {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.multiplication_sign {
+    display: inline;
+    vertical-align: middle;
+    margin-left: calc(var(--font-size) / 6);
+    margin-right: calc(var(--font-size) / 6);
+}
+
+div.wall_num {
+    display: inline-block;
+    vertical-align: middle;
+    width: var(--font-size);
+    text-align: center;
+}
+
+div.horizontal_wall.symbol {
+    position: initial;
+    vertical-align: middle;
+    width: calc(var(--font-size) * (5 / 3));
+    height: calc(var(--font-size) * (2 / 5));
+    margin-left: calc(var(--font-size) / 6);
+    margin-right: calc(var(--font-size) / 6);
+    
+}
+div.pawn.symbol {
+    vertical-align: middle;
+    width: var(--font-size);
+    height: var(--font-size);
+    margin-right: calc(var(--font-size) / 2);
 }
 /*
 table {

@@ -1,43 +1,52 @@
-﻿@*@model Quoridor.Models.Game*@
+﻿@model Game
 @{
     ViewData["Title"] = "Quoridor";
     //Layout = null;
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Let's play!</p>
+@*<p>Let's play!</p>*@
+
+@{
+
+}
 
 <div class="buttons">
     <button type="button" id="restart" class="button above restart">New game</button>
 </div>
-<div id="board_table_container">
-    <div class="fade_box in hidden" id="restart_message_box">
-        Are you sure to start a new game?
-        <br>
-        (Current game will be lost.)
-        <div class="button_container in_message_box">
-            <button type="button" class="restart_yes_no" id="restart_no">Cancel</button>
-            <button type="button" class="restart_yes_no" id="restart_yes">Start</button>
-        </div>
+<div class="gridcontainer0">
+    <div id="number_of_left_walls_box">
+        <div><div class="pawn pawn0 symbol"></div><div class="horizontal_wall symbol"></div><div class="mul_sign_wall_num_container"><div class="multiplication_sign">×</div><div class="wall_num pawn0">@Model.FirstPWalls</div></div></div>
+        <div><div class="pawn pawn1 symbol"></div><div class="horizontal_wall symbol"></div><div class="mul_sign_wall_num_container"><div class="multiplication_sign">×</div><div class="wall_num pawn1">@Model.SecondPWalls</div></div></div>
     </div>
+    <div id="board_table_container">
+        <div class="fade_box in hidden" id="restart_message_box">
+            Are you sure to start a new game?
+            <br>
+            (Current game will be lost.)
+            <div class="button_container in_message_box">
+                <button type="button" class="restart_yes_no" id="restart_no">Cancel</button>
+                <button type="button" class="restart_yes_no" id="restart_yes">Start</button>
+            </div>
+        </div>
         <table id="board_table" class="geek" border="1">
             <tr class="row1">
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="b", Y = 0},new Cell(){ X = "b", Y = 1})"></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"></td>
                 <td class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"></td>
                 <td class="col cell"></td>
             </tr>
             <tr class="between_rows">
@@ -346,29 +355,28 @@
             </tr>
         </table>
     </div>
-
-
-    @*<table>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols"> 1</td>
-                    <td></td>
-                    <td class="between_cols">1 </td>
-                </tr>
-            </tbody>
-        </table>*@
+</div>
+@*<table>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols"> 1</td>
+                <td></td>
+                <td class="between_cols">1 </td>
+            </tr>
+        </tbody>
+    </table>*@

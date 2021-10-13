@@ -26,5 +26,10 @@ namespace Quoridor.Controllers
             Game.MovePawn(direction);
             return Ok();
         }
+        public IActionResult SetFence(Cell c1, Cell c2)
+        {
+            Game.SetFence(c1, c2);
+            return Ok();
+        }
     }
 }

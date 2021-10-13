@@ -49,39 +49,6 @@ namespace Quoridor.Models
         // пригодится для поиска по графу
         public bool IsMovePawnPossible(Cell currentCell, Direction direction)
         {
-            //if (Direction.South)
-            //    return NoCellSouthFence(currentCell);
-            //else if (Direction.North)
-            //    return NoCellNorthFence(currentCell);
-            //else if (Direction.West)
-            //    return NoCellWestFence(currentCell);
-            //else if (Direction.East)
-            //    return NoCellEastFence(currentCell);
-            //else
-            //    Debug.LogError("CanMovePawn error");
-            //    return false;
-            return NoCellFence(currentCell, direction);
-        }
-        private bool NoCellSouthFence(Cell currentCell)
-        {
-            return !(currentCell.SouthWall);
-        } 
-        private bool NoCellNorthFence(Cell currentCell)
-        {
-            return !(currentCell.NorthWall);
-        } 
-        private bool NoCellWestFence(Cell currentCell)
-        {
-            return !(currentCell.WestWall);
-        } 
-        private bool NoCellEastFence(Cell currentCell)
-        {
-            return !(currentCell.EastWall);
-        }
-
-        //IsMovePawnPossible - равноценная замена
-        public bool NoCellFence(Cell currentCell, Direction direction)
-        {
             switch (direction)
             {
                 case Direction.South:
@@ -96,8 +63,37 @@ namespace Quoridor.Models
                     break;
             }
             throw new ArgumentException("Wrong direction was chosen.");
-            //return false;
+            //if (Direction.South)
+            //    return NoCellSouthFence(currentCell);
+            //else if (Direction.North)
+            //    return NoCellNorthFence(currentCell);
+            //else if (Direction.West)
+            //    return NoCellWestFence(currentCell);
+            //else if (Direction.East)
+            //    return NoCellEastFence(currentCell);
+            //else
+            //    Debug.LogError("CanMovePawn error");
+            //    return false;
         }
+        //private bool NoCellSouthFence(Cell currentCell)
+        //{
+        //    return !(currentCell.SouthWall);
+        //} 
+        //private bool NoCellNorthFence(Cell currentCell)
+        //{
+        //    return !(currentCell.NorthWall);
+        //} 
+        //private bool NoCellWestFence(Cell currentCell)
+        //{
+        //    return !(currentCell.WestWall);
+        //} 
+        //private bool NoCellEastFence(Cell currentCell)
+        //{
+        //    return !(currentCell.EastWall);
+        //}
+
+        //IsMovePawnPossible - равноценная замена
+       
 
         //pawn check
         /*private bool NoCellPawn(Cell currentCell)

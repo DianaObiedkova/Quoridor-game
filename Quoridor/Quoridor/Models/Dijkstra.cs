@@ -7,12 +7,14 @@ namespace Quoridor.Models
 {
     public class Vertex 
     {
+        public string Name { get; set; }
         public int value;
         public bool IsChecked { get; set; }
         public Vertex PrevVertex { get; set; }
 
-        public Vertex(int value, bool IsChecked)
+        public Vertex(string name, int value, bool IsChecked)
         {
+            this.Name = name;
             this.value = value;
             this.IsChecked = IsChecked;
             PrevVertex = new Vertex();
@@ -43,11 +45,44 @@ namespace Quoridor.Models
         public static Edge[] Edges { get; private set; }
         public static Vertex startVertex;
 
-        //public Dijkstra(Vertex[] graphVertices, Edge[] graphEdges)
-        //{
-        //    vertices = graphVertices;
-        //    edges = graphEdges;
-        //}
+        public static void StartQuoridorDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences)
+        {
+            Vertices = new Vertex[cells.GetLength()];
+            foreach(Cell cell in cells)
+            {
+                bool exists = Array.Exists(Vertices, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
+                int index = 0;
+
+                if (exists)
+                {
+                    index = Array.FindIndex(Vertices, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
+                }
+                else return false;
+
+                Vertices[index] = new Vertex(cell.Name, INT_MAX, false);
+            }
+
+            //TODO:
+            //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
+            //Array.Find(Vertices, ).value = 0
+
+            Edges = new Edge[AllFences.GetLength()*2];
+            foreach(Fence fence in AllFences)
+            {
+                string f1name = fence.Name[1] + fence.Name[2];
+                string s1name = fence.Name[3] + fence.Name[4];
+                string f2name = fence.Name[5] + fence.Name[6];
+                string s2name = fence.Name[7] + fence.Name[8];
+ 
+                //TODO:
+                //Vertex f1 = Array.Find(Vertices, ); // найти по vertex.Name == f1name
+                //Vertex s1 = Array.Find(Vertices, ); //s1name
+                //Edges = добавить сell в виде new Edge(f1, s1, 1)
+                //Vertex f2 = Array.Find(Vertices, ); //f2name
+                //Vertex s2 = Array.Find(Vertices, ); //s2name
+                //Edges = добавить сell в виде new Edge(f2, s2, 1)
+            }
+        }
 
         //start.weight = 0
         //othervertices[index].weight = INT_MAX

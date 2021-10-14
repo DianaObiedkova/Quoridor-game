@@ -102,17 +102,46 @@ namespace Quoridor.Models
         }*/
 
         //можно ли поставить перегородку?
-        public bool IsFencePossible()
+        public bool IsFencePossible(string fenceName)
         {
             //проверить есть ли уже такая в списке allfences
-            return default;
+            if(Array.Exists(AllFences, fenceName))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public bool SetFence(Cell X, Cell Y)
         {
-            //передавать параметры в IsFencePossible() DijkstraCheck()
-            //нужно формировать имя для Fence ещё раньше(?) для идентификации
-            if(!IsFencePossible() || !DijkstraCheck())
+            //формирование имени Fence
+            string newName;
+            //наименование перегородок + ИД
+            //горизонтальные
+            if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
+            {
+                int cur_row = Convert.ToInt16(X.Name.Substring(1, 1));
+                int next_row = cur_row + 1;
+                newName = "h" + X.Name + X.Name.Substring(0, 1) + next_row.ToString() + Y.Name + Y.Name.Substring(0, 1) + next_row.ToString();
+            }
+            //вертикальные
+            else if (X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
+            {
+                string cur_col = X.Name.Substring(0, 1);
+                //столбец левее
+                string next_col = AllFences[Array.IndexOf(AllFences, cur_col) - 1];
+                newName = "v" + next_col + X.Name.Substring(1, 1) + X.Name + next_col + Y.Name.Substring(1, 1) + Y.Name;                
+            }
+            else
+            {
+                return false;
+            }
+
+            //передавать параметры в DijkstraCheck()
+            if(!IsFencePossible(newName) || !DijkstraCheck())
             {
                 return false;
             }
@@ -127,34 +156,11 @@ namespace Quoridor.Models
             }
             else return false;
 
-            //наименование перегородок + ИД
-            //горизонтальные
-            if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
+            AllFences[index] = new Fence()
             {
-                int cur_row = Convert.ToInt16(X.Name.Substring(1, 1));
-                int next_row = cur_row + 1;
-                AllFences[index] = new Fence()
-                {
-                    Id = AllFences.Count(x => x != null),
-                    Name = "h" + X.Name + X.Name.Substring(0, 1) + next_row.ToString() + Y.Name + Y.Name.Substring(0, 1) + next_row.ToString()
-                };
-            }
-            //вертикальные
-            else if (X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
-            {
-                string cur_col = X.Name.Substring(0, 1);
-                //столбец левее
-                string next_col = AllFences[Array.IndexOf(AllFences, cur_col) - 1];
-                AllFences[index] = new Fence()
-                {
-                    Id = AllFences.Count(x => x != null),
-                    Name = "v" + next_col + X.Name.Substring(1, 1) + X.Name + next_col + Y.Name.Substring(1, 1) + Y.Name
-                };
-            }
-            else
-            {
-                return false;
-            }
+                Id = AllFences.Count(x => x != null),
+                Name = newName
+            };
 
             return true;
         }

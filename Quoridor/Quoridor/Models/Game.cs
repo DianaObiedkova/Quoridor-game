@@ -57,49 +57,15 @@ namespace Quoridor.Models
 
 
         //ставим перегородку
-        //передать какие-то хотя бы 2 пары координат (для каждой половины по 1)
         public bool SetFence(Cell X, Cell Y)
         {
-            // ставятся две половины перегородки
-            // каждая половина ставится  в обе смежные клетки (north+south east+west)
-
-            //ищу индекс первого пустого элемента в массиве
-
-            bool exists = Array.Exists(board.AllFences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
-            int index = 0;
-
-            if (exists)
-            {
-                index = Array.FindIndex(board.AllFences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
-            }
-            else return false;
-
             if (IsFencePossibleForCurrentUser())
             {
-                //наименование перегородок + ИД
-                //горизонтальные
-                if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
-                {
-                    board.AllFences[index] = new Fence()
-                    {
-                        Id = board.AllFences.Count(x => x != null),
-                        Name = X.Name.Substring(1, 1) + X.Name.Substring(0, 1) + Y.Name.Substring(0, 1)
-                    };
-                }
-                //вертикальные
-                else if (X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
-                {
-                    board.AllFences[index] = new Fence()
-                    {
-                        Id = board.AllFences.Count(x => x != null),
-                        Name = X.Name.Substring(0, 1) + X.Name.Substring(1, 1) + Y.Name.Substring(1, 1)
-                    };
-                }
-                else
+                if(!board.SetFence(X, Y))
                 {
                     return false;
                 }
-
+                
                 CurrentP.PlayFence();
                 Console.WriteLine(FirstPWalls + " " + SecondPWalls);
             }

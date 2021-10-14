@@ -104,11 +104,62 @@ namespace Quoridor.Models
         //можно ли поставить перегородку?
         public bool IsFencePossible()
         {
-            //проверить по каждым координатам (из 2 пар) для двух клеток по сторонам от них
+            //проверить есть ли уже такая в списке allfences
             return default;
         }
 
-        public bool CallDijkstra(Cell currentCell)
+        public bool SetFence(Cell X, Cell Y)
+        {
+            //передавать параметры в IsFencePossible() DijkstraCheck()
+            //нужно формировать имя для Fence ещё раньше(?) для идентификации
+            if(!IsFencePossible() || !DijkstraCheck())
+            {
+                return false;
+            }
+            //ищу индекс первого пустого элемента в массиве
+
+            bool exists = Array.Exists(AllFences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
+            int index = 0;
+
+            if (exists)
+            {
+                index = Array.FindIndex(AllFences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
+            }
+            else return false;
+
+            //наименование перегородок + ИД
+            //горизонтальные
+            if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
+            {
+                int cur_row = Convert.ToInt16(X.Name.Substring(1, 1));
+                int next_row = cur_row + 1;
+                AllFences[index] = new Fence()
+                {
+                    Id = AllFences.Count(x => x != null),
+                    Name = "h" + X.Name + X.Name.Substring(0, 1) + next_row.ToString() + Y.Name + Y.Name.Substring(0, 1) + next_row.ToString()
+                };
+            }
+            //вертикальные
+            else if (X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
+            {
+                string cur_col = X.Name.Substring(0, 1);
+                //столбец левее
+                string next_col = AllFences[Array.IndexOf(AllFences, cur_col) - 1];
+                AllFences[index] = new Fence()
+                {
+                    Id = AllFences.Count(x => x != null),
+                    Name = "v" + next_col + X.Name.Substring(1, 1) + X.Name + next_col + Y.Name.Substring(1, 1) + Y.Name
+                };
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool DijkstraCheck(Cell currentCell)
         {
             ////Dijkstra.Vertices = клетки Cells в виде new Vertex(INT_MAX, false)
             ////возможно, добавить в Vertex свойство Name для идентификации

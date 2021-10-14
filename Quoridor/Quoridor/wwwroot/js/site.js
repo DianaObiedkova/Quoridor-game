@@ -113,44 +113,88 @@ function validPawnMoves() {
             if (counter % 2 === 0) {
 
                 if (el.hasChildNodes() && el.firstChild.classList.contains('pawn0')) {
-                    //console.log(el.firstChild.classList.contains('pawn0'));
                     x = j;
                     y = i;
-
-                    //console.log(htmlBoardTable.rows.length);
-                    //console.log(htmlBoardTable.rows[0].cells.length);
-                    //console.log(x, y);
-
-                    //shadow.onclick = onclickNextPawnPosition.bind(this);
 
                     for (let l = 0; l < posMoveX.length; l++) {
                         let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
                         let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
-                        //console.log(newX, newY);
+                        console.log(newX, newY);
 
                         let element = htmlBoardTable.rows[newY].cells[newX];
-                        console.log(element);
-                        let shadow = document.createElement("div");
-                        //shadow.classList.add("pawn");
-                        //shadow.classList.add("pawn0");
-                        shadow.classList.add("pawnShadow0");
-                        //shadow.classList.add("shadow");
-                        element.appendChild(shadow);
-                        //console.log(parseInt(x) + parseInt(posMoveX[l].innerHTML), parseInt(y) + parseInt(posMoveY[l].innerHTML));
+                        if (!element.hasChildNodes()) {
+                            console.log(element);
+                            let shadow = document.createElement("div");
+                            shadow.classList.add("pawnShadow0");
+                            element.appendChild(shadow);
+                        }
+                        
                     }
                 }
             }
             else {
-                let pawn1 = document.querySelector(".pawn1");
+                if (el.hasChildNodes() && el.firstChild.classList.contains('pawn1')) {
+                    x = j;
+                    y = i;
+
+                    for (let l = 0; l < posMoveX.length; l++) {
+                        let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
+                        let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
+                        console.log(newX, newY);
+
+                        if (newX < 0 || newY < 0 || newX>16 ||newY>16) {
+                            continue;
+                        }
+
+                        let element = htmlBoardTable.rows[newY].cells[newX];
+                        if (!element.hasChildNodes()) {
+                            console.log(element);
+                            let shadow = document.createElement("div");
+                            shadow.classList.add("pawnShadow1");
+                            element.appendChild(shadow);
+                        }
+
+                    }
+                }
             }
             
         }
     }
 
+    cell.forEach((element) => {
+
+        if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
+        element.addEventListener('click', selectCell);
+        }
+
+    });
+
+}
+
+function cancelPawnShadows() {
+
+    cell.forEach((element) => {
+
+        if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
+            element.removeEventListener('click', selectCell);
+        }
+
+    });
+
+    let shadows0 = document.querySelectorAll(".pawnShadow0");
+    let shadows1 = document.querySelectorAll(".pawnShadow1");
+
+    for (sh of shadows0) {
+        sh.remove();
+    }
+    for (sh of shadows1) {
+        sh.remove();
+    }
 }
 
 function selectCell(e) {
 
+    
 
     counter++;
     let pawn0 = document.querySelector(".pawn0");
@@ -158,7 +202,7 @@ function selectCell(e) {
     let pawn = document.createElement('div');
 
     pawn.classList.add("pawn");
-
+    
     if (counter % 2 === 0) {
         pawn1.remove();
         pawn.classList.add("pawn1");
@@ -191,8 +235,9 @@ function selectCell(e) {
         }
     }
 
-    e.target.appendChild(pawn);
-
+    e.target.after(pawn);
+    cancelPawnShadows();
+    validPawnMoves();
 }
 
 function selectHWall(e) {
@@ -293,13 +338,7 @@ function updateWalls() {
     num2.innerHTML = secondPWalls;
 }
 
-cell.forEach((element) => {
 
-    //if (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1')) {
-        element.addEventListener('click', selectCell);
-    //}
-
-});
 
 hwall.forEach((el) => {
     el.addEventListener('click', selectHWall);

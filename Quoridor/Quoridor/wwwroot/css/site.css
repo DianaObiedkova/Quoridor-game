@@ -363,10 +363,35 @@ div.horizontal_wall.shadow, div.vertical_wall.shadow {
     opacity: 0.5;
 }
 
-div.pawn.shadow {
+div.pawnShadow0 {
+    display: inline-block;
+    width: calc(var(--long-length) * 0.6);
+    height: calc(var(--long-length) * 0.6) ;/*70%;*/
+    border-radius: 50%;
+    vertical-align: middle;
+    background-color: rgb(195, 164, 23);
     opacity: 0.3;
 }
+div.pawnShadow0:hover {
+    opacity: 0.7;
+}
 
+div.pawnShadow1:hover {
+    opacity: 0.7;
+}
+
+div.pawnShadow1 {
+    display: inline-block;
+    width: calc(var(--long-length) * 0.6);
+    height: calc(var(--long-length) * 0.6);
+    border-radius: 50%;
+    vertical-align: middle;
+    background-color: rgb(51, 25, 25);
+    opacity: 0.3;
+}
+/*.shadow {
+    opacity: 0.3;
+}*/
 .buttons {
     /*grid-column: 1 / span 2;*/
     display: flex;

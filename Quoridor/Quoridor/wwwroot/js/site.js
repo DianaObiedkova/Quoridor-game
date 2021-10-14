@@ -16,7 +16,7 @@ const vwall = document.querySelectorAll(".vwall");
 const htmlRestartMessageBox = document.getElementById("restart_message_box");
 
 _renderValidNextWalls();
-
+validPawnMoves();
 
 const restartButton = document.getElementById("restart");
 
@@ -98,7 +98,59 @@ function _renderValidNextWalls() {
     }
 }
 
+function validPawnMoves() {
+    let x = 0;
+    let y = 0;
+
+    let posMoveX = document.querySelectorAll(".posMoveX");
+    let posMoveY = document.querySelectorAll(".posMoveY");
+
+    for (let i = 0; i < htmlBoardTable.rows.length; i++) {
+        for (let j = 0; j < htmlBoardTable.rows[0].cells.length; j++) {
+
+            let el = htmlBoardTable.rows[i].cells[j];
+
+            if (counter % 2 === 0) {
+
+                if (el.hasChildNodes() && el.firstChild.classList.contains('pawn0')) {
+                    //console.log(el.firstChild.classList.contains('pawn0'));
+                    x = j;
+                    y = i;
+
+                    //console.log(htmlBoardTable.rows.length);
+                    //console.log(htmlBoardTable.rows[0].cells.length);
+                    //console.log(x, y);
+
+                    //shadow.onclick = onclickNextPawnPosition.bind(this);
+
+                    for (let l = 0; l < posMoveX.length; l++) {
+                        let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
+                        let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
+                        //console.log(newX, newY);
+
+                        let element = htmlBoardTable.rows[newY].cells[newX];
+                        console.log(element);
+                        let shadow = document.createElement("div");
+                        //shadow.classList.add("pawn");
+                        //shadow.classList.add("pawn0");
+                        shadow.classList.add("pawnShadow0");
+                        //shadow.classList.add("shadow");
+                        element.appendChild(shadow);
+                        //console.log(parseInt(x) + parseInt(posMoveX[l].innerHTML), parseInt(y) + parseInt(posMoveY[l].innerHTML));
+                    }
+                }
+            }
+            else {
+                let pawn1 = document.querySelector(".pawn1");
+            }
+            
+        }
+    }
+
+}
+
 function selectCell(e) {
+
 
     counter++;
     let pawn0 = document.querySelector(".pawn0");
@@ -123,6 +175,7 @@ function selectCell(e) {
         }
     }
     else {
+
         pawn0.remove();
         pawn.classList.add("pawn0");
 
@@ -241,7 +294,11 @@ function updateWalls() {
 }
 
 cell.forEach((element) => {
-    element.addEventListener('click', selectCell);
+
+    //if (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1')) {
+        element.addEventListener('click', selectCell);
+    //}
+
 });
 
 hwall.forEach((el) => {

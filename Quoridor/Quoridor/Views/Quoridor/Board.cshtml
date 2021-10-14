@@ -362,6 +362,13 @@
         </table>
     </div>
 </div>
+@{ 
+    foreach(var item in @Model.PossibleMovePawn())
+    {
+        <div class="posMoveX">@item[0]</div><div class="posMoveY">@item[1]</div>
+        <br/>
+    }
+}
 @*<table>
         <tbody>
             <tr>

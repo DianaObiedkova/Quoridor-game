@@ -7,6 +7,7 @@ namespace Quoridor.Models
 {
     public class Vertex 
     {
+        public int Id { get; set; }  //добавлено для StartQuoridorDijkstra
         public string Name { get; set; }
         public int value;
         public bool IsChecked { get; set; }
@@ -47,7 +48,7 @@ namespace Quoridor.Models
 
         public static void StartQuoridorDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences)
         {
-            Vertices = new Vertex[cells.GetLength()];
+            Vertices = new Vertex[cells.Length];
             foreach(Cell cell in cells)
             {
                 bool exists = Array.Exists(Vertices, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
@@ -57,22 +58,22 @@ namespace Quoridor.Models
                 {
                     index = Array.FindIndex(Vertices, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
                 }
-                else return false;
+                else throw new ArgumentException("Index is not found.");//return false; не возвращаем, так как void
 
-                Vertices[index] = new Vertex(cell.Name, INT_MAX, false);
+                Vertices[index] = new Vertex(cell.Name, int.MaxValue, false);
             }
 
             //TODO:
             //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
             //Array.Find(Vertices, ).value = 0
 
-            Edges = new Edge[AllFences.GetLength()*2];
+            Edges = new Edge[AllFences.Length*2];
             foreach(Fence fence in AllFences)
             {
-                string f1name = fence.Name[1] + fence.Name[2];
-                string s1name = fence.Name[3] + fence.Name[4];
-                string f2name = fence.Name[5] + fence.Name[6];
-                string s2name = fence.Name[7] + fence.Name[8];
+                string f1name = fence.Name.Substring(1, 1) + fence.Name.Substring(2, 1); //точно ли начинаем с индекса 1, или все-таки 0?
+                string s1name = fence.Name.Substring(3, 1) + fence.Name.Substring(4, 1);
+                string f2name = fence.Name.Substring(5, 1) + fence.Name.Substring(6, 1);
+                string s2name = fence.Name.Substring(7, 1) + fence.Name.Substring(8, 1);
  
                 //TODO:
                 //Vertex f1 = Array.Find(Vertices, ); // найти по vertex.Name == f1name
@@ -91,7 +92,7 @@ namespace Quoridor.Models
         {
             if (!Vertices.Any() || !Edges.Any())
             {
-                throw new Exception("dijkstra data error");
+                throw new ArgumentException("dijkstra data error");
             }
             startVertex = start;
 
@@ -115,7 +116,7 @@ namespace Quoridor.Models
             IEnumerable<Vertex> neigbours = GetNeighbours(currentVertex);
             foreach(Vertex item in neigbours)
             {
-                if(item.IsChecked == false)
+                if(!item.IsChecked)
                 {
                     int newvalue = currentVertex.value + GetEdge(item, currentVertex).Weight;
                     if(item.value > newvalue)
@@ -159,9 +160,9 @@ namespace Quoridor.Models
         {
             IEnumerable<Edge> newEdges = from ed in Edges where (ed.FirstVertex == first & ed.SecondVertex == second) ||
                 (ed.FirstVertex == second & ed.SecondVertex == first) select ed;
-            if(newEdges.Count() == 0)
+            if(!newEdges.Any())
             {
-                throw new Exception("edge not found"); //тогда путь не найден (?) 
+                throw new ArgumentException("edge not found"); //тогда путь не найден (?) 
                 //нужно обработать в try catch, чтобы всё не падало
                 //это нормальная ситуация, много других клеток поля могут быть недостижимы
             }

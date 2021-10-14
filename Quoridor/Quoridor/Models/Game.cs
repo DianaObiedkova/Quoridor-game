@@ -48,7 +48,7 @@ namespace Quoridor.Models
 
         private bool IsFencePossibleForCurrentUser()
         {
-            if (board.IsFencePossible() && CurrentP.CurrentFences > 0)
+            if (CurrentP.CurrentFences > 0) // убираю, так как используется уже прямиком в SetFence() - board.IsFencePossible()
             {
                 return true;
             }

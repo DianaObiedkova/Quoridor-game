@@ -105,7 +105,7 @@ namespace Quoridor.Models
         public bool IsFencePossible(string fenceName)
         {
             //проверить есть ли уже такая в списке allfences
-            if(Array.Exists(AllFences, fenceName))
+            if(Array.Exists(AllFences, x => x.Name.Contains(fenceName)||x.Name.Equals(fenceName)))
             {
                 return false;
             }
@@ -141,7 +141,7 @@ namespace Quoridor.Models
             }
 
             //передавать параметры в DijkstraCheck()
-            if(!IsFencePossible(newName) || !DijkstraCheck())
+            if(!IsFencePossible(newName) || !DijkstraCheck(X)) // or Y?
             {
                 return false;
             }
@@ -170,8 +170,8 @@ namespace Quoridor.Models
         {
             List<Vertex> finalCells = new List<Vertex>();
             //TODO: закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices(!)
-
-            Dijkstra.StartQuoridorDijkstra(currentCell, cells, AllFences);
+           
+            Dijkstra.StartQuoridorDijkstra(currentCell, cells.Cast<Cell>().ToArray(), AllFences);
             Dijkstra.FindShortestPath(currentCell);
             foreach (Vertex final in finalCells)
             {

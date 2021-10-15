@@ -117,6 +117,7 @@ namespace Quoridor.Models
 
         public bool SetFence(Cell X, Cell Y)
         {
+            
             //формирование имени Fence
             string newName;
             //наименование перегородок + ИД
@@ -132,8 +133,9 @@ namespace Quoridor.Models
             {
                 string cur_col = X.Name.Substring(0, 1);
                 //столбец левее
-                string next_col = AllFences[Array.IndexOf(AllFences, cur_col) - 1];
-                newName = "v" + next_col + X.Name.Substring(1, 1) + X.Name + next_col + Y.Name.Substring(1, 1) + Y.Name;                
+                int ind = indexes.FirstOrDefault(x => x.Value == X.X).Key;
+                string next_col = indexes[ind - 1];//AllFences[Array.IndexOf(AllFences, cur_col) - 1];
+                newName = "v" + next_col + X.Name.Substring(1, 1) + X.Name + next_col + Y.Name.Substring(1, 1) + Y.Name;
             }
             else
             {

@@ -22,7 +22,14 @@ namespace Quoridor.Controllers
         {
             ViewData["fPwalls"] = Game.FirstPWalls;
             ViewData["sPwalls"] = Game.FirstPWalls;
+            ViewData["moves"] = Game.PossibleMovePawn();
             return View(Game);
+        }
+
+        public IActionResult PossibleMoves()
+        {
+            ViewData["moves"] = Game.PossibleMovePawn();
+            return PartialView("PartialMoves", Game.PossibleMovePawn());
         }
 
         public IActionResult MovePawn(Direction direction)

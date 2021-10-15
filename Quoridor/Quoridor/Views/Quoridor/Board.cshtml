@@ -37,22 +37,22 @@
         </div>
         <table id="board_table" class="geek" border="1">
             <tr class="row1">
+                <td class="col cell" @*onclick="@(() =>  @UpdatePossibleMoves() )"*@></td>
+                <td class="between_cols vwall" @*onclick="@SetFenceInvoke()"*@></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@SetFenceInvoke()"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"*@></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"*@></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"></td>
-                <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"*@></td>
                 <td class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"*@></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"*@></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"*@></td>
                 <td class="col cell"></td>
-                <td class="between_cols vwall" onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"></td>
+                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"*@></td>
                 <td class="col cell"></td>
             </tr>
             <tr class="between_rows">
@@ -83,7 +83,7 @@
                 <td class="between_cols vwall"></td>
                 <td class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td class="col cell" onclick="console.log(@ViewData["moves"]);"></td>
                 <td class="between_cols vwall"></td>
                 <td class="col cell"></td>
                 <td class="between_cols vwall"></td>
@@ -362,13 +362,55 @@
         </table>
     </div>
 </div>
-@{ 
-    foreach(var item in @Model.PossibleMovePawn())
+<div>
+    @*@using (Ajax.BeginForm("PossibleMoves", "Quoridor", new AjaxOptions { UpdateTargetId = "movesHelper", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
     {
-        <div class="posMoveX">@item[0]</div><div class="posMoveY">@item[1]</div>
-        <br/>
-    }
+
+    }*@
+</div>
+
+
+@{
+    <div id="movesHelper">
+        @foreach (var item in @Model.PossibleMovePawn())
+        {
+            <div class="posMoveX">@item[0]</div><div class="posMoveY">@item[1]</div>
+            <br />
+        }
+    </div>
+
+
+    @*@functions{
+            public string UpdatePossibleMoves()
+            {
+                var str = string.Empty;
+                foreach (var item in @Model.PossibleMovePawn())
+                {
+                    str+="<div class=\"posMoveX\">"+@item[0]+"</div><div class=\"posMoveY\">"+@item[1]+"</div><br />";
+                }
+
+                return str;
+            }
+        }*@
 }
+
+<script>
+    function moves() {
+        let myArray = @ViewData["moves"];
+        console.log(myArray);
+    }
+    
+
+    @*const cell = document.querySelectorAll(".cell");
+
+    cell.forEach((element) => {
+
+        //if (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1')) {
+        element.addEventListener('click', @UpdatePossibleMoves);
+        //}
+
+    });*@
+</script>
 @*<table>
         <tbody>
             <tr>

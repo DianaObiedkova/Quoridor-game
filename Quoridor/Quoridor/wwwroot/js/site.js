@@ -161,6 +161,8 @@ function validPawnMoves() {
         }
     }
 
+    removeHelperElements();
+
     cell.forEach((element) => {
 
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
@@ -169,6 +171,17 @@ function validPawnMoves() {
 
     });
 
+}
+
+function removeHelperElements() {
+    let posMoveX = document.querySelectorAll(".posMoveX");
+    let posMoveY = document.querySelectorAll(".posMoveY");
+
+    for (let i = 0; i < posMoveX.length; i++)
+    {
+        posMoveX[i].remove();
+        posMoveY[i].remove();
+    }
 }
 
 function cancelPawnShadows() {
@@ -249,6 +262,8 @@ function selectHWall(e) {
     if (counter % 2 === 0) {
 
         if (secondPWalls > 0) {
+            cancelPawnShadows();
+
             secondPWalls -= 1;
             let wall = document.createElement('div');
             wall.classList.add("horizontal_wall");
@@ -258,6 +273,7 @@ function selectHWall(e) {
             e.target.classList.remove("shadow");
 
             updateWalls();
+            validPawnMoves();
         }
         else {
             counter--;
@@ -267,6 +283,7 @@ function selectHWall(e) {
     else {
        
         if (firstPWalls > 0) {
+            cancelPawnShadows();
             firstPWalls -= 1;
             let wall = document.createElement('div');
             wall.classList.add("horizontal_wall");
@@ -276,6 +293,7 @@ function selectHWall(e) {
             e.target.classList.remove("shadow");
 
             updateWalls();
+            validPawnMoves();
         }
         else {
             counter--;
@@ -295,6 +313,8 @@ function selectVWall(e) {
 
         if (secondPWalls > 0) {
 
+            cancelPawnShadows();
+
             secondPWalls -= 1;
             let wall = document.createElement('div');
             wall.classList.add("vertical_wall");
@@ -304,6 +324,7 @@ function selectVWall(e) {
             e.target.classList.remove("shadow");
 
             updateWalls();
+            validPawnMoves();
         }
         else {
             counter--;
@@ -313,6 +334,9 @@ function selectVWall(e) {
     else {
         
         if (firstPWalls > 0) {
+
+            cancelPawnShadows();
+
             firstPWalls -= 1;
             let wall = document.createElement('div');
             wall.classList.add("vertical_wall");
@@ -322,6 +346,7 @@ function selectVWall(e) {
             e.target.classList.remove("shadow");
 
             updateWalls();
+            validPawnMoves();
         }
         else {
             counter--;

@@ -158,8 +158,8 @@ namespace Quoridor.Models
 
         private static Edge GetEdge(Vertex first, Vertex second)
         {
-            IEnumerable<Edge> newEdges = from ed in Edges where (ed.FirstVertex == first & ed.SecondVertex == second) ||
-                (ed.FirstVertex == second & ed.SecondVertex == first) select ed;
+            IEnumerable<Edge> newEdges = from ed in Edges where (ed.FirstVertex == first && ed.SecondVertex == second) ||
+                (ed.FirstVertex == second && ed.SecondVertex == first) select ed;
             if(!newEdges.Any())
             {
                 throw new ArgumentException("edge not found"); //тогда путь не найден (?) 

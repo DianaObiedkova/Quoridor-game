@@ -88,7 +88,7 @@ namespace Quoridor.Models
                     index = Array.FindIndex(Edges, i => i == null || i.Id == 0);
                 }
                 else throw new ArgumentException("Index is not found.");
-                Edges[index] = new Edges(f1, s1, 1);
+                Edges[index] = new Edge(f1, s1, 1);
 
                 Vertex f2 = Array.Find(Vertices, v => v.Name == f2name);
                 Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
@@ -100,7 +100,7 @@ namespace Quoridor.Models
                     index2 = Array.FindIndex(Edges, i => i == null || i.Id == 0);
                 }
                 else throw new ArgumentException("Index is not found.");
-                Edges[index2] = new Edges(f2, s2, 1);
+                Edges[index2] = new Edge(f2, s2, 1);
             }
 
             return currentVertex;

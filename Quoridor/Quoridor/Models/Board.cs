@@ -175,14 +175,14 @@ namespace Quoridor.Models
         public bool DijkstraCheck(Cell currentCell1, Cell currentCell2)
         {
             List<Vertex> finalVertices1 = new List<Vertex>();
-            List<Vertex> finalVertices1 = new List<Vertex>();
+            List<Vertex> finalVertices2 = new List<Vertex>();
             //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices
             for(int i=0; i<Size; i++) 
             {
                 Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
                 finalVertices1.Add(sideVertex1);
                 Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size-1, i].Name);
-                finalVertices.Add(sideVertex2);
+                finalVertices2.Add(sideVertex2);
             }
 
             bool result = false;

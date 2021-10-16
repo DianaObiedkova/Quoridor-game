@@ -28,6 +28,7 @@ namespace Quoridor.Models
 
     public class Edge
     {
+        public int Id { get; set; }
         public Vertex FirstVertex { get; private set; }
         public Vertex SecondVertex { get; private set; }
         public int Weight { get; private set; }
@@ -46,7 +47,7 @@ namespace Quoridor.Models
         public static Edge[] Edges { get; private set; }
         public static Vertex startVertex;
 
-        public static void StartQuoridorDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences)
+        public static Vertex StartQuoridorDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences)
         {
             Vertices = new Vertex[cells.Length];
             foreach(Cell cell in cells)
@@ -59,30 +60,50 @@ namespace Quoridor.Models
                     index = Array.FindIndex(Vertices, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
                 }
                 else throw new ArgumentException("Index is not found.");//return false; не возвращаем, так как void
+                //уже не void
 
                 Vertices[index] = new Vertex(cell.Name, int.MaxValue, false);
             }
 
-            //TODO:
             //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
-            //Array.Find(Vertices, ).value = 0
+            Vertex currentVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
+            currentVertex.value = 0;
 
             Edges = new Edge[AllFences.Length*2];
             foreach(Fence fence in AllFences)
             {
                 string f1name = fence.Name.Substring(1, 1) + fence.Name.Substring(2, 1); //точно ли начинаем с индекса 1, или все-таки 0?
+                //точно, там первый символ v/h 
                 string s1name = fence.Name.Substring(3, 1) + fence.Name.Substring(4, 1);
                 string f2name = fence.Name.Substring(5, 1) + fence.Name.Substring(6, 1);
                 string s2name = fence.Name.Substring(7, 1) + fence.Name.Substring(8, 1);
  
-                //TODO:
-                //Vertex f1 = Array.Find(Vertices, ); // найти по vertex.Name == f1name
-                //Vertex s1 = Array.Find(Vertices, ); //s1name
+                Vertex f1 = Array.Find(Vertices, v => v.Name == f1name);
+                Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
                 //Edges = добавить сell в виде new Edge(f1, s1, 1)
-                //Vertex f2 = Array.Find(Vertices, ); //f2name
-                //Vertex s2 = Array.Find(Vertices, ); //s2name
+                bool exists = Array.Exists(Edges, x => x == null || x.Id == 0);
+                int index = 0;
+                if (exists)
+                {
+                    index = Array.FindIndex(Edges, i => i == null || i.Id == 0);
+                }
+                else throw new ArgumentException("Index is not found.");
+                Edges[index] = new Edges(f1, s1, 1);
+
+                Vertex f2 = Array.Find(Vertices, v => v.Name == f2name);
+                Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
                 //Edges = добавить сell в виде new Edge(f2, s2, 1)
+                bool exists2 = Array.Exists(Edges, x => x == null || x.Id == 0);
+                int index2 = 0;
+                if (exists2)
+                {
+                    index2 = Array.FindIndex(Edges, i => i == null || i.Id == 0);
+                }
+                else throw new ArgumentException("Index is not found.");
+                Edges[index2] = new Edges(f2, s2, 1);
             }
+
+            return currentVertex;
         }
 
         //start.weight = 0

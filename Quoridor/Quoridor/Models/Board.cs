@@ -114,8 +114,11 @@ namespace Quoridor.Models
                 return true;
             }
         }
-
-        public bool SetFence(Cell X, Cell Y)
+        
+        //X, Y - для координат перегородки
+        //PawnCell1 - клетка с пешкой игрока, который ставит перегородку
+        //PawnCell2 - клетка с пешкой игрока-противника
+        public bool SetFence(Cell X, Cell Y, Cell PawnCell1, Cell PawnCell2)
         {
             
             //формирование имени Fence
@@ -143,7 +146,7 @@ namespace Quoridor.Models
             }
 
             //передавать параметры в DijkstraCheck()
-            if(!IsFencePossible(newName) || !DijkstraCheck(X)) // or Y?
+            if(!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2)) 
             {
                 return false;
             }
@@ -167,15 +170,27 @@ namespace Quoridor.Models
             return true;
         }
 
-        //TODO: нужно передавать индикатор стороны для finalCells
-        public bool DijkstraCheck(Cell currentCell)
+        //top side - сторона противника?
+        //bottom side - сторона игрока?
+        public bool DijkstraCheck(Cell currentCell1, Cell currentCell2)
         {
-            List<Vertex> finalCells = new List<Vertex>();
-            //TODO: закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices(!)
-           
-            Dijkstra.StartQuoridorDijkstra(currentCell, cells.Cast<Cell>().ToArray(), AllFences);
-            Dijkstra.FindShortestPath(currentCell);
-            foreach (Vertex final in finalCells)
+            List<Vertex> finalVertices1 = new List<Vertex>();
+            List<Vertex> finalVertices1 = new List<Vertex>();
+            //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices
+            for(int i=0; i<Size; i++) 
+            {
+                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                finalVertices1.Add(sideVertex1);
+                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size-1, i].Name);
+                finalVertices.Add(sideVertex2);
+            }
+
+            bool result = false;
+
+            //выполняется проверка в обе стороны для двух игроков         
+            Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
+            Dijkstra.FindShortestPath(currentVertex1);
+            foreach (Vertex final in finalVertices1)
             {
                 try
                 {
@@ -185,9 +200,23 @@ namespace Quoridor.Models
                 {
                     continue;
                 }
-                return true;
+                result = true;
             }
-            return false;
+            Vertex currentVertex2 = Dijkstra.StartQuoridorDijkstra(currentCell2, cells.Cast<Cell>().ToArray(), AllFences);
+            Dijkstra.FindShortestPath(currentVertex2);
+            foreach (Vertex final in finalVertices2)
+            {
+                try
+                {
+                    Dijkstra.GetShortestPath(final);
+                }
+                catch (NullReferenceException e)
+                {
+                    continue;
+                }
+                result = true;
+            }
+            return result;
         }
     }
 }

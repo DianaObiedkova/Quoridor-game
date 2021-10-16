@@ -31,10 +31,14 @@
             Are you sure to start a new game?
             <br>
             (Current game will be lost.)
-            <div class="button_container in_message_box">
-                <button type="button" class="restart_yes_no" id="restart_no">Cancel</button>
-                <button type="button" class="restart_yes_no" id="restart_yes">Start</button>
-            </div>
+            <form method="post" asp-controller="Quoridor" asp-action="NewGame">
+                <div class="button_container in_message_box">
+                    <!--<button type="button" class="restart_yes_no" id="restart_no">Cancel</button>
+                    <button type="button" class="restart_yes_no" id="restart_yes">Start</button> -->
+                    <input type="button" class="restart_yes_no" id="restart_no" value="Cancel">
+                    <input type="submit" class="restart_yes_no" id="restart_yes" value="Start">
+                </div>
+            </form>
         </div>
         <table id="board_table" class="geek" border="1">
             <tr class="row1">
@@ -377,7 +381,7 @@
         <div class="posMoveX">1</div><div class="posMoveY">0</div>
         <div class="posMoveX">0</div><div class="posMoveY">-1</div>
         <div class="posMoveX">0</div><div class="posMoveY">1</div>*@
-                @{Html.RenderPartial("PartialMoves", Model.PossibleMovePawn());}
+                @*@{Html.RenderPartial("PartialMoves", Model.PossibleMovePawn());}*@
 
             </div>
         </form>

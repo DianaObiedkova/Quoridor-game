@@ -22,7 +22,7 @@ namespace Quoridor.Models
             this.firstP = firstP;
             this.secondP = secondP;
             FirstPWalls = firstP.CurrentFences;
-            SecondPWalls = firstP.CurrentFences;
+            SecondPWalls = secondP.CurrentFences;
             StartGame();
         }
 
@@ -32,7 +32,7 @@ namespace Quoridor.Models
             firstP = new HumanPlayer(new Pawn() { Cell = board.cells[0, 4] });
             secondP = new HumanPlayer(new Pawn() { Cell = board.cells[8, 4] });
             FirstPWalls = firstP.CurrentFences;
-            SecondPWalls = firstP.CurrentFences;
+            SecondPWalls = secondP.CurrentFences;
             StartGame();
         }
 

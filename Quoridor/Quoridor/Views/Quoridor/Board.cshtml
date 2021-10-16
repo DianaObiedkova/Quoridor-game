@@ -20,6 +20,7 @@
 <div class="buttons">
     <button type="button" id="restart" class="button above restart">New game</button>
 </div>
+
 <div class="gridcontainer0">
     <div id="number_of_left_walls_box">
         <div><div class="symbol1"></div><div class="horizontal_wall symbol"></div><div class="mul_sign_wall_num_container"><div class="multiplication_sign">×</div><div id="num1" class="wall_num">@ViewData["fPwalls"]</div></div></div>
@@ -83,7 +84,7 @@
                 <td class="between_cols vwall"></td>
                 <td class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell" onclick="console.log(@ViewData["moves"]);"></td>
+                <td class="col cell" @*onclick="console.log(@ViewData["moves"]);"*@></td>
                 <td class="between_cols vwall"></td>
                 <td class="col cell"></td>
                 <td class="between_cols vwall"></td>
@@ -363,21 +364,35 @@
     </div>
 </div>
 <div>
-    @*@using (Ajax.BeginForm("PossibleMoves", "Quoridor", new AjaxOptions { UpdateTargetId = "movesHelper", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
-    {
-
-    }*@
-</div>
-
-
-@{
-    <div id="movesHelper">
-        @foreach (var item in @Model.PossibleMovePawn())
+    <div>
+        <form asp-controller="Quoridor" asp-action="PossibleMoves" data-ajax="true" data-ajax-method="POST" data-ajax-update="#movesHelper" data-ajax-mode="replace">
+            <input type="submit" name="btnsearch" value="Search" />
+            <div id="movesHelper">
+                @*@foreach (var item in @Model.PossibleMovePawn())
         {
             <div class="posMoveX">@item[0]</div><div class="posMoveY">@item[1]</div>
             <br />
         }
+                <div class="posMoveX">-1</div><div class="posMoveY">0</div>
+        <div class="posMoveX">1</div><div class="posMoveY">0</div>
+        <div class="posMoveX">0</div><div class="posMoveY">-1</div>
+        <div class="posMoveX">0</div><div class="posMoveY">1</div>*@
+                @{Html.RenderPartial("PartialMoves", Model.PossibleMovePawn());}
+
+            </div>
+        </form>
     </div>
+    
+    
+    @*@using (Ajax.BeginForm("PossibleMoves", "Quoridor", new AjaxOptions { UpdateTargetId = "movesHelper", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
+        {
+
+        }*@
+</div>
+
+
+@{
+    
 
 
     @*@functions{

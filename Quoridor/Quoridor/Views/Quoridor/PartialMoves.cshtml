@@ -1,0 +1,18 @@
+﻿@model IEnumerable<int[]>
+
+    <div class="table">
+
+        @foreach (var item in Model)
+        {
+            <div class="posMoveX">@item[0]</div>
+            <div class="posMoveY">@item[1]</div>
+            @*<br />*@
+
+            @*<tr>
+                <td>@Html.DisplayFor(modelItem => item.ContactName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>@Html.DisplayFor(modelItem => item.Country)</td>
+            </tr>*@
+        }
+    </div>

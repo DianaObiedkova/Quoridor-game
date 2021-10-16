@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "NLHhOuJlNGYaw1hzYdpMdMxzq+o26WwNGe/2pdmriMam/8nyoqJb1y49yOOY7Iuazs3CyeC2vpVwjFo6xwcwlQ==",
+  "dgSpecHash": "u7055XKtTy0CnlDNWw45kZilf6cAReHz+Xu3YxhBQRvyt2H7CRUn5v5JaVeGoLL/gvZhNFFR97pXhEFLu2o/4g==",
   "success": true,
-  "projectFilePath": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj",
+  "projectFilePath": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Diana\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Diana\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
-    "C:\\Users\\Diana\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
-    "C:\\Users\\Diana\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512"
+    "/home/cybergoose/.nuget/packages/jquery/1.8.0/jquery.1.8.0.nupkg.sha512",
+    "/home/cybergoose/.nuget/packages/microsoft.jquery.unobtrusive.ajax/3.2.6/microsoft.jquery.unobtrusive.ajax.3.2.6.nupkg.sha512",
+    "/home/cybergoose/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/cybergoose/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "/home/cybergoose/.nuget/packages/system.collections/4.3.0/system.collections.4.3.0.nupkg.sha512",
+    "/home/cybergoose/.nuget/packages/system.runtime/4.3.0/system.runtime.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

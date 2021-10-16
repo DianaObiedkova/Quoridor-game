@@ -1,34 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj": {}
+    "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj": {}
   },
   "projects": {
-    "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj": {
+    "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj",
+        "projectUniqueName": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj",
         "projectName": "Quoridor",
-        "projectPath": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj",
-        "packagesPath": "C:\\Users\\Diana\\.nuget\\packages\\",
-        "outputPath": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\obj\\",
+        "projectPath": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj",
+        "packagesPath": "/home/cybergoose/.nuget/packages/",
+        "outputPath": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Diana\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/cybergoose/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -40,7 +36,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.jQuery.Unobtrusive.Ajax": {
+              "target": "Package",
+              "version": "[3.2.6, )"
+            },
             "System.Collections": {
               "target": "Package",
               "version": "[4.3.0, )"
@@ -64,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }

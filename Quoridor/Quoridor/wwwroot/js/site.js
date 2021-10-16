@@ -17,6 +17,7 @@ const htmlRestartMessageBox = document.getElementById("restart_message_box");
 
 _renderValidNextWalls();
 validPawnMoves();
+updateClicks();
 
 const restartButton = document.getElementById("restart");
 
@@ -119,11 +120,11 @@ function validPawnMoves() {
                     for (let l = 0; l < posMoveX.length; l++) {
                         let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
                         let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
-                        console.log(newX, newY);
+                        //console.log(newX, newY);
 
                         let element = htmlBoardTable.rows[newY].cells[newX];
                         if (!element.hasChildNodes()) {
-                            console.log(element);
+                            //console.log(element);
                             let shadow = document.createElement("div");
                             shadow.classList.add("pawnShadow0");
                             element.appendChild(shadow);
@@ -140,7 +141,7 @@ function validPawnMoves() {
                     for (let l = 0; l < posMoveX.length; l++) {
                         let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
                         let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
-                        console.log(newX, newY);
+                        //console.log(newX, newY);
 
                         if (newX < 0 || newY < 0 || newX>16 ||newY>16) {
                             continue;
@@ -148,7 +149,7 @@ function validPawnMoves() {
 
                         let element = htmlBoardTable.rows[newY].cells[newX];
                         if (!element.hasChildNodes()) {
-                            console.log(element);
+                            //console.log(element);
                             let shadow = document.createElement("div");
                             shadow.classList.add("pawnShadow1");
                             element.appendChild(shadow);
@@ -161,7 +162,7 @@ function validPawnMoves() {
         }
     }
 
-    removeHelperElements();
+    //removeHelperElements();
 
     cell.forEach((element) => {
 
@@ -272,6 +273,22 @@ function selectHWall(e) {
             parent.removeAttribute("onmouseleave");
             e.target.classList.remove("shadow");
 
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+
+                    let element = htmlBoardTable.rows[i * 2 + 1].cells[j * 2];
+                    if (parent === element) {
+                        if (i > 0) {
+                            htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseenter");
+                            htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseleave");
+                        }
+
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseleave");
+                    }
+                }
+            }
+            updateClicks();
             updateWalls();
             validPawnMoves();
         }
@@ -292,6 +309,22 @@ function selectHWall(e) {
             parent.removeAttribute("onmouseleave");
             e.target.classList.remove("shadow");
 
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+
+                    let element = htmlBoardTable.rows[i * 2 + 1].cells[j * 2];
+                    if (parent === element) {
+                        if (i > 0) {
+                            htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseenter");
+                            htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseleave");
+                        }
+
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseleave");
+                    }
+                }
+            }
+            updateClicks();
             updateWalls();
             validPawnMoves();
         }
@@ -323,6 +356,23 @@ function selectVWall(e) {
             parent.removeAttribute("onmouseleave");
             e.target.classList.remove("shadow");
 
+            
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+
+                    let element = htmlBoardTable.rows[i * 2].cells[j * 2 + 1];
+                    if (parent === element) {
+                        if (i > 0) {
+                            htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
+                            htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
+                        }
+
+                        htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
+                    }
+                }
+            }
+            updateClicks();
             updateWalls();
             validPawnMoves();
         }
@@ -345,6 +395,23 @@ function selectVWall(e) {
             parent.removeAttribute("onmouseleave");
             e.target.classList.remove("shadow");
 
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+
+                    let element = htmlBoardTable.rows[i * 2].cells[j * 2 + 1];
+                    if (parent === element) {
+                        if (i > 0) {
+                            htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
+                            htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
+                        }
+
+                        htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
+                    }
+                }
+            }
+            updateClicks();
+
             updateWalls();
             validPawnMoves();
         }
@@ -364,14 +431,26 @@ function updateWalls() {
 }
 
 
+function updateClicks() {
+    hwall.forEach((el) => {
+        if (el.hasAttribute("onmouseenter")) {
+            el.addEventListener('click', selectHWall);
+        }
+        else {
+            el.removeEventListener('click', selectHWall);
+        }
+    });
 
-hwall.forEach((el) => {
-    el.addEventListener('click', selectHWall);
-});
+    vwall.forEach((el) => {
+        if (el.hasAttribute("onmouseenter")) {
+            el.addEventListener('click', selectVWall);
+        }
+        else {
+            el.removeEventListener('click', selectVWall);
+        }
+    });
+}
 
-vwall.forEach((el) => {
-    el.addEventListener('click', selectVWall);
-});
 
 function renderPawnPositions() {
 

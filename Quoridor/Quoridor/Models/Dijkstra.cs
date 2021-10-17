@@ -52,12 +52,12 @@ namespace Quoridor.Models
             Vertices = new Vertex[cells.Length];
             foreach(Cell cell in cells)
             {
-                bool exists = Array.Exists(Vertices, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
+                bool exists = Array.Exists(Vertices, x => x == null);
                 int index = 0;
 
                 if (exists)
                 {
-                    index = Array.FindIndex(Vertices, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
+                    index = Array.FindIndex(Vertices, i => i == null);
                 }
                 else throw new ArgumentException("Index is not found.");//return false; не возвращаем, так как void
                 //уже не void
@@ -81,11 +81,11 @@ namespace Quoridor.Models
                 Vertex f1 = Array.Find(Vertices, v => v.Name == f1name);
                 Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
                 //Edges = добавить сell в виде new Edge(f1, s1, 1)
-                bool exists = Array.Exists(Edges, x => x == null || x.Id == 0);
+                bool exists = Array.Exists(Edges, x => x == null);
                 int index = 0;
                 if (exists)
                 {
-                    index = Array.FindIndex(Edges, i => i == null || i.Id == 0);
+                    index = Array.FindIndex(Edges, i => i == null);
                 }
                 else throw new ArgumentException("Index is not found.");
                 Edges[index] = new Edge(f1, s1, 1);
@@ -93,11 +93,11 @@ namespace Quoridor.Models
                 Vertex f2 = Array.Find(Vertices, v => v.Name == f2name);
                 Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
                 //Edges = добавить сell в виде new Edge(f2, s2, 1)
-                bool exists2 = Array.Exists(Edges, x => x == null || x.Id == 0);
+                bool exists2 = Array.Exists(Edges, x => x == null);
                 int index2 = 0;
                 if (exists2)
                 {
-                    index2 = Array.FindIndex(Edges, i => i == null || i.Id == 0);
+                    index2 = Array.FindIndex(Edges, i => i == null);
                 }
                 else throw new ArgumentException("Index is not found.");
                 Edges[index2] = new Edge(f2, s2, 1);

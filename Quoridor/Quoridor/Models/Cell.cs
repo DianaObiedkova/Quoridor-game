@@ -30,7 +30,7 @@ namespace Quoridor.Models
             else
             {
                 Cell p = (Cell)obj;
-                return p.X == X && p.Y == Y;
+                return (p.X == X && p.Y == Y)||(p.Name == Name);
             }
         }
         public override int GetHashCode()

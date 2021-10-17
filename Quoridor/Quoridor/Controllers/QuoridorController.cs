@@ -79,10 +79,12 @@ namespace Quoridor.Controllers
             Game.MovePawn(direction);
             return Ok();
         }
-        public IActionResult SetFence(Cell c1, Cell c2)
+        public IActionResult SetFence(string c1name, string c2name)
         {
-            ViewData["fPwalls"] = Game.FirstPWalls;
-            ViewData["sPwalls"] = Game.SecondPWalls;
+            Cell c1 = new Cell();
+            Cell c2 = new Cell();
+            c1.Name = c1name;
+            c2.Name = c2name;
             Game.SetFence(c1, c2);
             return Ok();
         }

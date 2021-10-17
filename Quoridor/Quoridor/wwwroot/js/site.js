@@ -519,8 +519,8 @@ function sendVWall () {
     $.ajax({
         type: "POST",
         url: "/Quoridor/SetFence",
-        data: { "c1name": $(this).attr("id"), 
-                "c2name": $(this).attr("id")},
+        data: { "c1name": $(this).attr("cell1"), 
+                "c2name": $(this).attr("cell2")},
         success: function (response) {
             alert("OK");
         },

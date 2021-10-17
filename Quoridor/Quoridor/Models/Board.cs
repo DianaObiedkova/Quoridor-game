@@ -104,6 +104,8 @@ namespace Quoridor.Models
         //можно ли поставить перегородку?
         public bool IsFencePossible(string fenceName)
         {
+            if(AllFences[0] == null)
+                return true;
             //проверить есть ли уже такая в списке allfences
             if(Array.Exists(AllFences, x => x.Name.Contains(fenceName)||x.Name.Equals(fenceName)))
             {
@@ -176,6 +178,12 @@ namespace Quoridor.Models
         {
             List<Vertex> finalVertices1 = new List<Vertex>();
             List<Vertex> finalVertices2 = new List<Vertex>();
+            
+            bool result = false;
+
+            //выполняется проверка в обе стороны для двух игроков         
+            Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
+
             //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices
             for(int i=0; i<Size; i++) 
             {
@@ -185,10 +193,6 @@ namespace Quoridor.Models
                 finalVertices2.Add(sideVertex2);
             }
 
-            bool result = false;
-
-            //выполняется проверка в обе стороны для двух игроков         
-            Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
             Dijkstra.FindShortestPath(currentVertex1);
             foreach (Vertex final in finalVertices1)
             {

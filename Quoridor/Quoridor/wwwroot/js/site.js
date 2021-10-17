@@ -477,20 +477,60 @@ function updateClicks() {
     hwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
             el.addEventListener('click', selectHWall);
+            el.addEventListener('click', sendHWall);
         }
         else {
             el.removeEventListener('click', selectHWall);
+            el.removeEventListener('click', sendHWall);
         }
     });
 
     vwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
             el.addEventListener('click', selectVWall);
+            el.addEventListener('click', sendVWall);
         }
         else {
             el.removeEventListener('click', selectVWall);
+            el.removeEventListener('click', sendVWall);
         }
     });
+}
+
+function sendHWall () {
+    $.ajax({
+        type: "POST",
+        url: "/Quoridor/SetFence",
+        data: { "c1name": $(this).attr("cell1"), 
+                "c2name": $(this).attr("cell2")},
+        success: function (response) {
+            alert("OK");
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
+    })
+}
+
+function sendVWall () {
+    $.ajax({
+        type: "POST",
+        url: "/Quoridor/SetFence",
+        data: { "c1name": $(this).attr("id"), 
+                "c2name": $(this).attr("id")},
+        success: function (response) {
+            alert("OK");
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
+    })
 }
 
 

@@ -43,305 +43,305 @@
         <table id="board_table" class="geek" border="1">
             <tr class="row1">
                 <td id="a0" class="col cell" @*onclick="@(() =>  @UpdatePossibleMoves() )"*@></td>
-                <td class="between_cols vwall" @*onclick="@SetFenceInvoke()"*@></td>
+                <td cell1="b0" cell2="b1" class="between_cols vwall" @*onclick="@SetFenceInvoke()"*@></td>
                 <td id="b0" class="col cell"></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"*@></td>
+                <td cell1="c0" cell2="c1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"*@></td>
                 <td id="c0" class="col cell"></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"*@></td>
+                <td cell1="d0" cell2="d1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"*@></td>
                 <td id="d0" class="col cell"></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"*@></td>
+                <td cell1="e0" cell2="e1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"*@></td>
                 <td id="e0" class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"*@></td>
+                <td cell1="f0" cell2="f1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"*@></td>
                 <td id="f0" class="col cell"></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"*@></td>
+                <td cell1="g0" cell2="g1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"*@></td>
                 <td id="g0" class="col cell"></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"*@></td>
+                <td cell1="h0" cell2="h1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"*@></td>
                 <td id="h0" class="col cell"></td>
-                <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"*@></td>
+                <td cell1="i0" cell2="i1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"*@></td>
                 <td id="i0" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a0" cell2="b0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b0" cell2="c0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c0" cell2="d0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d0" cell2="e0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e0" cell2="f0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f0" cell2="g0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g0" cell2="h0" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h0" cell2="i0" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b1" cell2="b2" class="between_cols vwall"></td>
                 <td id="b1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c1" cell2="c2" class="between_cols vwall"></td>
                 <td id="c1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d1" cell2="d2" class="between_cols vwall"></td>
                 <td id="d1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e1" cell2="e2" class="between_cols vwall"></td>
                 <td id="e1" class="col cell" @*onclick="console.log(@ViewData["moves"]);"*@></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f1" cell2="f2" class="between_cols vwall"></td>
                 <td id="f1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g1" cell2="g2" class="between_cols vwall"></td>
                 <td id="g1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h1" cell2="h2" class="between_cols vwall"></td>
                 <td id="h1" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i1" cell2="i2" class="between_cols vwall"></td>
                 <td id="i1" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a1" cell2="b1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b1" cell2="c1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c1" cell2="d1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d1" cell2="e1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e1" cell2="f1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f1" cell2="g1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g1" cell2="h1" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h1" cell2="i1" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b2" cell2="b3" class="between_cols vwall"></td>
                 <td id="b2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c2" cell2="c3" class="between_cols vwall"></td>
                 <td id="c2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d2" cell2="d3" class="between_cols vwall"></td>
                 <td id="d2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e2" cell2="e3" class="between_cols vwall"></td>
                 <td id="e2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f2" cell2="f3" class="between_cols vwall"></td>
                 <td id="f2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g2" cell2="g3" class="between_cols vwall"></td>
                 <td id="g2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h2" cell2="h3" class="between_cols vwall"></td>
                 <td id="h2" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i2" cell2="i3" class="between_cols vwall"></td>
                 <td id="i2" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a2" cell2="b2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b2" cell2="c2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c2" cell2="d2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d2" cell2="e2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e2" cell2="f2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f2" cell2="g2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g2" cell2="h2" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h2" cell2="i2" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b3" cell2="b4" class="between_cols vwall"></td>
                 <td id="b3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c3" cell2="c4" class="between_cols vwall"></td>
                 <td id="c3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d3" cell2="d4" class="between_cols vwall"></td>
                 <td id="d3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e3" cell2="e4" class="between_cols vwall"></td>
                 <td id="e3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f3" cell2="f4" class="between_cols vwall"></td>
                 <td id="f3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g3" cell2="g4" class="between_cols vwall"></td>
                 <td id="g3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h3" cell2="h4" class="between_cols vwall"></td>
                 <td id="h3" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i3" cell2="i4" class="between_cols vwall"></td>
                 <td id="i3" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a3" cell2="b3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b3" cell2="c3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c3" cell2="d3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d3" cell2="e3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e3" cell2="f3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f3" cell2="g3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g3" cell2="h3" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h3" cell2="i3" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b4" cell2="b5" class="between_cols vwall"></td>
                 <td id="b4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c4" cell2="c5" class="between_cols vwall"></td>
                 <td id="c4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d4" cell2="d5" class="between_cols vwall"></td>
                 <td id="d4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e4" cell2="e5" class="between_cols vwall"></td>
                 <td id="e4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f4" cell2="f5" class="between_cols vwall"></td>
                 <td id="f4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g4" cell2="g5" class="between_cols vwall"></td>
                 <td id="g4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h4" cell2="h5" class="between_cols vwall"></td>
                 <td id="h4" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i4" cell2="i5" class="between_cols vwall"></td>
                 <td id="i4" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a4" cell2="b4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b4" cell2="c4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c4" cell2="d4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d4" cell2="e4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e4" cell2="f4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f4" cell2="g4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g4" cell2="h4" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h4" cell2="i4" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b5" cell2="b6" class="between_cols vwall"></td>
                 <td id="b5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c5" cell2="c6" class="between_cols vwall"></td>
                 <td id="c5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d5" cell2="d6" class="between_cols vwall"></td>
                 <td id="d5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e5" cell2="e6" class="between_cols vwall"></td>
                 <td id="e5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f5" cell2="f6" class="between_cols vwall"></td>
                 <td id="f5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g5" cell2="g6" class="between_cols vwall"></td>
                 <td id="g5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h5" cell2="h6" class="between_cols vwall"></td>
                 <td id="h5" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i5" cell2="i6" class="between_cols vwall"></td>
                 <td id="i5" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a5" cell2="b5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b5" cell2="c5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c5" cell2="d5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d5" cell2="e5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e5" cell2="f5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f5" cell2="g5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g5" cell2="h5" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h5" cell2="i5" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b6" cell2="b7" class="between_cols vwall"></td>
                 <td id="b6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c6" cell2="c7" class="between_cols vwall"></td>
                 <td id="c6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d6" cell2="d7" class="between_cols vwall"></td>
                 <td id="d6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e6" cell2="e7" class="between_cols vwall"></td>
                 <td id="e6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f6" cell2="f7" class="between_cols vwall"></td>
                 <td id="f6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g6" cell2="g7" class="between_cols vwall"></td>
                 <td id="g6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h6" cell2="h7" class="between_cols vwall"></td>
                 <td id="h6" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i6" cell2="i7" class="between_cols vwall"></td>
                 <td id="i6" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a6" cell2="b6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b6" cell2="c6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c6" cell2="d6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d6" cell2="e6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e6" cell2="f6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f6" cell2="g6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g6" cell2="h6" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h6" cell2="i6" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>
             <tr>
                 <td id="a7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="b7" cell2="b8" class="between_cols vwall"></td>
                 <td id="b7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="c7" cell2="c8" class="between_cols vwall"></td>
                 <td id="c7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="d7" cell2="d8" class="between_cols vwall"></td>
                 <td id="d7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="e7" cell2="e8" class="between_cols vwall"></td>
                 <td id="e7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="f7" cell2="f8" class="between_cols vwall"></td>
                 <td id="f7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="g7" cell2="g8" class="between_cols vwall"></td>
                 <td id="g7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="h7" cell2="h8" class="between_cols vwall"></td>
                 <td id="h7" class="col cell"></td>
-                <td class="between_cols vwall"></td>
+                <td cell1="i7" cell2="i8" class="between_cols vwall"></td>
                 <td id="i7" class="col cell"></td>
             </tr>
             <tr class="between_rows">
-                <td class="col hwall"></td>
+                <td cell1="a7" cell2="b7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="b7" cell2="c7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="c7" cell2="d7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="d7" cell2="e7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="e7" cell2="f7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="f7" cell2="g7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="g7" cell2="h7" class="col hwall"></td>
                 <td class="between_cols"></td>
-                <td class="col hwall"></td>
+                <td cell1="h7" cell2="i7" class="col hwall"></td>
                 <td class="between_cols"></td>
                 <td class="col hwall"></td>
             </tr>

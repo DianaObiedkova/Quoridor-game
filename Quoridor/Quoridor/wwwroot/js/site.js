@@ -192,11 +192,24 @@ function validPawnMoves() {
 
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
             element.addEventListener('click', selectCell);
-            element.addEventListener('click', consolelog);
+            element.addEventListener('click', function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Quoridor/MovePawn",
+                    data: { "name": $(this).attr("id") },
+                    success: function (response) {
+                        alert("OK");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                })
+            });
         }
-
     });
-
 }
 
 function consolelog(e) {

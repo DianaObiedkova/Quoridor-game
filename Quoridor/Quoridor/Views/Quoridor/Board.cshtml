@@ -7,7 +7,7 @@
 
 @*<p>Let's play!</p>*@
 
-@{
+@*@{
     object SetFenceInvoke()
     {
         Quoridor.Controllers.QuoridorController g = new Quoridor.Controllers.QuoridorController(); //какая-то дичь
@@ -15,7 +15,7 @@
         //Model.SetFence(new Cell() { X = "b", Y = 0 }, new Cell() { X = "b", Y = 1 });
         //return Model.SecondPWalls;
     }
-}
+}*@
 
 <div class="buttons">
     <button type="button" id="restart" class="button above restart">New game</button>
@@ -42,23 +42,23 @@
         </div>
         <table id="board_table" class="geek" border="1">
             <tr class="row1">
-                <td class="col cell" @*onclick="@(() =>  @UpdatePossibleMoves() )"*@></td>
+                <td id="a0" class="col cell" @*onclick="@(() =>  @UpdatePossibleMoves() )"*@></td>
                 <td class="between_cols vwall" @*onclick="@SetFenceInvoke()"*@></td>
-                <td class="col cell"></td>
+                <td id="b0" class="col cell"></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"*@></td>
-                <td class="col cell"></td>
+                <td id="c0" class="col cell"></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"*@></td>
-                <td class="col cell"></td>
+                <td id="d0" class="col cell"></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"*@></td>
-                <td class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
+                <td id="e0" class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"*@></td>
-                <td class="col cell"></td>
+                <td id="f0" class="col cell"></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"*@></td>
-                <td class="col cell"></td>
+                <td id="g0" class="col cell"></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"*@></td>
-                <td class="col cell"></td>
+                <td id="h0" class="col cell"></td>
                 <td class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"*@></td>
-                <td class="col cell"></td>
+                <td id="i0" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -80,23 +80,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell" @*onclick="console.log(@ViewData["moves"]);"*@></td>
+                <td id="e1" class="col cell" @*onclick="console.log(@ViewData["moves"]);"*@></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h1" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i1" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -118,23 +118,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="e2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h2" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i2" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -156,23 +156,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="e3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h3" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i3" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -194,23 +194,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="e4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h4" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i4" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -232,23 +232,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="e5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h5" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i5" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -270,23 +270,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="e6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h6" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i6" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -308,23 +308,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr>
-                <td class="col cell"></td>
+                <td id="a7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="e7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h7" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i7" class="col cell"></td>
             </tr>
             <tr class="between_rows">
                 <td class="col hwall"></td>
@@ -346,23 +346,23 @@
                 <td class="col hwall"></td>
             </tr>
             <tr class="row10">
-                <td class="col cell"></td>
+                <td id="a8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="b8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="c8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="d8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"><div class="pawn pawn1" id="pawn1"></div></td>
+                <td id="e8" class="col cell"><div class="pawn pawn1" id="pawn1"></div></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="f8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="g8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="h8" class="col cell"></td>
                 <td class="between_cols vwall"></td>
-                <td class="col cell"></td>
+                <td id="i8" class="col cell"></td>
             </tr>
         </table>
     </div>
@@ -381,7 +381,7 @@
         <div class="posMoveX">1</div><div class="posMoveY">0</div>
         <div class="posMoveX">0</div><div class="posMoveY">-1</div>
         <div class="posMoveX">0</div><div class="posMoveY">1</div>*@
-                @*@{Html.RenderPartial("PartialMoves", Model.PossibleMovePawn());}*@
+                @{Html.RenderPartial("PartialMoves", Model.PossibleMovePawn());}
 
             </div>
         </form>

@@ -481,9 +481,13 @@ function removePreviousRender() {
         }
     }
     // remove pawn shadows which are for previous board
-    let previousPawnShadows = document.getElementsByClassName("pawn shadow");
-    while (previousPawnShadows.length !== 0) {
-        previousPawnShadows[0].remove();
+    let previousPawnShadows0 = document.getElementsByClassName("pawnShadow0");
+    while (previousPawnShadows0.length !== 0) {
+        previousPawnShadows0[0].remove();
+    }
+    let previousPawnShadows1 = document.getElementsByClassName("pawnShadow1");
+    while (previousPawnShadows1.length !== 0) {
+        previousPawnShadows1[0].remove();
     }
 }
 

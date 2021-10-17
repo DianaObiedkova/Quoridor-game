@@ -104,8 +104,6 @@ namespace Quoridor.Models
         //можно ли поставить перегородку?
         public bool IsFencePossible(string fenceName)
         {
-            if(AllFences[0] == null)
-                return true;
             //проверить есть ли уже такая в списке allfences
             if(Array.Exists(AllFences, x => x.Name.Contains(fenceName)||x.Name.Equals(fenceName)))
             {
@@ -122,6 +120,8 @@ namespace Quoridor.Models
         //PawnCell2 - клетка с пешкой игрока-противника
         public bool SetFence(Cell X, Cell Y, Cell PawnCell1, Cell PawnCell2)
         {
+            if(AllFences[0] == null)
+                return true;
             
             //формирование имени Fence
             string newName;

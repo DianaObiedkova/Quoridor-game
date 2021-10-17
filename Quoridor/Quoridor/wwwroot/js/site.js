@@ -125,9 +125,21 @@ function validPawnMoves() {
                         let element = htmlBoardTable.rows[newY].cells[newX];
                         if (!element.hasChildNodes()) {
                             //console.log(element);
+                            let id = "form" + l;
+
+                            //let form = document.createElement("form");
                             let shadow = document.createElement("div");
                             shadow.classList.add("pawnShadow0");
+                            //form.setAttribute("id", id);
+                            //shadow.setAttribute("onclick", "document.getElementById('" + id+"').submit();");
+                            //form.setAttribute("asp-action", "PossibleMoves");
+                            //form.setAttribute("asp-controller", "Quoridor");
+                            //form.setAttribute("data-ajax", "true");
+                            //form.setAttribute("data-ajax-method", "POST");
+                            //form.setAttribute("data-ajax-update", "#movesHelper");
+                            //form.setAttribute("data-ajax-mode", "replace");
                             element.appendChild(shadow);
+                            //element.appendChild(form);
                         }
                         
                     }
@@ -150,9 +162,21 @@ function validPawnMoves() {
                         let element = htmlBoardTable.rows[newY].cells[newX];
                         if (!element.hasChildNodes()) {
                             //console.log(element);
+                            let id = "form" + l;
+
+                            //let form = document.createElement("form");
                             let shadow = document.createElement("div");
                             shadow.classList.add("pawnShadow1");
+                            //form.setAttribute("id", id);
+                            //shadow.setAttribute("onclick", "document.getElementById('" + id + "').submit();");
+                            //form.setAttribute("asp-action", "PossibleMoves");
+                            //form.setAttribute("asp-controller", "Quoridor");
+                            //form.setAttribute("data-ajax", "true");
+                            //form.setAttribute("data-ajax-method", "POST");
+                            //form.setAttribute("data-ajax-update", "#movesHelper");
+                            //form.setAttribute("data-ajax-mode", "replace");
                             element.appendChild(shadow);
+                            //element.appendChild(form);
                         }
 
                     }
@@ -167,11 +191,16 @@ function validPawnMoves() {
     cell.forEach((element) => {
 
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
-        element.addEventListener('click', selectCell);
+            element.addEventListener('click', selectCell);
+            element.addEventListener('click', consolelog);
         }
 
     });
 
+}
+
+function consolelog(e) {
+    console.log(e);
 }
 
 function removeHelperElements() {

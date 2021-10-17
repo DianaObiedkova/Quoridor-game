@@ -41,32 +41,33 @@ namespace Quoridor.Controllers
             return PartialView("PartialMoves", Game.PossibleMovePawn());
         }
 
-        public IActionResult MovePawn(string new_cellname)
+        public IActionResult MovePawn(string name)
         {
+            string new_cellname = name;
             string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
             Direction direction = Direction.North;
-            if(((byte)cur_cellname[1]) == ((byte)new_cellname[1]))
+            if((cur_cellname[1]) == (new_cellname[1]))
             {
-                if(((byte)cur_cellname[0]) > ((byte)new_cellname[0]))
+                if((cur_cellname[0]) > (new_cellname[0]))
                     direction = Direction.West;
-                else if(((byte)cur_cellname[0]) < ((byte)new_cellname[0]))
+                else if((cur_cellname[0]) < (new_cellname[0]))
                     direction = Direction.East;
                 else{}
             }
-            else if(((byte)cur_cellname[1]) > ((byte)new_cellname[1]))
+            else if((cur_cellname[1]) > (new_cellname[1]))
             {
-                if(((byte)cur_cellname[0]) > ((byte)new_cellname[0]))
+                if((cur_cellname[0]) > (new_cellname[0]))
                     direction = Direction.NorthWest;
-                else if(((byte)cur_cellname[0]) < ((byte)new_cellname[0]))
+                else if((cur_cellname[0]) < (new_cellname[0]))
                     direction = Direction.NorthEast;
                 else
                     direction = Direction.North;
             }
-            else if(((byte)cur_cellname[1]) < ((byte)new_cellname[1]))
+            else if((cur_cellname[1]) < (new_cellname[1]))
             {
-                if(((byte)cur_cellname[0]) > ((byte)new_cellname[0]))
+                if((cur_cellname[0]) > (new_cellname[0]))
                     direction = Direction.SouthWest;
-                else if(((byte)cur_cellname[0]) < ((byte)new_cellname[0]))
+                else if((cur_cellname[0]) < (new_cellname[0]))
                     direction = Direction.SouthEast;
                 else
                     direction = Direction.South;

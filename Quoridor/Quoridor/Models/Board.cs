@@ -120,9 +120,7 @@ namespace Quoridor.Models
         //PawnCell2 - клетка с пешкой игрока-противника
         public bool SetFence(Cell X, Cell Y, Cell PawnCell1, Cell PawnCell2)
         {
-            if(AllFences[0] == null)
-                return true;
-            
+                        
             //формирование имени Fence
             string newName;
             //наименование перегородок + ИД
@@ -147,11 +145,14 @@ namespace Quoridor.Models
                 return false;
             }
 
-            //передавать параметры в DijkstraCheck()
-            if(!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2)) 
+            if(AllFences[0] != null)
             {
-                return false;
+                if(!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2)) 
+                {
+                    return false;
+                }
             }
+                        
             //ищу индекс первого пустого элемента в массиве
 
             bool exists = Array.Exists(AllFences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));

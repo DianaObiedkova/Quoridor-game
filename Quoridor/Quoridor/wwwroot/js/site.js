@@ -481,7 +481,7 @@ function updateClicks() {
         }
         else {
             el.removeEventListener('click', selectHWall);
-            el.removeEventListener('click', sendHWall);
+            //el.removeEventListener('click', sendHWall);
         }
     });
 
@@ -492,7 +492,7 @@ function updateClicks() {
         }
         else {
             el.removeEventListener('click', selectVWall);
-            el.removeEventListener('click', sendVWall);
+            //el.removeEventListener('click', sendVWall);
         }
     });
 }

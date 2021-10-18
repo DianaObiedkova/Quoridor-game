@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,17 +10,18 @@ namespace Quoridor.Controllers
 {
     public class QuoridorController : Controller
     {
-        public Game Game { get; set; }
+        public static Game Game { get; set; }
 
         public QuoridorController()
         {
-            Game = new Game(); 
-            ViewData["fPwalls"] = Game.FirstPWalls;
-            ViewData["sPwalls"] = Game.SecondPWalls;
+            //Game = new Game(); 
+            //ViewData["fPwalls"] = Game.FirstPWalls;
+            //ViewData["sPwalls"] = Game.SecondPWalls;
         }
 
         public IActionResult Board()
         {
+            Game = new Game();
             ViewData["fPwalls"] = Game.FirstPWalls;
             ViewData["sPwalls"] = Game.SecondPWalls;
             ViewData["moves"] = Game.PossibleMovePawn();
@@ -81,12 +83,18 @@ namespace Quoridor.Controllers
         }
         public IActionResult SetFence(string c1name, string c2name)
         {
+            Debug.Print("SetFence action started");
             Cell c1 = new Cell();
             Cell c2 = new Cell();
             c1.Name = c1name;
             c2.Name = c2name;
-            Game.SetFence(c1, c2);
-            return Ok();
+            bool res = Game.SetFence(c1, c2);
+            Debug.Print("here");
+            Debug.Print(Game.GetHashCode().ToString());
+            if(res)
+                return Ok();
+            else
+                return BadRequest();
         }
     }
 }

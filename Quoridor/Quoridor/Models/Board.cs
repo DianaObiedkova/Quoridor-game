@@ -155,12 +155,12 @@ namespace Quoridor.Models
                         
             //ищу индекс первого пустого элемента в массиве
 
-            bool exists = Array.Exists(AllFences, x => x == null || x.Id == 0 || string.IsNullOrEmpty(x.Name));
+            bool exists = Array.Exists(AllFences, x => x == null);
             int index = 0;
 
             if (exists)
             {
-                index = Array.FindIndex(AllFences, i => i == null || i.Id == 0 || string.IsNullOrEmpty(i.Name));
+                index = Array.FindIndex(AllFences, i => i == null);
             }
             else return false;
 

@@ -105,7 +105,7 @@ namespace Quoridor.Models
         public bool IsFencePossible(string fenceName)
         {
             //проверить есть ли уже такая в списке allfences
-            if(Array.Exists(AllFences, x => x.Name.Contains(fenceName)||x.Name.Equals(fenceName)))
+            if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(fenceName)||x.Name.Equals(fenceName))))
             {
                 return false;
             }

@@ -72,6 +72,8 @@ namespace Quoridor.Models
             Edges = new Edge[AllFences.Length*2];
             foreach(Fence fence in AllFences)
             {
+                if(fence == null)
+                    continue;
                 string f1name = fence.Name.Substring(1, 1) + fence.Name.Substring(2, 1); //точно ли начинаем с индекса 1, или все-таки 0?
                 //точно, там первый символ v/h 
                 string s1name = fence.Name.Substring(3, 1) + fence.Name.Substring(4, 1);
@@ -171,16 +173,16 @@ namespace Quoridor.Models
 
         private static IEnumerable<Vertex> GetNeighbours(Vertex current)
         {
-            IEnumerable<Vertex> first = from ed in Edges where ed.FirstVertex == current select ed.SecondVertex;
-            IEnumerable<Vertex> second = from ed in Edges where ed.SecondVertex == current select ed.FirstVertex;
+            IEnumerable<Vertex> first = from ed in Edges where (ed != null && ed.FirstVertex == current) select ed.SecondVertex;
+            IEnumerable<Vertex> second = from ed in Edges where (ed != null && ed.SecondVertex == current) select ed.FirstVertex;
             IEnumerable<Vertex> result = first.Concat<Vertex>(second);
             return result;
         }
 
         private static Edge GetEdge(Vertex first, Vertex second)
         {
-            IEnumerable<Edge> newEdges = from ed in Edges where (ed.FirstVertex == first && ed.SecondVertex == second) ||
-                (ed.FirstVertex == second && ed.SecondVertex == first) select ed;
+            IEnumerable<Edge> newEdges = from ed in Edges where (ed != null && ed.FirstVertex == first && ed.SecondVertex == second) ||
+                (ed != null && ed.FirstVertex == second && ed.SecondVertex == first) select ed;
             if(!newEdges.Any())
             {
                 throw new ArgumentException("edge not found"); //тогда путь не найден (?) 

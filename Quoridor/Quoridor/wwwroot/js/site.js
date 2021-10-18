@@ -320,10 +320,13 @@ function selectHWall(e) {
 
                     let element = htmlBoardTable.rows[i * 2 + 1].cells[j * 2];
                     if (parent === element) {
-                        if (i > 0) {
+                        if (j > 0) {
                             htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseenter");
                             htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseleave");
                         }
+                        
+                        htmlBoardTable.rows[i * 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
 
                         htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseenter");
                         htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseleave");
@@ -356,12 +359,15 @@ function selectHWall(e) {
 
                     let element = htmlBoardTable.rows[i * 2 + 1].cells[j * 2];
                     if (parent === element) {
-                        if (i > 0) {
+                        if (j > 0) {
                             htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseenter");
                             htmlBoardTable.rows[i * 2 + 1].cells[j * 2 - 2].removeAttribute("onmouseleave");
                         }
+                        
+                        htmlBoardTable.rows[i * 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
 
-                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2].cells[j * 2 + 2].removeAttribute("onmouseenter");
                         htmlBoardTable.rows[i * 2 + 1].cells[j * 2 + 2].removeAttribute("onmouseleave");
                     }
                 }
@@ -409,6 +415,9 @@ function selectVWall(e) {
                             htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
                         }
 
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2].removeAttribute("onmouseleave");
+
                         htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
                         htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
                     }
@@ -446,6 +455,9 @@ function selectVWall(e) {
                             htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
                             htmlBoardTable.rows[i * 2 - 2].cells[j * 2 + 1].removeAttribute("onmouseleave");
                         }
+
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2].removeAttribute("onmouseenter");
+                        htmlBoardTable.rows[i * 2 + 1].cells[j * 2].removeAttribute("onmouseleave");
 
                         htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseenter");
                         htmlBoardTable.rows[i * 2 + 2].cells[j * 2 + 1].removeAttribute("onmouseleave");

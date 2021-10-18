@@ -8,7 +8,7 @@ namespace Quoridor.Models
     public class Cell:Entity
     {
         //наличие стен вокруг клетки
-        public bool NorthWall { get; private set; }
+        public bool NorthWall { get; set; }
         public bool EastWall { get; set; }
         public bool SouthWall { get; set; }
         public bool WestWall { get; set; }

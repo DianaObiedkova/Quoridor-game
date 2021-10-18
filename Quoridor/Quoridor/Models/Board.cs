@@ -152,7 +152,42 @@ namespace Quoridor.Models
                     return false;
                 }
             }
-                        
+            //горизонтальные
+            if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
+            {
+                for(int i = 0; i < cells.GetLength(0); i++)
+                {
+                    for (int j = 0; j < cells.GetLength(1); j++)
+                    {
+                        if (X.Name == cells[i, j].Name || Y.Name == cells[i, j].Name)
+                        {
+                            cells[i, j].SouthWall = true;
+                            if (i < cells.GetLength(0) - 1)
+                            {
+                                cells[i + 1, j].NorthWall = true;
+                            }
+                        }
+                    }
+                }
+            }
+            //вертикальные
+            else if (X.Name.Substring(0, 1) == Y.Name.Substring(0, 1))
+            {
+                for (int i = 0; i < cells.GetLength(0); i++)
+                {
+                    for (int j = 0; j < cells.GetLength(1); j++)
+                    {
+                        if (X.Name == cells[i, j].Name || Y.Name == cells[i, j].Name)
+                        {
+                            cells[i, j].WestWall = true;
+                            if (j > 0)
+                            {
+                                cells[i, j - 1].EastWall = true;
+                            }
+                        }
+                    }
+                }
+            }
             //ищу индекс первого пустого элемента в массиве
 
             bool exists = Array.Exists(AllFences, x => x == null);

@@ -16,9 +16,10 @@ const vwall = document.querySelectorAll(".vwall");
 const htmlRestartMessageBox = document.getElementById("restart_message_box");
 
 _renderValidNextWalls();
-validPawnMoves();
-updateClicks();
 
+updateClicks();
+getPossibleMoves();
+//validPawnMoves();
 const restartButton = document.getElementById("restart");
 
 restartButton.onclick = function onclickRestartButton() {
@@ -167,6 +168,8 @@ function validPawnMoves() {
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
             element.addEventListener('click', selectCell);
             element.addEventListener('click', sendPawnMove);
+            element.addEventListener('click', getPossibleMoves);
+            
         }
     });
 }
@@ -448,7 +451,7 @@ function updateClicks() {
     hwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
             el.addEventListener('click', selectHWall);
-            el.addEventListener('click', sendHWall);
+            el.addEventListener('click', sendWall);
         }
         else {
             el.removeEventListener('click', selectHWall);
@@ -459,7 +462,7 @@ function updateClicks() {
     vwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
             el.addEventListener('click', selectVWall);
-            el.addEventListener('click', sendVWall);
+            el.addEventListener('click', sendWall);
         }
         else {
             el.removeEventListener('click', selectVWall);

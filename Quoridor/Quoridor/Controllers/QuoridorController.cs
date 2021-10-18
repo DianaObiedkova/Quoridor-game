@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Quoridor.Models;
@@ -37,10 +38,17 @@ namespace Quoridor.Controllers
             return View("Views/Quoridor/Board.cshtml");
         }
 
-        public IActionResult PossibleMoves()
+        public ContentResult PossibleMoves()
         {
-            ViewData["moves"] = Game.PossibleMovePawn();
-            return PartialView("PartialMoves", Game.PossibleMovePawn());
+            StringBuilder str=new StringBuilder("");
+
+            foreach(var item in Game.PossibleMovePawn())
+            {
+                str.Append("<div class=\"posMoveX\">" + item[0] + "</div><div class=\"posMoveY\">" + item[1] + "</div>");
+            }
+            //ViewData["moves"] = Game.PossibleMovePawn();
+            //return PartialView("PartialMoves", Game.PossibleMovePawn());
+            return base.Content(str.ToString(), "text/html");
         }
 
         public IActionResult MovePawn(string name)

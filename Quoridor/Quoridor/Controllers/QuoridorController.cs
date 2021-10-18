@@ -83,14 +83,11 @@ namespace Quoridor.Controllers
         }
         public IActionResult SetFence(string c1name, string c2name)
         {
-            Debug.Print("SetFence action started");
             Cell c1 = new Cell();
             Cell c2 = new Cell();
             c1.Name = c1name;
             c2.Name = c2name;
             bool res = Game.SetFence(c1, c2);
-            Debug.Print("here");
-            Debug.Print(Game.GetHashCode().ToString());
             if(res)
                 return Ok();
             else

@@ -261,28 +261,18 @@ namespace Quoridor.Models
             Dijkstra.FindShortestPath(currentVertex1);
             foreach (Vertex final in finalVertices1)
             {
-                try
-                {
-                    Dijkstra.GetShortestPath(final);
-                }
-                catch (NullReferenceException e)
-                {
+                bool local_res = Dijkstra.GetShortestPath(final);
+                if(!local_res)
                     continue;
-                }
                 result = true;
             }
             Vertex currentVertex2 = Dijkstra.StartQuoridorDijkstra(currentCell2, cells.Cast<Cell>().ToArray(), AllFences);
             Dijkstra.FindShortestPath(currentVertex2);
             foreach (Vertex final in finalVertices2)
             {
-                try
-                {
-                    Dijkstra.GetShortestPath(final);
-                }
-                catch (NullReferenceException e)
-                {
+                bool local_res = Dijkstra.GetShortestPath(final);
+                if(!local_res)
                     continue;
-                }
                 result = true;
             }
             return result;

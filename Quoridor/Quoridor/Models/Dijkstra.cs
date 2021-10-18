@@ -159,16 +159,20 @@ namespace Quoridor.Models
         //last - точки нужного края поля, метод принимает по одной
         //если current.prevVertex == null, то пути нет(!)
         //если нет пути ни в одну точку по итогам вызова для всех клеток края, то установка стены запрещена
-        public static List<Vertex> GetShortestPath(Vertex last)
+        //alt: public static List<Vertex> GetShortestPath(Vertex last)
+        //     return path;
+        public static bool GetShortestPath(Vertex last)
         {
             List<Vertex> path = new List<Vertex>();
             Vertex current = last;
             while (current != startVertex)
             {
+                if(current == null)
+                    return false;
                 path.Add(current);
                 current = current.PrevVertex;
             }
-            return path;
+            return true;
         }
 
         private static IEnumerable<Vertex> GetNeighbours(Vertex current)

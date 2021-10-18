@@ -192,22 +192,7 @@ function validPawnMoves() {
 
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
             element.addEventListener('click', selectCell);
-            element.addEventListener('click', function () {
-                $.ajax({
-                    type: "POST",
-                    url: "/Quoridor/MovePawn",
-                    data: { "name": $(this).attr("id") },
-                    success: function (response) {
-                        alert("OK");
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                })
-            });
+            element.addEventListener('click', sendPawnMove);
         }
     });
 }
@@ -508,43 +493,6 @@ function updateClicks() {
         }
     });
 }
-
-function sendHWall () {
-    $.ajax({
-        type: "POST",
-        url: "/Quoridor/SetFence",
-        data: { "c1name": $(this).attr("cell1"), 
-                "c2name": $(this).attr("cell2")},
-        success: function (response) {
-            alert("OK");
-        },
-        failure: function (response) {
-            alert(response.responseText);
-        },
-        error: function (response) {
-            alert(response.responseText);
-        }
-    })
-}
-
-function sendVWall () {
-    $.ajax({
-        type: "POST",
-        url: "/Quoridor/SetFence",
-        data: { "c1name": $(this).attr("cell1"), 
-                "c2name": $(this).attr("cell2")},
-        success: function (response) {
-            alert("OK");
-        },
-        failure: function (response) {
-            alert(response.responseText);
-        },
-        error: function (response) {
-            alert(response.responseText);
-        }
-    })
-}
-
 
 function renderPawnPositions() {
 

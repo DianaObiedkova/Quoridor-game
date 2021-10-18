@@ -104,8 +104,37 @@ namespace Quoridor.Models
         //можно ли поставить перегородку?
         public bool IsFencePossible(string fenceName)
         {
+            string firstpart = fenceName.Substring(1, 4);
+            string secondpart = fenceName.Substring(5, 4);
+
+            string crossfence = "";
+            if(fenceName[0] == 'h')
+            {
+                crossfence += "v";
+            }
+            else
+            {
+                crossfence += "h";
+            }
+            //верхняя/левая половина
+            crossfence += firstpart.Substring(0, 2);
+            crossfence += secondpart.Substring(0, 2);
+            //нижняя/правая половина
+            crossfence += firstpart.Substring(2, 2);
+            crossfence += secondpart.Substring(2, 2);
+
             //проверить есть ли уже такая в списке allfences
             if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(fenceName)||x.Name.Equals(fenceName))))
+            {
+                return false;
+            }
+            //проверить есть ли половинка в allfences 
+            else if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(firstpart) || x.Name.Contains(secondpart))))
+            {
+                return false;
+            }
+            //проверить, нет ли перекрёстных
+            else if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(crossfence)||x.Name.Equals(crossfence))))
             {
                 return false;
             }

@@ -1,4 +1,4 @@
-function sendWall () {
+function sendHWall (e) {
     $.ajax({
         type: "POST",
         url: "/Quoridor/SetFence",
@@ -6,12 +6,39 @@ function sendWall () {
                 "c2name": $(this).attr("cell2")},
         success: function (response) {
             alert("OK");
+            getPossibleMoves();
+            selectHWall(e);
         },
         failure: function (response) {
             alert(response.responseText);
         },
         error: function (response) {
             if(response.status == 400)
+                alert("Invalid wall placement!");
+            else
+                alert(response.status);
+        }
+    })
+}
+
+function sendVWall(e) {
+    $.ajax({
+        type: "POST",
+        url: "/Quoridor/SetFence",
+        data: {
+            "c1name": $(this).attr("cell1"),
+            "c2name": $(this).attr("cell2")
+        },
+        success: function (response) {
+            alert("OK");
+            getPossibleMoves();
+            selectVWall(e);
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            if (response.status == 400)
                 alert("Invalid wall placement!");
             else
                 alert(response.status);
@@ -26,17 +53,20 @@ function sendPawnMove() {
         data: { "name": $(this).attr("id") },
         success: function (response) {
             alert("OK");
+            getPossibleMoves();
         },
         failure: function (response) {
             alert(response.responseText);
         },
         error: function (response) {
-            if(response.status == 400)
+            if (response.status == 400)
                 alert("Invalid pawn move!");
             else
                 alert(response.status);
         }
-    })
+    });
+
+    
 }
 
 function getPossibleMoves() {
@@ -51,8 +81,9 @@ function getPossibleMoves() {
             removeHelperElements();
 
             helper.insertAdjacentHTML('afterbegin', response);
-            validPawnMoves();
+            
             alert("OK");
+            validPawnMoves();
         },
         failure: function (response) {
             alert(response.responseText);

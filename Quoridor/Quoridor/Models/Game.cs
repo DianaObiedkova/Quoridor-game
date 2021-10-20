@@ -29,8 +29,8 @@ namespace Quoridor.Models
         public Game()
         {
             board = new Board();
-            firstP = new HumanPlayer(new Pawn() { Cell = board.cells[0, 4] });
-            secondP = new HumanPlayer(new Pawn() { Cell = board.cells[8, 4] });
+            firstP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[0, 4].Clone() }) { Id=1,Name="Player 1"};
+            secondP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[8, 4].Clone() }) { Id = 2, Name = "Player 2" };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
             StartGame();
@@ -67,7 +67,7 @@ namespace Quoridor.Models
                 }
                 
                 CurrentP.PlayFence();
-                Console.WriteLine(FirstPWalls + " " + SecondPWalls);
+                SwitchPlayers();
             }
 
             return true;
@@ -86,7 +86,7 @@ namespace Quoridor.Models
                 if (!IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y])) //если рядом нет пешки
                 {
                     if (!CurrentP.Pawn.Cell.X.Contains("i")
-                    && !CurrentP.Pawn.Cell.EastWall) // d3 -> e3
+                    && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).EastWall) // d3 -> e3
                     {
                         result.Add(new int[] { 1, 0 });
                     }
@@ -106,16 +106,16 @@ namespace Quoridor.Models
             {
                 if (!IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y])) //если рядом нет пешки
                 {
-                    if (!CurrentP.Pawn.Cell.X.Contains("a")
-                    && !CurrentP.Pawn.Cell.WestWall) // e3 -> d3
+                    if (!CurrentP.Pawn.Cell.X.Contains("a") &&
+                    !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).WestWall) // e3 -> d3 //&& CurrentP.Pawn.Cell.WestWall
                     {
-                        result.Add(new int[] { -1, 0 });
+                         result.Add(new int[] { -1, 0 });
                     }
                 }
                 else //если есть 
                 {
                     if (!board.cells[index - 1, CurrentP.Pawn.Cell.Y].X.Contains("a")
-                   && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall) // f3 -> d3
+                   && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall) // f3 -> d3 
                     {
                         result.Add(new int[] { -2, 0 });
                     }
@@ -128,7 +128,7 @@ namespace Quoridor.Models
                 if (!IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1])) //если рядом нет пешки
                 {
                     if (!CurrentP.Pawn.Cell.Y.Equals(0)
-                    && !CurrentP.Pawn.Cell.NorthWall)// e3 -> e2
+                    && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).NorthWall)// e3 -> e2
                     {
                         result.Add(new int[] { 0, -1 });
                     }
@@ -148,7 +148,7 @@ namespace Quoridor.Models
                 if (!IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y + 1])) //если рядом нет пешки
                 {
                     if (!CurrentP.Pawn.Cell.Y.Equals(Board.Size - 1)
-                    && !CurrentP.Pawn.Cell.SouthWall)// e2 -> e3
+                    && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).SouthWall)// e2 -> e3
                     {
                         result.Add(new int[] { 0, 1 });
                     }
@@ -254,10 +254,10 @@ namespace Quoridor.Models
                             if (!IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y])) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.X.Contains("i")
-                                && !CurrentP.Pawn.Cell.EastWall) // d3 -> e3
+                                && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).EastWall) // d3 -> e3
                                 {
                                     CurrentP.Pawn.Cell.X = board.indexes[index + 1];
-                                    CurrentP.Pawn.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y;
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y;
                                 }
                             }
                             else //если есть 
@@ -266,7 +266,7 @@ namespace Quoridor.Models
                                && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].EastWall) // d3 -> f3
                                 {
                                     CurrentP.Pawn.Cell.X = board.indexes[index + 2];
-                                    CurrentP.Pawn.Name = board.indexes[index + 2] + CurrentP.Pawn.Cell.Y;
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 2] + CurrentP.Pawn.Cell.Y;
                                 }
                             }
                         }
@@ -280,10 +280,10 @@ namespace Quoridor.Models
                             if (!IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y])) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.X.Contains("a")
-                                && !CurrentP.Pawn.Cell.WestWall) // e3 -> d3
+                                && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).WestWall) // e3 -> d3
                                 {
                                     CurrentP.Pawn.Cell.X = board.indexes[index - 1];
-                                    CurrentP.Pawn.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y;
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y;
                                 }
                             }
                             else //если есть 
@@ -292,7 +292,7 @@ namespace Quoridor.Models
                                && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall) // f3 -> d3
                                 {
                                     CurrentP.Pawn.Cell.X = board.indexes[index - 2];
-                                    CurrentP.Pawn.Name = board.indexes[index - 2] + CurrentP.Pawn.Cell.Y;
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 2] + CurrentP.Pawn.Cell.Y;
                                 }
                             }
                         }
@@ -306,10 +306,10 @@ namespace Quoridor.Models
                             if (!IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y - 1])) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.Y.Equals(0)
-                                && !CurrentP.Pawn.Cell.NorthWall)// e3 -> e2
+                                && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).NorthWall)// e3 -> e2
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
-                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y - 1).ToString();
+                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
                                 }
                             }
                             else //если есть 
@@ -318,7 +318,7 @@ namespace Quoridor.Models
                                && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].NorthWall) // e3 -> e1
                                 {
                                     CurrentP.Pawn.Cell.Y -= 2;
-                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y - 2).ToString();
+                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
                                 }
                             }
                         }
@@ -332,10 +332,10 @@ namespace Quoridor.Models
                             if (!IsCellHasPawn(board.cells[index, CurrentP.Pawn.Cell.Y + 1])) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.Y.Equals(Board.Size - 1)
-                                && !CurrentP.Pawn.Cell.SouthWall)// e2 -> e3
+                                && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).SouthWall)// e2 -> e3
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
-                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 1).ToString();
+                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
                                 }
                             }
                             else //если есть 
@@ -344,7 +344,7 @@ namespace Quoridor.Models
                                && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].SouthWall) // e1 -> e3
                                 {
                                     CurrentP.Pawn.Cell.Y += 2;
-                                    CurrentP.Pawn.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y + 2).ToString();
+                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
                                 }
                             }
                         }
@@ -360,7 +360,7 @@ namespace Quoridor.Models
                                     && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].SouthWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
-                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y - 1).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
                                 }
                             }
                             else if (IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y]))//справа вражеская пешка
@@ -369,7 +369,7 @@ namespace Quoridor.Models
                                     && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].NorthWall && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].WestWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
-                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y - 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
                                 }
                             }
 
@@ -386,7 +386,7 @@ namespace Quoridor.Models
                                     && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].NorthWall && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].EastWall)
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
-                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y + 1).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
                                 }
                             }
                             else if (IsCellHasPawn(board.cells[index + 1, CurrentP.Pawn.Cell.Y]))//справа вражеская пешка
@@ -395,7 +395,7 @@ namespace Quoridor.Models
                                     && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].SouthWall && !board.cells[index + 1, CurrentP.Pawn.Cell.Y].WestWall)
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
-                                    CurrentP.Pawn.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y + 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
                                 }
                             }
 
@@ -412,7 +412,7 @@ namespace Quoridor.Models
                                     && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].NorthWall && !board.cells[index, CurrentP.Pawn.Cell.Y + 1].EastWall)
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
-                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y + 1).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
                                 }
                             }
                             else if (IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y]))//слева вражеская пешка
@@ -421,7 +421,7 @@ namespace Quoridor.Models
                                     && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].SouthWall && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].WestWall)
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
-                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y + 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
                                 }
                             }
 
@@ -438,7 +438,7 @@ namespace Quoridor.Models
                                     && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].SouthWall && !board.cells[index, CurrentP.Pawn.Cell.Y - 1].WestWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
-                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y - 1).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
                                 }
                             }
                             else if (IsCellHasPawn(board.cells[index - 1, CurrentP.Pawn.Cell.Y]))//слева вражеская пешка
@@ -447,7 +447,7 @@ namespace Quoridor.Models
                                     && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].NorthWall && !board.cells[index - 1, CurrentP.Pawn.Cell.Y].EastWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
-                                    CurrentP.Pawn.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y - 1).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
                                 }
                             }
 

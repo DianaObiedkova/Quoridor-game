@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Models
 {
-    public class Cell:Entity
+    public class Cell:Entity,ICloneable
     {
         //наличие стен вокруг клетки
         public bool NorthWall { get; set; }
@@ -15,6 +15,22 @@ namespace Quoridor.Models
 
         public string X { get; set; }
         public int Y { get; set; }
+
+        public object Clone()
+        {
+            Cell cell = new Cell
+            {
+                Id = Id,
+                Name=Name,
+                X=X,
+                Y=Y,
+                EastWall=EastWall,
+                NorthWall=NorthWall,
+                SouthWall=SouthWall,
+                WestWall=WestWall
+            };
+            return cell;
+        }
 
         //public Cell(int id,string name)
         //{

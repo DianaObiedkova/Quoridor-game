@@ -252,9 +252,9 @@ namespace Quoridor.Models
             //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices
             for(int i=0; i<Size; i++) 
             {
-                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size-1, i].Name);
                 finalVertices1.Add(sideVertex1);
-                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size-1, i].Name);
+                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
                 finalVertices2.Add(sideVertex2);
             }
 
@@ -262,6 +262,7 @@ namespace Quoridor.Models
             foreach (Vertex final in finalVertices1)
             {
                 bool local_res = Dijkstra.GetShortestPath(final);
+                Debug.Print(local_res.ToString() + "1");
                 if(!local_res)
                     continue;
                 result = true;
@@ -271,6 +272,7 @@ namespace Quoridor.Models
             foreach (Vertex final in finalVertices2)
             {
                 bool local_res = Dijkstra.GetShortestPath(final);
+                Debug.Print(local_res.ToString() + "2");
                 if(!local_res)
                     continue;
                 result = true;

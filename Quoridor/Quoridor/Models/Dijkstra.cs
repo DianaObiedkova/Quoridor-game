@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Quoridor.Models
             this.Name = name;
             this.value = value;
             this.IsChecked = IsChecked;
-            PrevVertex = new Vertex();
+            PrevVertex = null;
         }
         public Vertex()
         {
@@ -69,7 +70,32 @@ namespace Quoridor.Models
             Vertex currentVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
             currentVertex.value = 0;
 
-            Edges = new Edge[AllFences.Length*2];
+            Edges = new Edge[144]; //9*8*2
+            for(int i = 0; i < 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    if(i!=8) //если не последний ряд
+                    {
+                        bool exists = Array.Exists(Edges, x => x == null);
+                        int index = 0;
+                        if (exists)
+                            index = Array.FindIndex(Edges, i => i == null);
+                        else throw new ArgumentException("Index is not found.");
+                        Edges[index] = new Edge(Vertices[i*9+j], Vertices[i*9+j+9], 1); //добавить ребро к клетке снизу
+                    }
+                    if(j!=8) //если не последний столбец
+                    {
+                        bool exists = Array.Exists(Edges, x => x == null);
+                        int index = 0;
+                        if (exists)
+                            index = Array.FindIndex(Edges, i => i == null);
+                        else throw new ArgumentException("Index is not found.");
+                        Edges[index] = new Edge(Vertices[i*9+j], Vertices[i*9+j+1], 1); //добавить ребро к клетке справа
+                    }
+                }
+            }
+
             foreach(Fence fence in AllFences)
             {
                 if(fence == null)
@@ -82,27 +108,15 @@ namespace Quoridor.Models
  
                 Vertex f1 = Array.Find(Vertices, v => v.Name == f1name);
                 Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
-                //Edges = добавить сell в виде new Edge(f1, s1, 1)
-                bool exists = Array.Exists(Edges, x => x == null);
-                int index = 0;
-                if (exists)
-                {
-                    index = Array.FindIndex(Edges, i => i == null);
-                }
-                else throw new ArgumentException("Index is not found.");
-                Edges[index] = new Edge(f1, s1, 1);
-
+                //Edges = удалить сell new Edge(f1, s1, 1)
+                Edge deleted1 = Array.Find(Edges, e => (e.FirstVertex == f1 && e.SecondVertex == s1) || (e.FirstVertex == s1 && e.SecondVertex == f1));
+                deleted1 = null;
+                
                 Vertex f2 = Array.Find(Vertices, v => v.Name == f2name);
                 Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
-                //Edges = добавить сell в виде new Edge(f2, s2, 1)
-                bool exists2 = Array.Exists(Edges, x => x == null);
-                int index2 = 0;
-                if (exists2)
-                {
-                    index2 = Array.FindIndex(Edges, i => i == null);
-                }
-                else throw new ArgumentException("Index is not found.");
-                Edges[index2] = new Edge(f2, s2, 1);
+                //Edges = удалить сell new Edge(f2, s2, 1)
+                Edge deleted2 = Array.Find(Edges, e => (e.FirstVertex == f2 && e.SecondVertex == s2) || (e.FirstVertex == s2 && e.SecondVertex == f2));
+                deleted2 = null;
             }
 
             return currentVertex;
@@ -180,6 +194,7 @@ namespace Quoridor.Models
             IEnumerable<Vertex> first = from ed in Edges where (ed != null && ed.FirstVertex == current) select ed.SecondVertex;
             IEnumerable<Vertex> second = from ed in Edges where (ed != null && ed.SecondVertex == current) select ed.FirstVertex;
             IEnumerable<Vertex> result = first.Concat<Vertex>(second);
+            Debug.Print("neighb " + result.Count());
             return result;
         }
 

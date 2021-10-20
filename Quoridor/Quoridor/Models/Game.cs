@@ -463,7 +463,7 @@ namespace Quoridor.Models
 
         private bool IsCellHasPawn(Cell cell)
         {
-            if (firstP.Pawn.Cell.Equals(cell))
+            if ((CurrentP == secondP ? firstP:secondP).Pawn.Cell.Equals(cell))
             {
                 return true;
             }

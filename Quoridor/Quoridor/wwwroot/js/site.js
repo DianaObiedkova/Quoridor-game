@@ -255,7 +255,7 @@ function selectCell(e) {
 
     e.target.after(pawn);
     cancelPawnShadows();
-    validPawnMoves();
+    //validPawnMoves();
 }
 
 function selectHWall(e) {
@@ -297,7 +297,7 @@ function selectHWall(e) {
             }
             updateClicks();
             updateWalls();
-            validPawnMoves();
+            //validPawnMoves();
         }
         else {
             counter--;

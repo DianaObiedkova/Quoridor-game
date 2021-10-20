@@ -86,7 +86,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "S1YnZmLdICx1xHw4PELtjmBo0TifgnWD2wA2xdLQ3Arb2/RZQHG5Gk1DaMgYRRmROePz3ZGD9f/KY7yx92WuBQ==",
+      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -101,7 +101,7 @@
       ]
     },
     "Microsoft.NETCore.Targets/1.1.0": {
-      "sha512": "6DuJhzCBoBvQC8G5VJVr1i3pG15fx5iROeJ+vqGxy9icXoqRhrz+u2F9tIXQWsXBWyobjrvlw59j5G4PkVdjeA==",
+      "sha512": "aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "type": "package",
       "path": "microsoft.netcore.targets/1.1.0",
       "files": [
@@ -116,11 +116,12 @@
       ]
     },
     "System.Collections/4.3.0": {
-      "sha512": "6YCBu/WU56ynolKMzssDcqTj+w89iIlVcq9ATwAwkyHBdUOn3LzuzLGR1vza3KldHWVNfCsxk0NCXktQRXydBw==",
+      "sha512": "3Dcj85/TBdVpL5Zr+gEEBUuFe2icOnLalmEh9hfck1PTYbbyWuZgh4fmm2ysCLTrqLQw6t3TgTyJ+VLp+Qb+Lw==",
       "type": "package",
       "path": "system.collections/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -183,11 +184,12 @@
       ]
     },
     "System.Runtime/4.3.0": {
-      "sha512": "Qn1ktJeBAXHKBAGq8C5oZXkh9SyHllzmMU5FrIs2j4VhAKoaJBEpgfVt+UwuH5GJ2ERr1xBwxJcIdiDzzCM3Ww==",
+      "sha512": "JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
       "type": "package",
       "path": "system.runtime/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -281,34 +283,29 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Diana\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/cybergoose/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj",
+      "projectUniqueName": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj",
       "projectName": "Quoridor",
-      "projectPath": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\Quoridor.csproj",
-      "packagesPath": "C:\\Users\\Diana\\.nuget\\packages\\",
-      "outputPath": "F:\\4 курс\\GameDev\\our\\Quoridor\\Quoridor\\obj\\",
+      "projectPath": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/Quoridor.csproj",
+      "packagesPath": "/home/cybergoose/.nuget/packages/",
+      "outputPath": "/home/cybergoose/Quoridor-game/Quoridor/Quoridor/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Diana\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/cybergoose/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -320,6 +317,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.jQuery.Unobtrusive.Ajax": {
             "target": "Package",
@@ -348,7 +346,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
       }
     }
   }

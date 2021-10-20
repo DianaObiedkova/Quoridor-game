@@ -27,11 +27,12 @@ namespace Quoridor.Models
             }
             InitCells();
         }
+
         public void InitCells()
         {
-            for (int i = 0; i < cells.GetLength(1); i++)
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                for (int j = 0; j < cells.GetLength(0); j++)
+                for (int j = 0; j < cells.GetLength(1); j++)
                 {
                     cells[i, j] = new Cell
                     {
@@ -175,7 +176,7 @@ namespace Quoridor.Models
 
             if(AllFences[0] != null)
             {
-                if(!IsFencePossible(newName) /*|| !DijkstraCheck(PawnCell1, PawnCell2)*/) 
+                if(!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2)) 
                 {
                     return false;
                 }

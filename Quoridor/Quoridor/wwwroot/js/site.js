@@ -16,9 +16,10 @@ const vwall = document.querySelectorAll(".vwall");
 const htmlRestartMessageBox = document.getElementById("restart_message_box");
 
 _renderValidNextWalls();
-validPawnMoves();
-updateClicks();
 
+updateClicks();
+getPossibleMoves();
+validPawnMoves();
 const restartButton = document.getElementById("restart");
 
 restartButton.onclick = function onclickRestartButton() {
@@ -167,6 +168,8 @@ function validPawnMoves() {
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
             element.addEventListener('click', selectCell);
             element.addEventListener('click', sendPawnMove);
+            //element.addEventListener('click', getPossibleMoves);
+            
         }
     });
 }
@@ -252,7 +255,7 @@ function selectCell(e) {
 
     e.target.after(pawn);
     cancelPawnShadows();
-    validPawnMoves();
+    //validPawnMoves();
 }
 
 function selectHWall(e) {
@@ -294,7 +297,7 @@ function selectHWall(e) {
             }
             updateClicks();
             updateWalls();
-            validPawnMoves();
+            //validPawnMoves();
         }
         else {
             counter--;
@@ -333,7 +336,7 @@ function selectHWall(e) {
             }
             updateClicks();
             updateWalls();
-            validPawnMoves();
+            //validPawnMoves();
         }
         else {
             counter--;
@@ -384,7 +387,7 @@ function selectVWall(e) {
             }
             updateClicks();
             updateWalls();
-            validPawnMoves();
+            //validPawnMoves();
         }
         else {
             counter--;
@@ -426,7 +429,7 @@ function selectVWall(e) {
             updateClicks();
 
             updateWalls();
-            validPawnMoves();
+            //validPawnMoves();
         }
         else {
             counter--;
@@ -447,22 +450,22 @@ function updateWalls() {
 function updateClicks() {
     hwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
-            el.addEventListener('click', selectHWall);
+            //el.addEventListener('click', selectHWall);
             el.addEventListener('click', sendHWall);
         }
         else {
-            el.removeEventListener('click', selectHWall);
+            //el.removeEventListener('click', selectHWall);
             //el.removeEventListener('click', sendHWall);
         }
     });
 
     vwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
-            el.addEventListener('click', selectVWall);
+            //el.addEventListener('click', selectVWall);
             el.addEventListener('click', sendVWall);
         }
         else {
-            el.removeEventListener('click', selectVWall);
+            //el.removeEventListener('click', selectVWall);
            //el.removeEventListener('click', sendVWall);
         }
     });

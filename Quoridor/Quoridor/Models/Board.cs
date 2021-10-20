@@ -11,15 +11,15 @@ namespace Quoridor.Models
         public static int Size { get; set; } = 9;
 
         //сетка клеток размером Size x Size, вершины графа
-        public readonly Cell[,] cells = new Cell[Size,Size];
+        public readonly Cell[,] cells = new Cell[Size, Size];
 
         //ребра графа
         public Fence[] AllFences { get; set; } = new Fence[20];
 
-        readonly string[] letters = { "a","b","c","d", "e", "f", "g", "h", "i" };
+        readonly string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
         public readonly Dictionary<int, string> indexes = new Dictionary<int, string>();
 
-        public Board() 
+        public Board()
         {
             for (int i = 0; i < letters.Length; i++)
             {
@@ -27,12 +27,11 @@ namespace Quoridor.Models
             }
             InitCells();
         }
-
         public void InitCells()
         {
-            for (int i = 0; i < cells.GetLength(0); i++)
+            for (int i = 0; i < cells.GetLength(1); i++)
             {
-                for (int j = 0; j < cells.GetLength(1); j++)
+                for (int j = 0; j < cells.GetLength(0); j++)
                 {
                     cells[i, j] = new Cell
                     {
@@ -93,7 +92,7 @@ namespace Quoridor.Models
         //}
 
         //IsMovePawnPossible - равноценная замена
-       
+
 
         //pawn check
         /*private bool NoCellPawn(Cell currentCell)
@@ -108,7 +107,7 @@ namespace Quoridor.Models
             string secondpart = fenceName.Substring(5, 4);
 
             string crossfence = "";
-            if(fenceName[0] == 'h')
+            if (fenceName[0] == 'h')
             {
                 crossfence += "v";
             }
@@ -124,17 +123,17 @@ namespace Quoridor.Models
             crossfence += secondpart.Substring(2, 2);
 
             //проверить есть ли уже такая в списке allfences
-            if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(fenceName)||x.Name.Equals(fenceName))))
+            if (Array.Exists(AllFences, x => x != null && (x.Name.Contains(fenceName) || x.Name.Equals(fenceName))))
             {
                 return false;
             }
             //проверить есть ли половинка в allfences 
-            else if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(firstpart) || x.Name.Contains(secondpart))))
+            else if (Array.Exists(AllFences, x => x != null && (x.Name.Contains(firstpart) || x.Name.Contains(secondpart))))
             {
                 return false;
             }
             //проверить, нет ли перекрёстных
-            else if(Array.Exists(AllFences, x => x != null && (x.Name.Contains(crossfence)||x.Name.Equals(crossfence))))
+            else if (Array.Exists(AllFences, x => x != null && (x.Name.Contains(crossfence) || x.Name.Equals(crossfence))))
             {
                 return false;
             }
@@ -143,13 +142,13 @@ namespace Quoridor.Models
                 return true;
             }
         }
-        
+
         //X, Y - для координат перегородки
         //PawnCell1 - клетка с пешкой игрока, который ставит перегородку
         //PawnCell2 - клетка с пешкой игрока-противника
         public bool SetFence(Cell X, Cell Y, Cell PawnCell1, Cell PawnCell2)
         {
-                        
+
             //формирование имени Fence
             string newName;
             //наименование перегородок + ИД
@@ -174,9 +173,9 @@ namespace Quoridor.Models
                 return false;
             }
 
-            if(AllFences[0] != null)
+            if (AllFences[0] != null)
             {
-                if(!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2)) 
+                if (!IsFencePossible(newName) /*|| !DijkstraCheck(PawnCell1, PawnCell2)*/)
                 {
                     return false;
                 }
@@ -184,7 +183,7 @@ namespace Quoridor.Models
             //горизонтальные
             if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))
             {
-                for(int i = 0; i < cells.GetLength(0); i++)
+                for (int i = 0; i < cells.GetLength(0); i++)
                 {
                     for (int j = 0; j < cells.GetLength(1); j++)
                     {
@@ -243,18 +242,22 @@ namespace Quoridor.Models
         {
             List<Vertex> finalVertices1 = new List<Vertex>();
             List<Vertex> finalVertices2 = new List<Vertex>();
-            
+
             bool result = false;
 
             //выполняется проверка в обе стороны для двух игроков         
             Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
 
             //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices
-            for(int i=0; i<Size; i++) 
+            for (int i = 0; i < Size; i++)
             {
                 Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size-1, i].Name);
                 finalVertices1.Add(sideVertex1);
+<<<<<<< HEAD
                 Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+=======
+                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size - 1, i].Name);
+>>>>>>> 384fc295c72e34c63f43ef1fd5324941b4d1c6c5
                 finalVertices2.Add(sideVertex2);
             }
 
@@ -262,8 +265,12 @@ namespace Quoridor.Models
             foreach (Vertex final in finalVertices1)
             {
                 bool local_res = Dijkstra.GetShortestPath(final);
+<<<<<<< HEAD
                 Debug.Print(local_res.ToString() + "1");
                 if(!local_res)
+=======
+                if (!local_res)
+>>>>>>> 384fc295c72e34c63f43ef1fd5324941b4d1c6c5
                     continue;
                 result = true;
             }
@@ -272,8 +279,12 @@ namespace Quoridor.Models
             foreach (Vertex final in finalVertices2)
             {
                 bool local_res = Dijkstra.GetShortestPath(final);
+<<<<<<< HEAD
                 Debug.Print(local_res.ToString() + "2");
                 if(!local_res)
+=======
+                if (!local_res)
+>>>>>>> 384fc295c72e34c63f43ef1fd5324941b4d1c6c5
                     continue;
                 result = true;
             }

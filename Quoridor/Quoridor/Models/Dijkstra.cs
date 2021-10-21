@@ -116,15 +116,24 @@ namespace Quoridor.Models
                 Vertex f1 = Array.Find(Vertices, v => v.Name == f1name);
                 Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
                 //Edges = удалить сell new Edge(f1, s1, 1)
-                Edge deleted1 = Array.Find(Edges, e => (e.FirstVertex == f1 && e.SecondVertex == s1) || (e.FirstVertex == s1 && e.SecondVertex == f1));
+                Edge deleted1 = Array.Find(Edges, e => (e != null && (e.FirstVertex == f1 && e.SecondVertex == s1)) || (e != null && (e.FirstVertex == s1 && e.SecondVertex == f1)));
+                Debug.Print("1 " + deleted1.FirstVertex.Name + deleted1.SecondVertex.Name);
+                int ind1 = Array.IndexOf(Edges, deleted1);
+                Edges[ind1] = null;
                 deleted1 = null;
                 
                 Vertex f2 = Array.Find(Vertices, v => v.Name == f2name);
                 Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
                 //Edges = удалить сell new Edge(f2, s2, 1)
-                Edge deleted2 = Array.Find(Edges, e => (e.FirstVertex == f2 && e.SecondVertex == s2) || (e.FirstVertex == s2 && e.SecondVertex == f2));
+                Edge deleted2 = Array.Find(Edges, e => (e != null && (e.FirstVertex == f2 && e.SecondVertex == s2)) || (e != null &&  (e.FirstVertex == s2 && e.SecondVertex == f2)));
+                Debug.Print("2 " + deleted2.FirstVertex.Name + deleted2.SecondVertex.Name);
+                int ind2 = Array.IndexOf(Edges, deleted2);
+                Edges[ind2] = null;
                 deleted2 = null;
             }
+
+
+            Debug.Print(Edges.Count(e => e != null).ToString());
 
             return currentVertex;
         }

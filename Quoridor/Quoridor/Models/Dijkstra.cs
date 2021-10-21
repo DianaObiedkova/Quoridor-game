@@ -25,6 +25,13 @@ namespace Quoridor.Models
         {
 
         }
+
+        public void resetVertex()
+        {
+            this.value = int.MaxValue;
+            this.IsChecked = false;
+            this.PrevVertex = null;
+        }
     }
 
     public class Edge
@@ -133,6 +140,13 @@ namespace Quoridor.Models
             }
             startVertex = start;
 
+            //reset for a new path //WARNING: resets all values to int.MaxValue
+            foreach(Vertex vert in Vertices)
+            {
+                vert.resetVertex();
+            }
+            startVertex.value = 0;
+
             //первая итерация
             IterateDijkstra(startVertex);
             foreach(Vertex vert in Vertices)
@@ -177,13 +191,20 @@ namespace Quoridor.Models
         //     return path;
         public static bool GetShortestPath(Vertex last)
         {
+            Debug.Print("GetShortestPath");
             List<Vertex> path = new List<Vertex>();
             Vertex current = last;
+            Debug.Print("END: " + current.Name);
+            Debug.Print("START: " + startVertex.Name);
             while (current != startVertex)
             {
-                if(current == null)
+                if(current == null){
+                    Debug.Print("Null found");
+
                     return false;
+                }
                 path.Add(current);
+                Debug.Print("Path: " + current.Name);
                 current = current.PrevVertex;
             }
             return true;
@@ -194,7 +215,6 @@ namespace Quoridor.Models
             IEnumerable<Vertex> first = from ed in Edges where (ed != null && ed.FirstVertex == current) select ed.SecondVertex;
             IEnumerable<Vertex> second = from ed in Edges where (ed != null && ed.SecondVertex == current) select ed.FirstVertex;
             IEnumerable<Vertex> result = first.Concat<Vertex>(second);
-            Debug.Print("neighb " + result.Count());
             return result;
         }
 
@@ -216,8 +236,8 @@ namespace Quoridor.Models
 
         private static Vertex GetNearestUnchecked()
         {
-            IEnumerable<Vertex> @unchecked = from vert in Vertices where !vert.IsChecked select vert;
-            if(!@unchecked.Any())
+            IEnumerable<Vertex> @unchecked = from vert in Vertices where vert.IsChecked == false select vert;
+            if(@unchecked.Any())
             {
                 Vertex minVertex = @unchecked.First();
                 int minValue = @unchecked.First().value;

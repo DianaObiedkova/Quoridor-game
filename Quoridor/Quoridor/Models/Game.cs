@@ -61,7 +61,7 @@ namespace Quoridor.Models
         {
             if (IsFencePossibleForCurrentUser())
             {
-                if (!board.SetFence(X, Y, CurrentP.Pawn.Cell, CurrentP == firstP ? secondP.Pawn.Cell : firstP.Pawn.Cell))
+                if (!board.SetFence(X, Y, firstP.Pawn.Cell, secondP.Pawn.Cell))
                 {
                     return false;
                 }

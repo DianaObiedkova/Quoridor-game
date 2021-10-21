@@ -175,7 +175,7 @@ namespace Quoridor.Models
 
             if (AllFences[0] != null)
             {
-                if (!IsFencePossible(newName) /*|| !DijkstraCheck(PawnCell1, PawnCell2)*/)
+                if (!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2))
                 {
                     return false;
                 }
@@ -243,7 +243,8 @@ namespace Quoridor.Models
             List<Vertex> finalVertices1 = new List<Vertex>();
             List<Vertex> finalVertices2 = new List<Vertex>();
 
-            bool result = false;
+            bool result1 = false;
+            bool result2 = false;
 
             //выполняется проверка в обе стороны для двух игроков         
             Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
@@ -253,42 +254,30 @@ namespace Quoridor.Models
             {
                 Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size-1, i].Name);
                 finalVertices1.Add(sideVertex1);
-<<<<<<< HEAD
                 Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
-=======
-                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[Size - 1, i].Name);
->>>>>>> 384fc295c72e34c63f43ef1fd5324941b4d1c6c5
                 finalVertices2.Add(sideVertex2);
             }
 
-            Dijkstra.FindShortestPath(currentVertex1);
             foreach (Vertex final in finalVertices1)
             {
+                Dijkstra.FindShortestPath(currentVertex1);
                 bool local_res = Dijkstra.GetShortestPath(final);
-<<<<<<< HEAD
                 Debug.Print(local_res.ToString() + "1");
                 if(!local_res)
-=======
-                if (!local_res)
->>>>>>> 384fc295c72e34c63f43ef1fd5324941b4d1c6c5
                     continue;
-                result = true;
+                result1 = true;
             }
             Vertex currentVertex2 = Dijkstra.StartQuoridorDijkstra(currentCell2, cells.Cast<Cell>().ToArray(), AllFences);
-            Dijkstra.FindShortestPath(currentVertex2);
             foreach (Vertex final in finalVertices2)
             {
+                Dijkstra.FindShortestPath(currentVertex2);
                 bool local_res = Dijkstra.GetShortestPath(final);
-<<<<<<< HEAD
                 Debug.Print(local_res.ToString() + "2");
                 if(!local_res)
-=======
-                if (!local_res)
->>>>>>> 384fc295c72e34c63f43ef1fd5324941b4d1c6c5
                     continue;
-                result = true;
+                result2 = true;
             }
-            return result;
+            return (result1 && result2);
         }
     }
 }

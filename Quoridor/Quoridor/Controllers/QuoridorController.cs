@@ -15,9 +15,7 @@ namespace Quoridor.Controllers
 
         public QuoridorController()
         {
-            //Game = new Game(); 
-            //ViewData["fPwalls"] = Game.FirstPWalls;
-            //ViewData["sPwalls"] = Game.SecondPWalls;
+
         }
 
         public IActionResult Board()
@@ -46,8 +44,6 @@ namespace Quoridor.Controllers
             {
                 str.Append("<div class=\"posMoveX\">" + item[0] + "</div><div class=\"posMoveY\">" + item[1] + "</div>");
             }
-            //ViewData["moves"] = Game.PossibleMovePawn();
-            //return PartialView("PartialMoves", Game.PossibleMovePawn());
             return base.Content(str.ToString(), "text/html");
         }
 

@@ -62,43 +62,8 @@ namespace Quoridor.Models
                     break;
             }
             throw new ArgumentException("Wrong direction was chosen.");
-            //if (Direction.South)
-            //    return NoCellSouthFence(currentCell);
-            //else if (Direction.North)
-            //    return NoCellNorthFence(currentCell);
-            //else if (Direction.West)
-            //    return NoCellWestFence(currentCell);
-            //else if (Direction.East)
-            //    return NoCellEastFence(currentCell);
-            //else
-            //    Debug.LogError("CanMovePawn error");
-            //    return false;
         }
-        //private bool NoCellSouthFence(Cell currentCell)
-        //{
-        //    return !(currentCell.SouthWall);
-        //} 
-        //private bool NoCellNorthFence(Cell currentCell)
-        //{
-        //    return !(currentCell.NorthWall);
-        //} 
-        //private bool NoCellWestFence(Cell currentCell)
-        //{
-        //    return !(currentCell.WestWall);
-        //} 
-        //private bool NoCellEastFence(Cell currentCell)
-        //{
-        //    return !(currentCell.EastWall);
-        //}
 
-        //IsMovePawnPossible - равноценная замена
-
-
-        //pawn check
-        /*private bool NoCellPawn(Cell currentCell)
-        {
-            return !(currentCell.hasPawn());    
-        }*/
 
         //можно ли поставить перегородку?
         public bool IsFencePossible(string fenceName)

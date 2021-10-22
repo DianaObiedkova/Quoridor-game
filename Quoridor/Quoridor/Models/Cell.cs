@@ -32,11 +32,6 @@ namespace Quoridor.Models
             return cell;
         }
 
-        //public Cell(int id,string name)
-        //{
-        //    Id = id;
-        //    Name = name;
-        //}
         public override bool Equals(object obj)
         {
             if ((obj == null) || !GetType().Equals(obj.GetType()))

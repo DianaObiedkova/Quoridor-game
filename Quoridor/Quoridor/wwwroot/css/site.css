@@ -13,18 +13,6 @@ for details on configuring this project to bundle and minify static web assets. 
     --font-size: 18px;
     --color-black: #232629;
 }
- /*size of iPad screen is 768px x 1024px in portrait mode */
-/*@media only screen and (min-width: 768px) and (min-height: 768px) {
-    :root {
-        --font-size: 30px;
-    }
-}
-
-@media only screen and (min-width: 768px), (orientation: landscape) {
-    :root {
-        --board-table-side-length: 70vmin;
-    } 
-}*/
 
 a.navbar-brand {
   white-space: normal;
@@ -85,7 +73,6 @@ html {
 }
 
 body {
-   /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
 
@@ -106,18 +93,12 @@ body {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px; 
 }
 
 .gridcontainer0 {
-    /*display: grid;*/
     width: 100%;
     height: 100vh;
-    /*justify-content: center;
-    align-content: center;
-    grid-template-rows: calc(3 * var(--font-size)) var(--board-table-side-length) calc(8 * var(--font-size));
-    grid-template-columns: var(--board-table-side-length);
-    grid-gap: 10px;*/
 }
 .gridcontainer2 {
     display: grid;
@@ -126,48 +107,7 @@ body {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
 }
-/*
-#board_table_container {
-    position: relative;
-    grid-row-start: 2;
-}
 
-table {
-    table-layout: fixed;
-    border-radius: 0.5%;
-    background-color: rgb(68, 117, 221);
-    border-collapse: collapse;
-    text-align: center;
-    width: var(--board-table-side-length);
-    height: var(--board-table-side-length);
-    padding: 0;
-}
-
-td {
-    position: relative;
-    padding: 0;
-}
-
-tr.row {
-    height: var(--long-length);
-}
-
-td.col {
-    width: var(--long-length);
-}
-
-tr.between_rows {
-    height: var(--short-length);
-}
-
-td.between_cols {
-    width: var(--short-length);
-}
-
-tr.row td.col {
-    background-color: rgb(207, 207, 207);
-    border-radius: 5%;
-}*/
 a,
 a:link,
 a:visited {
@@ -239,8 +179,6 @@ div.pawn {
     height: calc(var(--long-length) * 0.6);
     border-radius: 50%;
     vertical-align: middle;
-   /* margin:0;
-    padding:0;*/
 }
 
 div.pawn.pawn0 {
@@ -327,22 +265,14 @@ div.pawn.pawn1 {
     }
 }
 
-/*div.horizontal_wall, div.vertical_wall {
-    display: inline-block;
-    position: absolute;
-    left: 5px;
-    top: 0.5px;
-    background-color: black;*//*rgb(202, 168, 106);*/
-/*}*/
-
 div.horizontal_wall {
     display: inline-block;
     position: absolute;
     left: 0;
     top: 0;
     background-color: black;
-    width: 140px; /*var(--wall-length);*/
-    height: 9px; /*var(--wall-width);*/
+    width: 140px; 
+    height: 9px; 
     z-index: 2;
 }
 
@@ -371,7 +301,7 @@ div.horizontal_wall.shadow, div.vertical_wall.shadow {
 div.pawnShadow0 {
     display: inline-block;
     width: calc(var(--long-length) * 0.6);
-    height: calc(var(--long-length) * 0.6) ;/*70%;*/
+    height: calc(var(--long-length) * 0.6) ;
     border-radius: 50%;
     vertical-align: middle;
     background-color: rgb(195, 164, 23);
@@ -394,11 +324,8 @@ div.pawnShadow1 {
     background-color: rgb(51, 25, 25);
     opacity: 0.3;
 }
-/*.shadow {
-    opacity: 0.3;
-}*/
+
 .buttons {
-    /*grid-column: 1 / span 2;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -492,93 +419,3 @@ div.symbol2 {
     margin-right: calc(var(--font-size) / 2);
     background-color: rgb(51, 25, 25);
 }
-/*
-table {
-    table-layout: fixed;
-    border-radius: 0.5%;
-    background-color: rgb(68, 117, 221);
-    border-collapse: collapse;
-    text-align: center;
-    width: var(--board-table-side-length);
-    height: var(--board-table-side-length);
-    padding: 0;
-}
-
-td {
-    position: relative;
-    padding: 0;
-}
-
-tr.row {
-    height: var(--long-length);
-}
-
-td.col {
-    width: var(--long-length);
-}
-
-tr.between_rows {
-    height: var(--short-length);
-}
-
-td.between_cols {
-    width: var(--short-length);
-}
-tr.row td.col {
-    background-color: rgb(207, 207, 207);
-    border-radius: 5%;
-}*/
-
-/*@media only screen and (min-width: 768px), (orientation: landscape) {
-    .gridcontainer0 {
-        grid-template-rows: calc(3 * var(--font-size)) var(--board-table-side-length);
-        grid-template-columns: var(--board-table-side-length) calc(95vmin - var(--board-table-side-length));
-    }
-
-    .gridcontainer2 {
-        display: grid;
-        grid-row-start: 2;
-        grid-column-start: 2;
-        grid-template-columns: 1fr;
-        grid-template-rows: calc(4 * var(--font-size)) calc(4 * var(--font-size)) 1fr;
-    }
-
-    .button_container.below {
-        grid-column: unset;
-        flex-direction: column-reverse;
-        justify-content: flex-start;
-    }
-}
-
-@media only screen and (min-width: 768px) and (min-height: 768px) {
-    .fade_box {
-        top: calc((var(--board-table-side-length) - 7 * var(--long-length)) / 2);
-        left: 0;
-        width: var(--board-table-side-length);
-        height: calc(7 * var(--long-length));
-    }
-}*/
-/* For iPhone 5&6 landscape */
-/*@media only screen and (max-height: 375px) and (min-width: 568px) and (orientation:landscape) {
-    .gridcontainer0 {
-        grid-template-columns: var(--board-table-side-length) calc(105vmin - var(--board-table-side-length));
-    }
-}
-
-@media (hover: hover) {
-    #confirm_button, #cancel_button {
-        display: none;
-    }
-
-    div.pawn.shadow:hover {
-        opacity: 0.7;
-    }
-
-    div.pawn.button, button.ai_level, button.restart_yes_no, button.update {
-        opacity: 0.9;
-    }
-
-        div.pawn.button:hover, button.ai_level:hover, button.restart_yes_no:hover, button.update:hover {
-            opacity: 1;
-        }
-}*/

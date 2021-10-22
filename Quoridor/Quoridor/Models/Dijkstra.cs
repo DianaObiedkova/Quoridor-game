@@ -55,7 +55,7 @@ namespace Quoridor.Models
         public static Edge[] Edges { get; private set; }
         public static Vertex startVertex;
 
-        public static Vertex StartQuoridorDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences)
+        public static Vertex StartQuoridorDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences, string newFenceName)
         {
             Vertices = new Vertex[cells.Length];
             foreach(Cell cell in cells)
@@ -107,11 +107,11 @@ namespace Quoridor.Models
             {
                 if(fence == null)
                     continue;
-                string f1name = fence.Name.Substring(1, 1) + fence.Name.Substring(2, 1); //точно ли начинаем с индекса 1, или все-таки 0?
+                string f1name = fence.Name.Substring(1, 2); //точно ли начинаем с индекса 1, или все-таки 0?
                 //точно, там первый символ v/h 
-                string s1name = fence.Name.Substring(3, 1) + fence.Name.Substring(4, 1);
-                string f2name = fence.Name.Substring(5, 1) + fence.Name.Substring(6, 1);
-                string s2name = fence.Name.Substring(7, 1) + fence.Name.Substring(8, 1);
+                string s1name = fence.Name.Substring(3, 2);
+                string f2name = fence.Name.Substring(5, 2);
+                string s2name = fence.Name.Substring(7, 2);
  
                 Vertex f1 = Array.Find(Vertices, v => v.Name == f1name);
                 Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
@@ -129,6 +129,27 @@ namespace Quoridor.Models
                 Edges[ind2] = null;
                 deleted2 = null;
             }
+            //удаление текущей перегородки
+            string f1new = newFenceName.Substring(1, 2);
+            string s1new = newFenceName.Substring(3, 2);
+            string f2new = newFenceName.Substring(5, 2);
+            string s2new = newFenceName.Substring(7, 2);
+ 
+            Vertex f1n = Array.Find(Vertices, v => v.Name == f1new);
+            Vertex s1n = Array.Find(Vertices, v => v.Name == s1new);
+
+            Edge deleted1new = Array.Find(Edges, e => (e != null && (e.FirstVertex == f1n && e.SecondVertex == s1n)) || (e != null && (e.FirstVertex == s1n && e.SecondVertex == f1n)));
+            int ind1new = Array.IndexOf(Edges, deleted1new);
+            Edges[ind1new] = null;
+            deleted1new = null;
+              
+            Vertex f2n = Array.Find(Vertices, v => v.Name == f2new);
+            Vertex s2n = Array.Find(Vertices, v => v.Name == s2new);
+
+            Edge deleted2new = Array.Find(Edges, e => (e != null && (e.FirstVertex == f2n && e.SecondVertex == s2n)) || (e != null &&  (e.FirstVertex == s2n && e.SecondVertex == f2n)));
+            int ind2new = Array.IndexOf(Edges, deleted2new);
+            Edges[ind2new] = null;
+            deleted2new = null;
 
             return startVertex;
         }

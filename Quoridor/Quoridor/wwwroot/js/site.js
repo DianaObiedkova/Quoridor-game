@@ -229,7 +229,7 @@ function selectCell(e) {
 
             const box = document.createElement("div");
             box.classList.add("fade_box")
-            box.classList.add("in");
+            box.classList.add("inout");
             box.id = "game_result_message_box";
             box.innerHTML = "Player 2 wins!";
             const boardTableContainer = document.getElementById("board_table_container");
@@ -245,7 +245,7 @@ function selectCell(e) {
 
             const box = document.createElement("div");
             box.classList.add("fade_box")
-            box.classList.add("in");
+            box.classList.add("inout");
             box.id = "game_result_message_box";
             box.innerHTML = "Player 1 wins!";
             const boardTableContainer = document.getElementById("board_table_container");

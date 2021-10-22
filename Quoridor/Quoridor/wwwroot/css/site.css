@@ -346,7 +346,12 @@ div.horizontal_wall {
     z-index: 2;
 }
 
-#game_result_message_box, button.restart {
+#game_result_message_box {
+    animation-duration: 7s;
+    background-color: rgba(0, 81, 255, 0.85);
+}
+
+button.restart {
     background-color: rgba(0, 81, 255, 0.85);
 }
 div.vertical_wall {

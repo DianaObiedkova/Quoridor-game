@@ -178,7 +178,7 @@ namespace Quoridor.Models
                     }
                 }
                 //справа вражеская пешка
-                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index == Board.Size - 1)
+                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index + 1 == Board.Size - 1)
                         && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall)
                 {
                     result.Add(new int[] { 1, -1 });
@@ -197,7 +197,7 @@ namespace Quoridor.Models
                     }
                 }
                 //справа вражеская пешка
-                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index == Board.Size - 1)
+                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index + 1 == Board.Size - 1)
                         && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall)
                 {
                     result.Add(new int[] { 1, 1 });

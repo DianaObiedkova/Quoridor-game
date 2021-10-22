@@ -74,8 +74,8 @@ namespace Quoridor.Models
             }
 
             //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
-            Vertex currentVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
-            currentVertex.value = 0;
+            startVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
+            startVertex.value = 0;
 
             Edges = new Edge[144]; //9*8*2
             for(int i = 0; i < 9; i++)
@@ -117,7 +117,6 @@ namespace Quoridor.Models
                 Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
                 //Edges = удалить сell new Edge(f1, s1, 1)
                 Edge deleted1 = Array.Find(Edges, e => (e != null && (e.FirstVertex == f1 && e.SecondVertex == s1)) || (e != null && (e.FirstVertex == s1 && e.SecondVertex == f1)));
-                Debug.Print("1 " + deleted1.FirstVertex.Name + deleted1.SecondVertex.Name);
                 int ind1 = Array.IndexOf(Edges, deleted1);
                 Edges[ind1] = null;
                 deleted1 = null;
@@ -126,16 +125,12 @@ namespace Quoridor.Models
                 Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
                 //Edges = удалить сell new Edge(f2, s2, 1)
                 Edge deleted2 = Array.Find(Edges, e => (e != null && (e.FirstVertex == f2 && e.SecondVertex == s2)) || (e != null &&  (e.FirstVertex == s2 && e.SecondVertex == f2)));
-                Debug.Print("2 " + deleted2.FirstVertex.Name + deleted2.SecondVertex.Name);
                 int ind2 = Array.IndexOf(Edges, deleted2);
                 Edges[ind2] = null;
                 deleted2 = null;
             }
 
-
-            Debug.Print(Edges.Count(e => e != null).ToString());
-
-            return currentVertex;
+            return startVertex;
         }
 
         //start.weight = 0
@@ -182,7 +177,10 @@ namespace Quoridor.Models
                     if(item.value > newvalue)
                     {
                         item.value = newvalue;
-                        item.PrevVertex = currentVertex;
+
+                        Vertex temp_curr = Array.Find(Vertices, v => v.Name == currentVertex.Name);
+                        int ind = Array.IndexOf(Vertices, temp_curr);
+                        item.PrevVertex = Vertices[ind];
                     }
                     else
                     {
@@ -200,20 +198,16 @@ namespace Quoridor.Models
         //     return path;
         public static bool GetShortestPath(Vertex last)
         {
-            Debug.Print("GetShortestPath");
             List<Vertex> path = new List<Vertex>();
-            Vertex current = last;
-            Debug.Print("END: " + current.Name);
-            Debug.Print("START: " + startVertex.Name);
+            Vertex temp_curr = Array.Find(Vertices, v => v.Name == last.Name);
+            int ind = Array.IndexOf(Vertices, temp_curr);
+            Vertex current = Vertices[ind];
             while (current != startVertex)
             {
                 if(current == null){
-                    Debug.Print("Null found");
-
                     return false;
                 }
                 path.Add(current);
-                Debug.Print("Path: " + current.Name);
                 current = current.PrevVertex;
             }
             return true;

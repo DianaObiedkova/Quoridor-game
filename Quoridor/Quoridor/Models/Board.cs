@@ -175,7 +175,7 @@ namespace Quoridor.Models
 
             if (AllFences[0] != null)
             {
-                if (!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2))
+                if (!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2, newName))
                 {
                     return false;
                 }
@@ -238,7 +238,7 @@ namespace Quoridor.Models
 
         //top side - сторона противника?
         //bottom side - сторона игрока?
-        public bool DijkstraCheck(Cell currentCell1, Cell currentCell2)
+        public bool DijkstraCheck(Cell currentCell1, Cell currentCell2, string newFence)
         {
             List<Vertex> finalVertices1 = new List<Vertex>();
             List<Vertex> finalVertices2 = new List<Vertex>();
@@ -247,7 +247,7 @@ namespace Quoridor.Models
             bool result2 = false;
 
             //выполняется проверка в обе стороны для двух игроков         
-            Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
+            Vertex currentVertex1 = Dijkstra.StartQuoridorDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences, newFence);
 
             //закинуть в finalCells нужный ряд клеток в виде Vertex, взяв их из Dijkstra.Vertices
             for (int i = 0; i < Size; i++)
@@ -262,17 +262,15 @@ namespace Quoridor.Models
             {
                 Dijkstra.FindShortestPath(currentVertex1);
                 bool local_res = Dijkstra.GetShortestPath(final);
-                Debug.Print(local_res.ToString() + "1");
                 if(!local_res)
                     continue;
                 result1 = true;
             }
-            Vertex currentVertex2 = Dijkstra.StartQuoridorDijkstra(currentCell2, cells.Cast<Cell>().ToArray(), AllFences);
+            Vertex currentVertex2 = Dijkstra.StartQuoridorDijkstra(currentCell2, cells.Cast<Cell>().ToArray(), AllFences, newFence);
             foreach (Vertex final in finalVertices2)
             {
                 Dijkstra.FindShortestPath(currentVertex2);
                 bool local_res = Dijkstra.GetShortestPath(final);
-                Debug.Print(local_res.ToString() + "2");
                 if(!local_res)
                     continue;
                 result2 = true;

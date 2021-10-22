@@ -1,21 +1,8 @@
 ﻿@model Game
 @{
     ViewData["Title"] = "Quoridor";
-    //Layout = null;
 }
 <h1>@ViewData["Title"]</h1>
-
-@*<p>Let's play!</p>*@
-
-@*@{
-    object SetFenceInvoke()
-    {
-        Quoridor.Controllers.QuoridorController g = new Quoridor.Controllers.QuoridorController(); //какая-то дичь
-        return g.SetFence(new Cell() { X = "b", Y = 0 }, new Cell() { X = "b", Y = 1 });
-        //Model.SetFence(new Cell() { X = "b", Y = 0 }, new Cell() { X = "b", Y = 1 });
-        //return Model.SecondPWalls;
-    }
-}*@
 
 <div class="buttons">
     <button type="button" id="restart" class="button above restart">New game</button>
@@ -42,22 +29,22 @@
         </div>
         <table id="board_table" class="geek" border="1">
             <tr class="row1">
-                <td id="a0" class="col cell" @*onclick="@(() =>  @UpdatePossibleMoves() )"*@></td>
-                <td cell1="b0" cell2="b1" class="between_cols vwall" @*onclick="@SetFenceInvoke()"*@></td>
+                <td id="a0" class="col cell"></td>
+                <td cell1="b0" cell2="b1" class="between_cols vwall"></td>
                 <td id="b0" class="col cell"></td>
-                <td cell1="c0" cell2="c1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="c", Y = 0},new Cell(){ X = "c", Y = 1})"*@></td>
+                <td cell1="c0" cell2="c1" class="between_cols vwall"></td>
                 <td id="c0" class="col cell"></td>
-                <td cell1="d0" cell2="d1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="d", Y = 0},new Cell(){ X = "d", Y = 1})"*@></td>
+                <td cell1="d0" cell2="d1" class="between_cols vwall"></td>
                 <td id="d0" class="col cell"></td>
-                <td cell1="e0" cell2="e1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="e", Y = 0},new Cell(){ X = "e", Y = 1})"*@></td>
+                <td cell1="e0" cell2="e1" class="between_cols vwall"></td>
                 <td id="e0" class="col cell"><div class="pawn pawn0" id="pawn0"></div></td>
-                <td cell1="f0" cell2="f1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="f", Y = 0},new Cell(){ X = "f", Y = 1})"*@></td>
+                <td cell1="f0" cell2="f1" class="between_cols vwall"></td>
                 <td id="f0" class="col cell"></td>
-                <td cell1="g0" cell2="g1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="g", Y = 0},new Cell(){ X = "g", Y = 1})"*@></td>
+                <td cell1="g0" cell2="g1" class="between_cols vwall"></td>
                 <td id="g0" class="col cell"></td>
-                <td cell1="h0" cell2="h1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="h", Y = 0},new Cell(){ X = "h", Y = 1})"*@></td>
+                <td cell1="h0" cell2="h1" class="between_cols vwall"></td>
                 <td id="h0" class="col cell"></td>
-                <td cell1="i0" cell2="i1" class="between_cols vwall" @*onclick="@Model.SetFence(new Cell() { X="i", Y = 0},new Cell(){ X = "i", Y = 1})"*@></td>
+                <td cell1="i0" cell2="i1" class="between_cols vwall"></td>
                 <td id="i0" class="col cell"></td>
             </tr>
             <tr class="between_rows">
@@ -88,7 +75,7 @@
                 <td cell1="d1" cell2="d2" class="between_cols vwall"></td>
                 <td id="d1" class="col cell"></td>
                 <td cell1="e1" cell2="e2" class="between_cols vwall"></td>
-                <td id="e1" class="col cell" @*onclick="console.log(@ViewData["moves"]);"*@></td>
+                <td id="e1" class="col cell"></td>
                 <td cell1="f1" cell2="f2" class="between_cols vwall"></td>
                 <td id="f1" class="col cell"></td>
                 <td cell1="g1" cell2="g2" class="between_cols vwall"></td>
@@ -372,46 +359,12 @@
         <form asp-controller="Quoridor" asp-action="PossibleMoves" data-ajax="true" data-ajax-method="POST" data-ajax-update="#movesHelper" data-ajax-mode="replace">
             <input type="submit" name="btnsearch" value="Search" />
             <div id="movesHelper">
-                @*@foreach (var item in @Model.PossibleMovePawn())
-        {
-            <div class="posMoveX">@item[0]</div><div class="posMoveY">@item[1]</div>
-            <br />
-        }
-                <div class="posMoveX">-1</div><div class="posMoveY">0</div>
-        <div class="posMoveX">1</div><div class="posMoveY">0</div>
-        <div class="posMoveX">0</div><div class="posMoveY">-1</div>
-        <div class="posMoveX">0</div><div class="posMoveY">1</div>*@
-                @*@{Html.RenderPartial("PartialMoves", Model.PossibleMovePawn());}*@
-
             </div>
         </form>
     </div>
     
-    
-    @*@using (Ajax.BeginForm("PossibleMoves", "Quoridor", new AjaxOptions { UpdateTargetId = "movesHelper", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
-        {
-
-        }*@
 </div>
 
-
-@{
-    
-
-
-    @*@functions{
-            public string UpdatePossibleMoves()
-            {
-                var str = string.Empty;
-                foreach (var item in @Model.PossibleMovePawn())
-                {
-                    str+="<div class=\"posMoveX\">"+@item[0]+"</div><div class=\"posMoveY\">"+@item[1]+"</div><br />";
-                }
-
-                return str;
-            }
-        }*@
-}
 
 <script>
     function moves() {
@@ -420,37 +373,4 @@
     }
     
 
-    @*const cell = document.querySelectorAll(".cell");
-
-    cell.forEach((element) => {
-
-        //if (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1')) {
-        element.addEventListener('click', @UpdatePossibleMoves);
-        //}
-
-    });*@
 </script>
-@*<table>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols"> 1</td>
-                <td></td>
-                <td class="between_cols">1 </td>
-            </tr>
-        </tbody>
-    </table>*@

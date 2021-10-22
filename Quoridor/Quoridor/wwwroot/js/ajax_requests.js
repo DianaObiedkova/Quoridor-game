@@ -5,7 +5,6 @@ function sendHWall (e) {
         data: { "c1name": $(this).attr("cell1"), 
                 "c2name": $(this).attr("cell2")},
         success: function (response) {
-            alert("OK");
             getPossibleMoves();
             selectHWall(e);
         },
@@ -30,7 +29,6 @@ function sendVWall(e) {
             "c2name": $(this).attr("cell2")
         },
         success: function (response) {
-            alert("OK");
             getPossibleMoves();
             selectVWall(e);
         },
@@ -52,7 +50,6 @@ function sendPawnMove() {
         url: "/Quoridor/MovePawn",
         data: { "name": $(this).attr("id") },
         success: function (response) {
-            alert("OK");
             getPossibleMoves();
         },
         failure: function (response) {
@@ -73,7 +70,6 @@ function getPossibleMoves() {
     $.ajax({
         type: "GET",
         url: "/Quoridor/PossibleMoves",
-        //data: { "name": $(this).attr("id") },
         success: function (response) {
 
             let helper = document.getElementById("movesHelper");
@@ -82,7 +78,6 @@ function getPossibleMoves() {
 
             helper.insertAdjacentHTML('afterbegin', response);
             
-            alert("OK");
             validPawnMoves();
         },
         failure: function (response) {

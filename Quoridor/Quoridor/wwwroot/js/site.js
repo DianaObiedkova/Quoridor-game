@@ -1,8 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
+﻿
 const cell = document.querySelectorAll(".cell");
 
 let counter = 0;
@@ -19,7 +15,6 @@ _renderValidNextWalls();
 
 updateClicks();
 getPossibleMoves();
-validPawnMoves();
 const restartButton = document.getElementById("restart");
 
 restartButton.onclick = function onclickRestartButton() {
@@ -121,7 +116,6 @@ function validPawnMoves() {
                     for (let l = 0; l < posMoveX.length; l++) {
                         let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
                         let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
-                        //console.log(newX, newY);
 
                         let element = htmlBoardTable.rows[newY].cells[newX];
                         if (!element.hasChildNodes()) {
@@ -141,7 +135,6 @@ function validPawnMoves() {
                     for (let l = 0; l < posMoveX.length; l++) {
                         let newX = (parseInt(x) + 2 * parseInt(posMoveX[l].innerHTML));
                         let newY = (parseInt(y) + 2 * parseInt(posMoveY[l].innerHTML));
-                        //console.log(newX, newY);
 
                         if (newX < 0 || newY < 0 || newX>16 ||newY>16) {
                             continue;
@@ -161,15 +154,11 @@ function validPawnMoves() {
         }
     }
 
-    //removeHelperElements();
-
     cell.forEach((element) => {
 
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
-            element.addEventListener('click', selectCell);
             element.addEventListener('click', sendPawnMove);
-            //element.addEventListener('click', getPossibleMoves);
-            
+            element.addEventListener('click', selectCell);
         }
     });
 }
@@ -195,6 +184,7 @@ function cancelPawnShadows() {
 
         if (element.hasChildNodes() && (element.firstChild.classList.contains('pawnShadow0') || element.firstChild.classList.contains('pawnShadow1'))) {
             element.removeEventListener('click', selectCell);
+            element.removeEventListener('click', sendPawnMove);
         }
 
     });
@@ -211,8 +201,6 @@ function cancelPawnShadows() {
 }
 
 function selectCell(e) {
-
-    
 
     counter++;
     let pawn0 = document.querySelector(".pawn0");
@@ -255,7 +243,6 @@ function selectCell(e) {
 
     e.target.after(pawn);
     cancelPawnShadows();
-    //validPawnMoves();
 }
 
 function selectHWall(e) {
@@ -297,7 +284,6 @@ function selectHWall(e) {
             }
             updateClicks();
             updateWalls();
-            //validPawnMoves();
         }
         else {
             counter--;
@@ -336,7 +322,6 @@ function selectHWall(e) {
             }
             updateClicks();
             updateWalls();
-            //validPawnMoves();
         }
         else {
             counter--;
@@ -387,7 +372,6 @@ function selectVWall(e) {
             }
             updateClicks();
             updateWalls();
-            //validPawnMoves();
         }
         else {
             counter--;
@@ -429,7 +413,6 @@ function selectVWall(e) {
             updateClicks();
 
             updateWalls();
-            //validPawnMoves();
         }
         else {
             counter--;
@@ -450,23 +433,13 @@ function updateWalls() {
 function updateClicks() {
     hwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
-            //el.addEventListener('click', selectHWall);
             el.addEventListener('click', sendHWall);
-        }
-        else {
-            //el.removeEventListener('click', selectHWall);
-            //el.removeEventListener('click', sendHWall);
         }
     });
 
     vwall.forEach((el) => {
         if (el.hasAttribute("onmouseenter")) {
-            //el.addEventListener('click', selectVWall);
             el.addEventListener('click', sendVWall);
-        }
-        else {
-            //el.removeEventListener('click', selectVWall);
-           //el.removeEventListener('click', sendVWall);
         }
     });
 }

@@ -21,6 +21,8 @@ namespace Quoridor.Models
             board = new Board();
             this.firstP = firstP;
             this.secondP = secondP;
+            firstP.Pawn = new Pawn(){ Cell = (Cell)board.cells[8, 4].Clone() };
+            secondP.Pawn = new Pawn() { Cell = (Cell)board.cells[0, 4].Clone() };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
             StartGame();
@@ -466,7 +468,11 @@ namespace Quoridor.Models
                         }
                         break;
                     }
-                default: break;
+                default: 
+                    {
+                        Console.WriteLine("You entered unavailable move, try again.");
+                        return;
+                    } 
             }
 
             SwitchPlayers();

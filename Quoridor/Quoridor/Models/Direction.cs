@@ -7,7 +7,7 @@ namespace Quoridor.Models
 {
     public enum Direction
     {
-        North,
+        North = 1,
         East,
         South,
         West,

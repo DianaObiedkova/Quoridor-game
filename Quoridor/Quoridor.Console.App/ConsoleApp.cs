@@ -29,7 +29,6 @@
                         var x = splitCommand[1];
                         Console.WriteLine(x);
                         game.MovePawnConsole(x);
-                        Console.WriteLine("Ok!");
                         //game.MakeMove(x, y);
                         break;
                 }

@@ -121,63 +121,140 @@ namespace Quoridor.Controllers
                 return BadRequest();
         }
 
+        public bool IsMovePossible(string cName)
+        {
+            var moves = Game.PossibleMovePawn();
+            
+            foreach(var item in Game.Moves)
+            {
+                if (item == cName) return true;
+            }
+            return false;
+        }
+
         public void MovePawnConsole(string name)
         {
-            string new_cellname = name;
-            string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
-            Direction direction = 0;
-
-            if(Convert.ToInt32(new_cellname.Substring(1,1))<=8 && Convert.ToInt32(new_cellname.Substring(1, 1)) >= 0)
+            if (IsMovePossible(name))
             {
-                if ((cur_cellname[1]) == (new_cellname[1]))
+                string new_cellname = name;
+                string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
+                Direction direction = 0;
+
+                if (Convert.ToInt32(new_cellname.Substring(1, 1)) <= 8 && Convert.ToInt32(new_cellname.Substring(1, 1)) >= 0)
                 {
-                    if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
-                        direction = Direction.West;
-                    else if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
-                        direction = Direction.East;
-                    else 
+                    if ((cur_cellname[1]) == (new_cellname[1]))
                     {
-                        Console.WriteLine("Inappropriate value");
+                        if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                            direction = Direction.West;
+                        else if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                            direction = Direction.East;
+                        else
+                        {
+                            Console.WriteLine("Inappropriate value");
+                            return;
+                        }
+                    }
+                    else if (Convert.ToInt32(cur_cellname.Substring(1, 1)) - Convert.ToInt32(new_cellname.Substring(1, 1)) == 1)
+                    {
+                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                            direction = Direction.NorthWest;
+                        else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                            direction = Direction.NorthEast;
+                        else
+                            direction = Direction.North;
+                    }
+                    else if (Convert.ToInt32(new_cellname.Substring(1, 1)) - Convert.ToInt32(cur_cellname.Substring(1, 1)) == 1)
+                    {
+                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                            direction = Direction.SouthWest;
+                        else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                            direction = Direction.SouthEast;
+                        else
+                            direction = Direction.South;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You entered inappropriate cell value, try again in format 'e1' or nearly your position.");
                         return;
                     }
                 }
-                else if (Convert.ToInt32(cur_cellname.Substring(1, 1)) - Convert.ToInt32(new_cellname.Substring(1, 1)) == 1)
-                {
-                    if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
-                        direction = Direction.NorthWest;
-                    else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
-                        direction = Direction.NorthEast;
-                    else
-                        direction = Direction.North;
-                }
-                else if (Convert.ToInt32(new_cellname.Substring(1, 1)) - Convert.ToInt32(cur_cellname.Substring(1, 1)) == 1)
-                {
-                    if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
-                        direction = Direction.SouthWest;
-                    else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
-                        direction = Direction.SouthEast;
-                    else
-                        direction = Direction.South;
-                }
                 else
                 {
-                    Console.WriteLine("You entered inappropriate cell value, try again in format 'e1' or nearly your position.");
+                    Console.WriteLine("Index of cell is out of range");
                     return;
+                }
+
+
+                if (direction != 0)
+                {
+                    Game.MovePawn(direction);
+                    Console.WriteLine("Ok!");
                 }
             }
             else
             {
-                Console.WriteLine("Index of cell is out of range");
-                return;
+                Console.WriteLine("Move is impossible");
             }
-
             
-            if (direction != 0)
+        }
+
+        public void JumpPawnConsole(string name)
+        {
+            if (IsMovePossible(name))
             {
-                Game.MovePawn(direction);
-                Console.WriteLine("Ok!");
+                string new_cellname = name;
+                string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
+                Direction direction = 0;
+
+                if (Convert.ToInt32(new_cellname.Substring(1, 1)) <= 8 && Convert.ToInt32(new_cellname.Substring(1, 1)) >= 0)
+                {
+                    if ((cur_cellname[1]) == (new_cellname[1]))
+                    {
+                        if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 2)
+                            direction = Direction.West;
+                        else if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 2)
+                            direction = Direction.East;
+                        else
+                        {
+                            Console.WriteLine("Inappropriate value");
+                            return;
+                        }
+                    }
+                    else if (Convert.ToInt32(cur_cellname.Substring(1, 1)) - Convert.ToInt32(new_cellname.Substring(1, 1)) == 2)
+                    {
+                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] != 1 && indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] != 1)
+                            direction = Direction.North;
+                    }
+                    else if (Convert.ToInt32(new_cellname.Substring(1, 1)) - Convert.ToInt32(cur_cellname.Substring(1, 1)) == 2)
+                    {
+                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] != 1 && indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] != 1)
+                            direction = Direction.South;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You entered inappropriate cell value, try again in format 'e1' or nearly your position.");
+                        return;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Index of cell is out of range");
+                    return;
+                }
+
+
+                if (direction != 0)
+                {
+                    Game.MovePawn(direction);
+                    //Console.WriteLine("Ok!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Move is impossible");
             }
         }
+
 
         public void SetFenceConsole(string fenceName)
         {

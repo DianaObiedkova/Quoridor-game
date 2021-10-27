@@ -15,6 +15,7 @@ namespace Quoridor.Models
 
         public int FirstPWalls { get; private set; }
         public int SecondPWalls { get; private set; }
+        public List<string> Moves { get; private set; }
 
         public Game(Player firstP, Player secondP)
         {
@@ -25,6 +26,7 @@ namespace Quoridor.Models
             secondP.Pawn = new Pawn() { Cell = (Cell)board.cells[0, 4].Clone() };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
+            Moves = new List<string>();
             StartGame();
         }
 
@@ -35,6 +37,7 @@ namespace Quoridor.Models
             secondP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[8, 4].Clone() }) { Id = 2, Name = "Player 2" };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
+            //Moves = new List<string>();
             StartGame();
         }
 
@@ -92,6 +95,7 @@ namespace Quoridor.Models
                     && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).EastWall) // d3 -> e3
                     {
                         result.Add(new int[] { 1, 0 });
+                        if (!Moves.Contains(cellRight.Name)) Moves.Add(cellRight.Name);
                     }
                 }
                 else //если есть 
@@ -100,6 +104,7 @@ namespace Quoridor.Models
                    && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall) // d3 -> f3
                     {
                         result.Add(new int[] { 2, 0 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y, index + 2].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y, index + 2].Name);
                     }
                 }
             }
@@ -114,6 +119,7 @@ namespace Quoridor.Models
                     !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).WestWall) // e3 -> d3 //&& CurrentP.Pawn.Cell.WestWall //East
                     {
                         result.Add(new int[] { -1, 0 });
+                        if (!Moves.Contains(cellLeft.Name)) Moves.Add(cellLeft.Name);
                     }
                 }
                 else //если есть 
@@ -122,6 +128,7 @@ namespace Quoridor.Models
                    && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall) // f3 -> d3 
                     {
                         result.Add(new int[] { -2, 0 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y, index - 2].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y, index - 2].Name);
                     }
                 }
             }
@@ -136,6 +143,7 @@ namespace Quoridor.Models
                     && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).NorthWall)// e3 -> e2
                     {
                         result.Add(new int[] { 0, -1 });
+                        if (!Moves.Contains(cellUp.Name)) Moves.Add(cellUp.Name);
                     }
                 }
                 else //если есть 
@@ -144,6 +152,7 @@ namespace Quoridor.Models
                    && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall) // e3 -> e1
                     {
                         result.Add(new int[] { 0, -2 });
+                        if(!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 2, index].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 2, index].Name);
                     }
                 }
             }
@@ -157,6 +166,7 @@ namespace Quoridor.Models
                     && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).SouthWall)// e2 -> e3
                     {
                         result.Add(new int[] { 0, 1 });
+                        if (!Moves.Contains(cellDown.Name)) Moves.Add(cellDown.Name);
                     }
                 }
                 else //если есть 
@@ -165,6 +175,7 @@ namespace Quoridor.Models
                    && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall) // e1 -> e3
                     {
                         result.Add(new int[] { 0, 2 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 2, index].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 2, index].Name);
                     }
                 }
             }
@@ -474,7 +485,7 @@ namespace Quoridor.Models
                         return;
                     } 
             }
-
+            Moves.Clear();
             SwitchPlayers();
             CheckGameEnd();
         }

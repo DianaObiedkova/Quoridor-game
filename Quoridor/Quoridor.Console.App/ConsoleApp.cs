@@ -27,11 +27,14 @@
                         break;
                     case "move":
                         var x = splitCommand[1].ToLower();
-                        Console.WriteLine(x);
+                        //Console.WriteLine(x);
                         game.MovePawnConsole(x);
                         break;
                     case "wall":
                         game.SetFenceConsole(splitCommand[1].ToLower());
+                        break;
+                    case "jump":
+                        game.JumpPawnConsole(splitCommand[1].ToLower());
                         break;
                 }
 

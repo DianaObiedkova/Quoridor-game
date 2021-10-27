@@ -26,10 +26,12 @@
                     case "exit":
                         break;
                     case "move":
-                        var x = splitCommand[1];
+                        var x = splitCommand[1].ToLower();
                         Console.WriteLine(x);
                         game.MovePawnConsole(x);
-                        //game.MakeMove(x, y);
+                        break;
+                    case "wall":
+                        game.SetFenceConsole(splitCommand[1].ToLower());
                         break;
                 }
 

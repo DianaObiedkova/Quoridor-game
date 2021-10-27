@@ -13,12 +13,18 @@ namespace Quoridor.Controllers
     {
         public static Game Game { get; set; }
         readonly string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
+        readonly string[] fencesLetters = { "s", "t", "u", "v", "w", "x", "y", "z" };
         public readonly Dictionary<string, int> indexes = new Dictionary<string, int>();
+        public readonly Dictionary<string, int> fencesIndexes = new Dictionary<string, int>();
         public QuoridorController()
         {
             for (int i = 0; i < letters.Length; i++)
             {
                 indexes.Add(letters[i], i);
+            }
+            for (int i = 0; i < fencesLetters.Length; i++)
+            {
+                fencesIndexes.Add(fencesLetters[i], i);
             }
         }
 
@@ -171,6 +177,56 @@ namespace Quoridor.Controllers
                 Game.MovePawn(direction);
                 Console.WriteLine("Ok!");
             }
+        }
+
+        public void SetFenceConsole(string fenceName)
+        {
+            if(fenceName.Length>3)
+            {
+                Console.WriteLine("More than 3 letters for fence, try in format 'V7h'");
+                return;
+            }
+
+            Cell c1 = new Cell();
+            Cell c2 = new Cell();
+            if (int.TryParse(fenceName.Substring(1, 1), out int num))
+            {
+                if (fenceName.Substring(2, 1) == "h")
+                {
+                    c1.Name = letters[fencesIndexes[fenceName.Substring(0, 1)]] + (int.Parse(fenceName.Substring(1, 1)) - 1).ToString();
+                    c1.X = letters[fencesIndexes[fenceName.Substring(0, 1)]];
+                    c1.Y = int.Parse(fenceName.Substring(1, 1)) - 1;
+                    c2.Name = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1] + (int.Parse(fenceName.Substring(1, 1)) - 1).ToString();
+                    c2.X = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1];
+                    c2.Y = int.Parse(fenceName.Substring(1, 1)) - 1;
+                }
+                else if (fenceName.Substring(2, 1) == "v")
+                {
+                    c1.Name = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1] + int.Parse(fenceName.Substring(1, 1)).ToString();
+                    c1.X = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1];
+                    c1.Y = int.Parse(fenceName.Substring(1, 1));
+                    c2.Name = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1] + (int.Parse(fenceName.Substring(1, 1)) + 1).ToString();
+                    c2.X = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1];
+                    c2.Y = int.Parse(fenceName.Substring(1, 1)) + 1;
+                }
+                else
+                {
+                    Console.WriteLine("Undefined direction for wall, try 'v' or 'h'");
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine("You entered inappropriate digit");
+            }
+
+            bool res = Game.SetFence(c1, c2);
+            if (res)
+            {
+                Console.WriteLine("Ok!");
+            }
+            else
+                Console.WriteLine("Invalid wall placement!");
         }
     }
 }

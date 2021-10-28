@@ -64,7 +64,31 @@ namespace Quoridor.Models
             throw new ArgumentException("Wrong direction was chosen.");
         }
 
+        public List<string> PossibleFences()
+        {
+            List<string> fences = new List<string>();
+            for(int i = 0; i < cells.GetLength(1) - 1; i++)
+            {
+                for (int j = 0; j < cells.GetLength(0) - 1; j++)
+                {
+                    fences.Add(cells[i, j].Name + cells[i, j + 1].Name);
+                    fences.Add(cells[i, j].Name + cells[i + 1, j].Name);
+                }
+            }
 
+            foreach(var fence in AllFences)
+            {
+                foreach(var posFence in fences)
+                {
+                    if (!(fence is null) && fence.Name.Substring(1, 4) == posFence)
+                    {
+                        fences.Remove(posFence);
+                    }
+                }
+            }
+
+            return fences;
+        }
         //можно ли поставить перегородку?
         public bool IsFencePossible(string fenceName)
         {
@@ -197,7 +221,7 @@ namespace Quoridor.Models
                 Id = AllFences.Count(x => x != null),
                 Name = newName
             };
-
+            
             return true;
         }
 

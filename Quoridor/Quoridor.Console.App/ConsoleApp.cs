@@ -3,6 +3,7 @@
     using Quoridor.Controllers;
     using Quoridor.Models;
     using System;
+
     class ConsoleApp
     {
         static void Main(string[] args)
@@ -13,6 +14,7 @@
             Console.WriteLine("Welcome to Quoridor game! Type 'white' or 'black' to choose a side: ");
             while (true)
             {
+                Console.Write("-> ");
                 com = Console.ReadLine();
                 var splitCommand = com.Split(new char[0]);
                 switch (splitCommand[0].ToLower())
@@ -29,15 +31,18 @@
                         var x = splitCommand[1].ToLower();
                         //Console.WriteLine(x);
                         game.MovePawnConsole(x);
+                        game.BestAITurn();
                         break;
                     case "wall":
                         game.SetFenceConsole(splitCommand[1].ToLower());
+                        game.BestAITurn();
                         break;
                     case "jump":
                         game.JumpPawnConsole(splitCommand[1].ToLower());
+                        game.BestAITurn();
                         break;
                 }
-
+                //var x = System.ReadLine.Read("> ");
             }
 
         }

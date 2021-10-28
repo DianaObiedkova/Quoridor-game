@@ -55,6 +55,7 @@ namespace Quoridor.Controllers
             else
             {
                 Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2" });
+                
             }
             Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
         }
@@ -63,7 +64,7 @@ namespace Quoridor.Controllers
         {
             StringBuilder str=new StringBuilder("");
 
-            foreach(var item in Game.PossibleMovePawn())
+            foreach(var item in Game.PossiblePawnMoves())
             {
                 str.Append("<div class=\"posMoveX\">" + item[0] + "</div><div class=\"posMoveY\">" + item[1] + "</div>");
             }
@@ -123,7 +124,7 @@ namespace Quoridor.Controllers
 
         public bool IsMovePossible(string cName)
         {
-            var moves = Game.PossibleMovePawn();
+            var moves = Game.PossiblePawnMoves();
             
             foreach(var item in Game.Moves)
             {
@@ -304,6 +305,42 @@ namespace Quoridor.Controllers
             }
             else
                 Console.WriteLine("Invalid wall placement!");
+        }
+
+
+        public void BestAITurn()
+        {
+            Game.PossiblePawnMoves();
+            Random ran = new Random();
+            int i = ran.Next(2);
+
+            if (i == 1)
+            {
+                var x = Game.Moves.FirstOrDefault();
+                MovePawnConsole(x);
+                Console.WriteLine("<- move " + x);
+            }
+            else
+            {
+                List<string> fences = Game.PossibleFences();
+
+                int r = ran.Next(fences.Count - 1);
+
+                string cell1Name = fences[r].Substring(0, 2);
+                string cell2Name = fences[r].Substring(2, 2);
+
+                SetFence(cell1Name,cell2Name);
+
+                if (cell1Name[0] == cell2Name[0])
+                {
+                    Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString()+(Convert.ToInt32(cell1Name.Substring(1)) + 1) +"h");
+                }
+                else
+                {
+                    Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "v");
+                }
+                
+            }
         }
     }
 }

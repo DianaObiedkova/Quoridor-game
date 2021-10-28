@@ -37,7 +37,7 @@ namespace Quoridor.Models
             secondP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[8, 4].Clone() }) { Id = 2, Name = "Player 2" };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
-            //Moves = new List<string>();
+            Moves = new List<string>();
             StartGame();
         }
 
@@ -49,6 +49,11 @@ namespace Quoridor.Models
         public void SwitchPlayers()
         {
             CurrentP = CurrentP == firstP ? secondP : firstP;
+        }
+
+        public List<string> PossibleFences()
+        {
+            return board.PossibleFences();
         }
 
         private bool IsFencePossibleForCurrentUser()
@@ -73,13 +78,14 @@ namespace Quoridor.Models
 
                 CurrentP.PlayFence();
                 SwitchPlayers();
+                Moves.Clear();
             }
 
             return true;
         }
 
 
-        public List<int[]> PossibleMovePawn()
+        public List<int[]> PossiblePawnMoves()
         {
             List<int[]> result = new List<int[]>();
 
@@ -489,6 +495,7 @@ namespace Quoridor.Models
             SwitchPlayers();
             CheckGameEnd();
         }
+
 
         private bool IsCellHasPawn(Cell cell)
         {

@@ -282,9 +282,9 @@ namespace Quoridor.Controllers
                     c1.Name = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1] + int.Parse(fenceName.Substring(1, 1)).ToString();
                     c1.X = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1];
                     c1.Y = int.Parse(fenceName.Substring(1, 1));
-                    c2.Name = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1] + (int.Parse(fenceName.Substring(1, 1)) + 1).ToString();
+                    c2.Name = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1] + (int.Parse(fenceName.Substring(1, 1)) - 1).ToString();
                     c2.X = letters[fencesIndexes[fenceName.Substring(0, 1)] + 1];
-                    c2.Y = int.Parse(fenceName.Substring(1, 1)) + 1;
+                    c2.Y = int.Parse(fenceName.Substring(1, 1)) - 1;
                 }
                 else
                 {
@@ -297,7 +297,7 @@ namespace Quoridor.Controllers
                 Console.WriteLine("You entered inappropriate digit");
             }
 
-            bool res = Game.SetFence(c1, c2);
+            bool res = Game.SetFence(c2, c1);
             if (res)
             {
                 Console.WriteLine("Ok!");

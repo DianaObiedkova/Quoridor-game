@@ -78,11 +78,11 @@ namespace Quoridor.Models
 
             foreach(var fence in AllFences)
             {
-                foreach(var posFence in fences)
+                for(int i=0;i<fences.Count;i++)
                 {
-                    if (!(fence is null) && fence.Name.Substring(1, 4) == posFence)
+                    if (!(fence is null) && fence.Name.Substring(1, 4) == fences[i])
                     {
-                        fences.Remove(posFence);
+                        fences.Remove(fences[i]);
                     }
                 }
             }

@@ -54,10 +54,28 @@ namespace Quoridor.Controllers
             }
             else
             {
-                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2" });
-                
+                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2" });                
             }
             Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
+            Game.FieldUpdated += OnFieldUpdated;
+        }
+
+        private void OnFieldUpdated(Cell[,] cells)
+        {
+            for(int i = 0; i < cells.GetLength(1); i++)
+            {
+                    Console.Write($" {PawnOrNot(cells[i, 8])} ║ {PawnOrNot(cells[i, 7])} ║ {PawnOrNot(cells[i, 6])} ║ " +
+                        $"{PawnOrNot(cells[i, 5])} ║ {PawnOrNot(cells[i, 4])} ║ {PawnOrNot(cells[i, 3])} ║ " +
+                        $"{PawnOrNot(cells[i, 2])} ║ {PawnOrNot(cells[i, 1])} ║ {PawnOrNot(cells[i, 0])} \n");
+                    if(i < cells.GetLength(0) - 1) Console.Write("═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══\n");
+            }
+
+            static string PawnOrNot(Cell cell)
+            {
+                if (Game.firstP.Pawn.Cell.Equals(cell)) return Game.firstP.Id.ToString();
+                if (Game.secondP.Pawn.Cell.Equals(cell)) return Game.secondP.Id.ToString();
+                return " ";
+            }
         }
 
         public ContentResult PossibleMoves()

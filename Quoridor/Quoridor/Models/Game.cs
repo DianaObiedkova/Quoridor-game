@@ -6,8 +6,8 @@ namespace Quoridor.Models
 {
     public class Game
     {
-        private readonly Player firstP;
-        private readonly Player secondP;
+        public readonly Player firstP;
+        public readonly Player secondP;
         private readonly Board board;
         public Player CurrentP { get; private set; }
         public Player Winner { get; private set; }
@@ -16,6 +16,9 @@ namespace Quoridor.Models
         public int FirstPWalls { get; private set; }
         public int SecondPWalls { get; private set; }
         public List<string> Moves { get; private set; }
+
+        public event Action<Cell[,]> FieldUpdated;
+        public Cell[,] GetCells() => board.cells.Clone() as Cell[,];
 
         public Game(Player firstP, Player secondP)
         {
@@ -79,6 +82,8 @@ namespace Quoridor.Models
                 CurrentP.PlayFence();
                 SwitchPlayers();
                 Moves.Clear();
+
+                FieldUpdated?.Invoke(GetCells());
             }
 
             return true;
@@ -493,6 +498,7 @@ namespace Quoridor.Models
             }
             Moves.Clear();
             SwitchPlayers();
+            FieldUpdated?.Invoke(GetCells());
             CheckGameEnd();
         }
 
@@ -511,6 +517,7 @@ namespace Quoridor.Models
         {
             Winner = winner;
             IsEnded = true;
+            Console.WriteLine("Game is ended! the winner is: " + Winner.Name);
         }
 
         private void CheckGameEnd()

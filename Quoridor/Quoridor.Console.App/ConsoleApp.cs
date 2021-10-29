@@ -29,7 +29,6 @@
                         break;
                     case "move":
                         var x = splitCommand[1].ToLower();
-                        //Console.WriteLine(x);
                         game.MovePawnConsole(x);
                         game.BestAITurn();
                         break;
@@ -42,7 +41,6 @@
                         game.BestAITurn();
                         break;
                 }
-                //var x = System.ReadLine.Read("> ");
             }
 
         }

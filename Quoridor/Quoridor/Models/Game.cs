@@ -19,6 +19,7 @@ namespace Quoridor.Models
 
         public event Action<Cell[,]> FieldUpdated;
         public Cell[,] GetCells() => board.cells.Clone() as Cell[,];
+        public Fence[] Fences { get { return board.AllFences; } }
 
         public Game(Player firstP, Player secondP)
         {

@@ -65,10 +65,30 @@ namespace Quoridor.Controllers
         {
             for(int i = 0; i < cells.GetLength(0); i++)
             {
-                    Console.Write($" {PawnOrNot(cells[i, 0])} ║ {PawnOrNot(cells[i, 1])} ║ {PawnOrNot(cells[i, 2])} ║ " +
-                        $"{PawnOrNot(cells[i, 3])} ║ {PawnOrNot(cells[i, 4])} ║ {PawnOrNot(cells[i, 5])} ║ " +
-                        $"{PawnOrNot(cells[i, 6])} ║ {PawnOrNot(cells[i, 7])} ║ {PawnOrNot(cells[i, 8])} \n");
-                    if(i < cells.GetLength(0) - 1) Console.Write("═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══\n");
+                Console.Write($" {PawnOrNot(cells[i, 0])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 0].Name}{cells[i, 1].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 1])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 1].Name}{cells[i, 2].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 2])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 2].Name}{cells[i, 3].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 3])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 3].Name}{cells[i, 4].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 4])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 4].Name}{cells[i, 5].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 5])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 5].Name}{cells[i, 6].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 6])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 6].Name}{cells[i, 7].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 7])} {VFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("v") && x.Name.Contains($"{cells[i, 7].Name}{cells[i, 8].Name}")))}" +
+                    $" {PawnOrNot(cells[i, 8])} \n");
+                
+                if (i < cells.GetLength(0) - 1)
+                {
+                    Console.Write($"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 0].Name}{cells[i + 1, 0].Name}")))}╬" +//═╬
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 1].Name}{cells[i + 1, 1].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 2].Name}{cells[i + 1, 2].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 3].Name}{cells[i + 1, 3].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 4].Name}{cells[i + 1, 4].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 5].Name}{cells[i + 1, 5].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 6].Name}{cells[i + 1, 6].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 7].Name}{cells[i + 1, 7].Name}")))}╬" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 8].Name}{cells[i + 1, 8].Name}")))}\n");
+                    //Console.Write("═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══\n");
+                }
+                var fences = Game.Fences;
             }
 
             static string PawnOrNot(Cell cell)
@@ -78,6 +98,18 @@ namespace Quoridor.Controllers
                 if (Game.secondP.Pawn.Cell.Equals(cell)) 
                     return Game.secondP.Id.ToString();
                 return " ";
+            }
+
+            static string VFence(Fence fence)
+            {
+                if (fence is null) return "|";
+                return "║";
+            }
+
+            static string HFence(Fence fence)
+            {
+                if (fence is null) return "---";
+                return "═══";
             }
         }
 

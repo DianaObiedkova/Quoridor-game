@@ -54,7 +54,8 @@ namespace Quoridor.Controllers
             }
             else
             {
-                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2" });                
+                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2" });
+                BestAITurn();
             }
             Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
             Game.FieldUpdated += OnFieldUpdated;
@@ -62,18 +63,20 @@ namespace Quoridor.Controllers
 
         private void OnFieldUpdated(Cell[,] cells)
         {
-            for(int i = 0; i < cells.GetLength(1); i++)
+            for(int i = 0; i < cells.GetLength(0); i++)
             {
-                    Console.Write($" {PawnOrNot(cells[i, 8])} ║ {PawnOrNot(cells[i, 7])} ║ {PawnOrNot(cells[i, 6])} ║ " +
-                        $"{PawnOrNot(cells[i, 5])} ║ {PawnOrNot(cells[i, 4])} ║ {PawnOrNot(cells[i, 3])} ║ " +
-                        $"{PawnOrNot(cells[i, 2])} ║ {PawnOrNot(cells[i, 1])} ║ {PawnOrNot(cells[i, 0])} \n");
+                    Console.Write($" {PawnOrNot(cells[i, 0])} ║ {PawnOrNot(cells[i, 1])} ║ {PawnOrNot(cells[i, 2])} ║ " +
+                        $"{PawnOrNot(cells[i, 3])} ║ {PawnOrNot(cells[i, 4])} ║ {PawnOrNot(cells[i, 5])} ║ " +
+                        $"{PawnOrNot(cells[i, 6])} ║ {PawnOrNot(cells[i, 7])} ║ {PawnOrNot(cells[i, 8])} \n");
                     if(i < cells.GetLength(0) - 1) Console.Write("═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══\n");
             }
 
             static string PawnOrNot(Cell cell)
             {
-                if (Game.firstP.Pawn.Cell.Equals(cell)) return Game.firstP.Id.ToString();
-                if (Game.secondP.Pawn.Cell.Equals(cell)) return Game.secondP.Id.ToString();
+                if (Game.firstP.Pawn.Cell.Equals(cell)) 
+                    return Game.firstP.Id.ToString();
+                if (Game.secondP.Pawn.Cell.Equals(cell)) 
+                    return Game.secondP.Id.ToString();
                 return " ";
             }
         }
@@ -96,9 +99,9 @@ namespace Quoridor.Controllers
             Direction direction = Direction.North;
             if((cur_cellname[1]) == (new_cellname[1]))
             {
-                if((cur_cellname[0]) > (new_cellname[0]))
+                if((cur_cellname[0]) < (new_cellname[0]))
                     direction = Direction.West;
-                else if((cur_cellname[0]) < (new_cellname[0]))
+                else if((cur_cellname[0]) > (new_cellname[0]))
                     direction = Direction.East;
                 else{}
             }
@@ -163,9 +166,9 @@ namespace Quoridor.Controllers
                 {
                     if ((cur_cellname[1]) == (new_cellname[1]))
                     {
-                        if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
                             direction = Direction.West;
-                        else if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        else if (indexes[new_cellname[0].ToString()] -  indexes[cur_cellname[0].ToString()] == 1)
                             direction = Direction.East;
                         else
                         {

@@ -102,7 +102,7 @@ namespace Quoridor.Controllers
 
             static string VFence(Fence fence)
             {
-                if (fence is null) return "|";
+                if (fence is null) return ":";
                 return "║";
             }
 

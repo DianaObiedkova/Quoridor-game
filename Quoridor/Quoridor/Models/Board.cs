@@ -99,17 +99,34 @@ namespace Quoridor.Models
             if (fenceName[0] == 'h')
             {
                 crossfence += "v";
+
+                //верхняя/левая половина
+                crossfence += secondpart.Substring(0, 2);
+                crossfence += firstpart.Substring(0, 2);
+                //нижняя/правая половина
+                crossfence += secondpart.Substring(2, 2);
+                crossfence += firstpart.Substring(2, 2);
+                
+                
             }
             else
             {
                 crossfence += "h";
+
+                //нижняя/правая половина
+                crossfence += firstpart.Substring(2, 2);
+                crossfence += secondpart.Substring(2, 2);
+                //верхняя/левая половина
+                crossfence += firstpart.Substring(0, 2);
+                crossfence += secondpart.Substring(0, 2);
+                
             }
-            //верхняя/левая половина
-            crossfence += firstpart.Substring(0, 2);
-            crossfence += secondpart.Substring(0, 2);
-            //нижняя/правая половина
-            crossfence += firstpart.Substring(2, 2);
-            crossfence += secondpart.Substring(2, 2);
+            ////верхняя/левая половина
+            //crossfence += firstpart.Substring(0, 2);
+            //crossfence += secondpart.Substring(0, 2);
+            ////нижняя/правая половина
+            //crossfence += firstpart.Substring(2, 2);
+            //crossfence += secondpart.Substring(2, 2);
 
             //проверить есть ли уже такая в списке allfences
             if (Array.Exists(AllFences, x => x != null && (x.Name.Contains(fenceName) || x.Name.Equals(fenceName))))

@@ -154,6 +154,83 @@ namespace Quoridor.Models
             return startVertex;
         }
 
+        public static Vertex StartAIDijkstra(Cell currentCell, Cell[] cells, Fence[] AllFences)
+        {
+            Vertices = new Vertex[cells.Length];
+            foreach(Cell cell in cells)
+            {
+                bool exists = Array.Exists(Vertices, x => x == null);
+                int index = 0;
+
+                if (exists)
+                {
+                    index = Array.FindIndex(Vertices, i => i == null);
+                }
+                else throw new ArgumentException("Index is not found.");
+
+                Vertices[index] = new Vertex(cell.Name, int.MaxValue, false);
+            }
+
+            //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
+            startVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
+            startVertex.value = 0;
+
+            Edges = new Edge[144]; //9*8*2
+            for(int i = 0; i < 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    if(i!=8) //если не последний ряд
+                    {
+                        bool exists = Array.Exists(Edges, x => x == null);
+                        int index = 0;
+                        if (exists)
+                            index = Array.FindIndex(Edges, i => i == null);
+                        else throw new ArgumentException("Index is not found.");
+                        Edges[index] = new Edge(Vertices[i*9+j], Vertices[i*9+j+9], 1); //добавить ребро к клетке снизу
+                    }
+                    if(j!=8) //если не последний столбец
+                    {
+                        bool exists = Array.Exists(Edges, x => x == null);
+                        int index = 0;
+                        if (exists)
+                            index = Array.FindIndex(Edges, i => i == null);
+                        else throw new ArgumentException("Index is not found.");
+                        Edges[index] = new Edge(Vertices[i*9+j], Vertices[i*9+j+1], 1); //добавить ребро к клетке справа
+                    }
+                }
+            }
+
+            foreach(Fence fence in AllFences)
+            {
+                if(fence == null)
+                    continue;
+                string f1name = fence.Name.Substring(1, 2); //точно ли начинаем с индекса 1, или все-таки 0?
+                //точно, там первый символ v/h 
+                string s1name = fence.Name.Substring(3, 2);
+                string f2name = fence.Name.Substring(5, 2);
+                string s2name = fence.Name.Substring(7, 2);
+ 
+                Vertex f1 = Array.Find(Vertices, v => v.Name == f1name);
+                Vertex s1 = Array.Find(Vertices, v => v.Name == s1name);
+                //Edges = удалить сell new Edge(f1, s1, 1)
+                Edge deleted1 = Array.Find(Edges, e => (e != null && (e.FirstVertex == f1 && e.SecondVertex == s1)) || (e != null && (e.FirstVertex == s1 && e.SecondVertex == f1)));
+                int ind1 = Array.IndexOf(Edges, deleted1);
+                Edges[ind1] = null;
+                deleted1 = null;
+                
+                Vertex f2 = Array.Find(Vertices, v => v.Name == f2name);
+                Vertex s2 = Array.Find(Vertices, v => v.Name == s2name);
+                //Edges = удалить сell new Edge(f2, s2, 1)
+                Edge deleted2 = Array.Find(Edges, e => (e != null && (e.FirstVertex == f2 && e.SecondVertex == s2)) || (e != null &&  (e.FirstVertex == s2 && e.SecondVertex == f2)));
+                int ind2 = Array.IndexOf(Edges, deleted2);
+                Edges[ind2] = null;
+                deleted2 = null;
+            }
+
+            return startVertex;
+        }
+
         //start.weight = 0
         //othervertices[index].weight = INT_MAX
         //allvertices[index].IsChecked = false
@@ -232,6 +309,23 @@ namespace Quoridor.Models
                 current = current.PrevVertex;
             }
             return true;
+        }
+
+        public static int GetShortestPathLength(Vertex last)
+        {
+            List<Vertex> path = new List<Vertex>();
+            Vertex temp_curr = Array.Find(Vertices, v => v.Name == last.Name);
+            int ind = Array.IndexOf(Vertices, temp_curr);
+            Vertex current = Vertices[ind];
+            while (current != startVertex)
+            {
+                path.Add(current);
+                if(current == null){
+                    return -1;
+                }
+                current = current.PrevVertex;
+            }
+            return path.Count();
         }
 
         private static IEnumerable<Vertex> GetNeighbours(Vertex current)

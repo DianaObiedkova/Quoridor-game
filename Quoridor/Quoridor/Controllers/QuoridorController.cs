@@ -77,14 +77,14 @@ namespace Quoridor.Controllers
                 
                 if (i < cells.GetLength(0) - 1)
                 {
-                    Console.Write($"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 0].Name}{cells[i + 1, 0].Name}")))}╬" +//═╬
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 1].Name}{cells[i + 1, 1].Name}")))}╬" +
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 2].Name}{cells[i + 1, 2].Name}")))}╬" +
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 3].Name}{cells[i + 1, 3].Name}")))}╬" +
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 4].Name}{cells[i + 1, 4].Name}")))}╬" +
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 5].Name}{cells[i + 1, 5].Name}")))}╬" +
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 6].Name}{cells[i + 1, 6].Name}")))}╬" +
-                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 7].Name}{cells[i + 1, 7].Name}")))}╬" +
+                    Console.Write($"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 0].Name}{cells[i + 1, 0].Name}")))}+" +//═╬
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 1].Name}{cells[i + 1, 1].Name}")))}+" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 2].Name}{cells[i + 1, 2].Name}")))}+" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 3].Name}{cells[i + 1, 3].Name}")))}+" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 4].Name}{cells[i + 1, 4].Name}")))}+" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 5].Name}{cells[i + 1, 5].Name}")))}+" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 6].Name}{cells[i + 1, 6].Name}")))}+" +
+                            $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 7].Name}{cells[i + 1, 7].Name}")))}+" +
                             $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 8].Name}{cells[i + 1, 8].Name}")))}\n");
                     //Console.Write("═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══\n");
                 }
@@ -102,7 +102,7 @@ namespace Quoridor.Controllers
 
             static string VFence(Fence fence)
             {
-                if (fence is null) return ":";
+                if (fence is null) return "|";
                 return "║";
             }
 

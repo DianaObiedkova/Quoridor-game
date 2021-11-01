@@ -50,8 +50,8 @@ namespace Quoridor.Models
         //      the result should be processed with negamax
         private static double FencesSquaredDiff(int player1CurrentFences, int player2CurrentFences)
         {
-            double result = Math.Sqrt(player1CurrentFences-player2CurrentFences);
-            return default;
+            double result = Math.Pow((player1CurrentFences-player2CurrentFences), 2);
+            return result;
         }
 
         //returns minimal length

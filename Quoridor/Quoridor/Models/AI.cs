@@ -15,18 +15,61 @@ namespace Quoridor.Models
         //      current players' cells (Player.Pawn.Cell) for ShortestPathDiff()
         //      players' available walls counters (Player.CurrentFences) for FencesSquaredDiff()
 
+        //decision function
+        //uses ShortestPathDiff(...) and FencesSquaredDiff(...) to choose pawn/fence strategy
+        //uses SEF(...)
+        public static void Decision(Player AIPlayer, Player humanPlayer, Cell[,] cells, Fence[] AllFences) 
+        {
+            int currentShortestPathDiff = ShortestPathDiff(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, cells, AllFences);
+            double currentFencesSquaredDiff = FencesSquaredDiff(AIPlayer.CurrentFences, humanPlayer.CurrentFences);
 
+            //range: (0-79)
+            //type: int
+            int pathDiffLimit = 50;
+
+            //range: (0.0-100.0)
+            //type: double
+            int fencesDiffLimit = 80;
+
+            //ход стенкой
+            if(currentShortestPathDiff > pathDiffLimit) {
+                //for each possible fence:
+                //  ShortestPathDiff() should be called with:
+                //      CURRENT cells and
+                //      a modified COPY of the AllFences (a possible fence is added)
+
+            }
+            //ход пешкой
+            else if(currentFencesSquaredDiff > fencesDiffLimit) {
+                //for each possible cell move:
+                //  ShortestPathDiff() should be called with:
+                //      AI POSSIBLE cell and humanPlayer CURRENT cell
+            }
+            //ход пешкой
+            else {
+                //for each possible cell move:
+                //  ShortestPathDiff() should be called with:
+                //      AI POSSIBLE cell and humanPlayer CURRENT cell
+            }
+        }
+
+        //static evaluation function
+        //uses ShortestPathDiff(...)
+        public static double SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
+        {   
+            return ShortestPathDiff(possibleCell, enemyCell, cells, AllFences);
+        }
 
         //static evaluation function
         //uses ShortestPathDiff(...) and FencesSquaredDiff(...)
-        public static int SEF() 
+        public static double MixedSEF(Cell[,] cells, Fence[] AllFences) 
         {
+            
             return default;
         }
 
         //the first SEF variable: int
         //players' order (1/2) is permanent
-        //      the result should be processed with negamax
         private static int ShortestPathDiff(Cell currentCell1, Cell currentCell2, Cell[,] cells, Fence[] AllFences)
         {
             List<Vertex> finalVertices1 = new List<Vertex>();
@@ -42,12 +85,11 @@ namespace Quoridor.Models
             int result1 = GetPathLength(currentCell1, finalVertices1, cells, AllFences);
             int result2 = GetPathLength(currentCell2, finalVertices2, cells, AllFences);
 
-            return result1-result2;
+            return result2-result1;
         }
 
         //the second SEF variable: double
         //players' order (1/2) is permanent
-        //      the result should be processed with negamax
         private static double FencesSquaredDiff(int player1CurrentFences, int player2CurrentFences)
         {
             double result = Math.Pow((player1CurrentFences-player2CurrentFences), 2);

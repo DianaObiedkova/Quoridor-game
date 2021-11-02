@@ -325,7 +325,7 @@ namespace Quoridor.Models
                 }
                 current = current.PrevVertex;
             }
-            return path.Count();
+            return path.Count;
         }
 
         private static IEnumerable<Vertex> GetNeighbours(Vertex current)

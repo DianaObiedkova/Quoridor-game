@@ -179,12 +179,9 @@ namespace Quoridor.Models
                 return false;
             }
 
-            if (AllFences[0] != null)
+            if (AllFences[0] != null && (!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2, newName)))
             {
-                if (!IsFencePossible(newName) || !DijkstraCheck(PawnCell1, PawnCell2, newName))
-                {
-                    return false;
-                }
+                return false;
             }
             //горизонтальные
             if (X.Name.Substring(1, 1) == Y.Name.Substring(1, 1))

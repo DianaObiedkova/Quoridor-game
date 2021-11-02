@@ -21,6 +21,8 @@ namespace Quoridor.Models
         public Cell[,] GetCells() => board.cells.Clone() as Cell[,];
         public Fence[] Fences { get { return board.AllFences; } }
 
+        public AI AIinstance { get; private set; }
+
         public Game(Player firstP, Player secondP)
         {
             board = new Board();
@@ -31,6 +33,10 @@ namespace Quoridor.Models
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
             Moves = new List<string>();
+            if(this.firstP is AIPlayer)
+                AIinstance = new AI(this.board, this.firstP, this.secondP);
+            else if(this.secondP is AIPlayer)
+                AIinstance = new AI(this.board, this.secondP, this.firstP);
             StartGame();
         }
 

@@ -15,22 +15,29 @@ namespace Quoridor.Models
         //      current players' cells (Player.Pawn.Cell) for ShortestPathDiff()
         //      players' available walls counters (Player.CurrentFences) for FencesSquaredDiff()
         private Board board { get; set; } //cells, AllFences
-        private Player player { get; set; } //current player cells + player available walls
-        private int EnemyWalls { get; set; }
+        private Player AIPlayer { get; set; }
+        private Player humanPlayer { get; set; }
 
-        public AI(Board board, Player player, int walls )
+        public AI(Board board, Player AIPlayer, Player humanPlayer)
         {
             this.board = board;
-            this.player = player;
-            EnemyWalls = walls;
+            this.AIPlayer = AIPlayer;
+            this.humanPlayer = humanPlayer;
+        }
+
+        public void AIUpdate(Board board, Player AIPlayer, Player humanPlayer)
+        {
+            this.board = board;
+            this.AIPlayer = AIPlayer;
+            this.humanPlayer = humanPlayer;
         }
 
         //decision function
         //uses ShortestPathDiff(...) and FencesSquaredDiff(...) to choose pawn/fence strategy
         //uses SEF(...)
-        public static void Decision(Player AIPlayer, Player humanPlayer, Cell[,] cells, Fence[] AllFences) 
+        public void Decision() 
         {
-            int currentShortestPathDiff = ShortestPathDiff(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, cells, AllFences);
+            int currentShortestPathDiff = ShortestPathDiff(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, board.cells, board.AllFences);
             double currentFencesSquaredDiff = FencesSquaredDiff(AIPlayer.CurrentFences, humanPlayer.CurrentFences);
 
             //range: (0-79)
@@ -68,13 +75,6 @@ namespace Quoridor.Models
         public static double SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
         {   
             return ShortestPathDiff(possibleCell, enemyCell, cells, AllFences);
-        }
-
-        //static evaluation function
-        //uses ShortestPathDiff(...) and FencesSquaredDiff(...)
-        public static double MixedSEF(Cell[,] cells, Fence[] AllFences) 
-        {
-            return default;
         }
 
         //the first SEF variable: int

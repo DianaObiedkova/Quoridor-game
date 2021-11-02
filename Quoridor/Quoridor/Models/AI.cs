@@ -14,8 +14,16 @@ namespace Quoridor.Models
         //      Players' info:
         //      current players' cells (Player.Pawn.Cell) for ShortestPathDiff()
         //      players' available walls counters (Player.CurrentFences) for FencesSquaredDiff()
+        private Board board { get; set; } //cells, AllFences
+        private Player player { get; set; } //current player cells + player available walls
+        private int EnemyWalls { get; set; }
 
-
+        public AI(Board board, Player player, int walls )
+        {
+            this.board = board;
+            this.player = player;
+            EnemyWalls = walls;
+        }
 
         //static evaluation function
         //uses ShortestPathDiff(...) and FencesSquaredDiff(...)

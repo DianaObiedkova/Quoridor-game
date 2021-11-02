@@ -31,18 +31,12 @@ namespace Quoridor.Controllers
         public IActionResult Board()
         {
             Game = new Game();
-            //ViewData["fPwalls"] = Game.FirstPWalls;
-            //ViewData["sPwalls"] = Game.SecondPWalls;
-            //ViewData["moves"] = Game.PossibleMovePawn();
             return View(Game);
         }
 
         public IActionResult NewGame()
         {
             Game = new Game();
-            //ViewData["fPwalls"] = Game.FirstPWalls;
-            //ViewData["sPwalls"] = Game.SecondPWalls;
-            //ViewData["moves"] = Game.PossibleMovePawn();
             return View("Views/Quoridor/Board.cshtml");
         }
 
@@ -88,7 +82,6 @@ namespace Quoridor.Controllers
                             $"{HFence(Array.Find(Game.Fences, x => !(x is null) && x.Name.Contains("h") && x.Name.Contains($"{cells[i, 8].Name}{cells[i + 1, 8].Name}")))}\n");
                     //Console.Write("═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══╬═╬═══\n");
                 }
-                var fences = Game.Fences;
             }
 
             static string PawnOrNot(Cell cell)
@@ -135,7 +128,6 @@ namespace Quoridor.Controllers
                     direction = Direction.West;
                 else if((cur_cellname[0]) > (new_cellname[0]))
                     direction = Direction.East;
-                else{}
             }
             else if((cur_cellname[1]) > (new_cellname[1]))
             {
@@ -300,7 +292,6 @@ namespace Quoridor.Controllers
                 if (direction != 0)
                 {
                     Game.MovePawn(direction);
-                    //Console.WriteLine("Ok!");
                 }
             }
             else

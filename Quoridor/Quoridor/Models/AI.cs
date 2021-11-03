@@ -61,8 +61,8 @@ namespace Quoridor.Models
                 //  ShortestPathDiff() should be called with:
                 //      CURRENT cells and
                 //      a modified COPY of the AllFences (a possible fence is added)
-                int maxSEF = 0;
-                int maxSEFindex = 0;
+                int minSEF = 0;
+                int minSEFindex = 0;
                 foreach(Fence possibleFence in AllFences) {
                     Fence[] tempFences = new Fence[20];
                     Array.Copy(AllFences, tempFences, 20);
@@ -76,13 +76,13 @@ namespace Quoridor.Models
                         Id = AllFences.Count(x => x != null),
                         Name = possibleFence.Name
                     };               
-                    int tempSEF = SEF(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, cells, tempFences);
-                    if(tempSEF > maxSEF) {
-                        maxSEF = tempSEF;
-                        maxSEFindex = Array.IndexOf(AllFences, possibleFence);
+                    int tempSEF = SEF(AIPlayer.Pawn.Cell, cells, tempFences);
+                    if(tempSEF < minSEF) {
+                        minSEF = tempSEF;
+                        minSEFindex = Array.IndexOf(AllFences, possibleFence);
                     }
                 }
-                return AllFences[maxSEFindex].Name; //string
+                return AllFences[minSEFindex].Name; //string
             }
             //ход пешкой
             else if(currentFencesSquaredDiff > fencesDiffLimit) {
@@ -100,16 +100,16 @@ namespace Quoridor.Models
                     possibleCell.Name = possibleCellName;
                     possibleCells.Add(possibleCell);
                 }
-                int maxSEF = 0;
-                int maxSEFindex = 0;
+                int minSEF = int.MaxValue;
+                int minSEFindex = 0;
                 foreach(Cell possibleCell in possibleCells) {
-                    int tempSEF = SEF(possibleCell, humanPlayer.Pawn.Cell, cells, AllFences);
-                    if(tempSEF > maxSEF) {
-                        maxSEF = tempSEF;
-                        maxSEFindex = possibleCells.IndexOf(possibleCell);
+                    int tempSEF = SEF(possibleCell, cells, AllFences);
+                    if(tempSEF < minSEF) {
+                        minSEF = tempSEF;
+                        minSEFindex = possibleCells.IndexOf(possibleCell);
                     }
                 }
-                return possibleCells[maxSEFindex].Name;
+                return possibleCells[minSEFindex].Name;
             }
             //ход пешкой
             else {
@@ -127,24 +127,56 @@ namespace Quoridor.Models
                     possibleCell.Name = possibleCellName;
                     possibleCells.Add(possibleCell);
                 }
-                int maxSEF = 0;
-                int maxSEFindex = 0;
+                int minSEF = int.MaxValue;
+                int minSEFindex = 0;
                 foreach(Cell possibleCell in possibleCells) {
-                    int tempSEF = SEF(possibleCell, humanPlayer.Pawn.Cell, cells, AllFences);
-                    if(tempSEF > maxSEF) {
-                        maxSEF = tempSEF;
-                        maxSEFindex = possibleCells.IndexOf(possibleCell);
+                    int tempSEF = SEF(possibleCell, cells, AllFences);
+                    Console.WriteLine("cell name: " + possibleCell.Name + " SEF: " + tempSEF);
+                    if(tempSEF < minSEF) {
+                        minSEF = tempSEF;
+                        Console.WriteLine("possible minSEF index: " + possibleCells.IndexOf(possibleCell));
+                        minSEFindex = possibleCells.IndexOf(possibleCell);
                     }
+                    Console.WriteLine("current minSEF: " + minSEF);
                 }
-                return possibleCells[maxSEFindex].Name;
+                Console.WriteLine("final minSEF cell: " + possibleCells[minSEFindex].Name);
+                return possibleCells[minSEFindex].Name;
             }
         }
 
         //static evaluation function
+        private static int SEF(Cell possibleCell, Cell[,] cells, Fence[] AllFences) 
+        {   
+            return ShortestAIPath(possibleCell, cells, AllFences);
+        }
+
         //uses ShortestPathDiff(...)
-        private static int SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
+        private static int DiffSEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
         {   
             return ShortestPathDiff(possibleCell, enemyCell, cells, AllFences);
+        }
+
+        private static int ShortestAIPath(Cell currentAICell, Cell[,] cells, Fence[] AllFences)
+        {
+            Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentAICell, cells.Cast<Cell>().ToArray(), AllFences);
+
+            List<Vertex> finalVertices = new List<Vertex>();
+            for (int i = 0; i < 9; i++)
+            {
+                Vertex sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                finalVertices.Add(sideVertex);
+            }
+
+            int minResult = int.MaxValue;
+            foreach (Vertex final in finalVertices)
+            {
+                Dijkstra.FindShortestPath(currentVertex1);
+                int result1 = GetPathLength(currentAICell, finalVertices, cells, AllFences);
+                if(result1 < minResult)
+                    minResult = result1;
+            }
+
+            return minResult;
         }
 
         //the first SEF variable: int
@@ -157,9 +189,9 @@ namespace Quoridor.Models
             List<Vertex> finalVertices2 = new List<Vertex>();
             for (int i = 0; i < 9; i++)
             {
-                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
                 finalVertices1.Add(sideVertex1);
-                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
                 finalVertices2.Add(sideVertex2);
             }
 

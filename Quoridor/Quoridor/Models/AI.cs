@@ -159,10 +159,27 @@ namespace Quoridor.Models
                 finalVertices2.Add(sideVertex2);
             }
 
-            int result1 = GetPathLength(currentCell1, finalVertices1, cells, AllFences);
-            int result2 = GetPathLength(currentCell2, finalVertices2, cells, AllFences);
+            int minResult1 = int.MaxValue;
+            Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
+            foreach (Vertex final in finalVertices1)
+            {
+                Dijkstra.FindShortestPath(currentVertex1);
+                int result1 = GetPathLength(currentCell1, finalVertices1, cells, AllFences);
+                if(result1 < minResult1)
+                    minResult1 = result1;
+            }
 
-            return result2-result1;
+            int minResult2 = int.MaxValue;
+            Vertex currentVertex2 = Dijkstra.StartAIDijkstra(currentCell2, cells.Cast<Cell>().ToArray(), AllFences);
+            foreach (Vertex final in finalVertices2)
+            {
+                Dijkstra.FindShortestPath(currentVertex2);
+                int result2 = GetPathLength(currentCell2, finalVertices2, cells, AllFences);
+                if(result2 < minResult2)
+                    minResult2 = result2;
+            }
+
+            return minResult2-minResult1;
         }
 
         //the second SEF variable: double

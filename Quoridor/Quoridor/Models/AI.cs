@@ -95,7 +95,7 @@ namespace Quoridor.Models
                     string currentCellName = AIPlayer.Pawn.Cell.Name;
                     int possibleXind = Array.IndexOf(letters, currentCellName.Substring(0, 1)) + possibleMove[0];
                     string possibleX = letters[possibleXind];
-                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName[1]) + possibleMove[1]);
+                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName.Substring(1, 1)) + possibleMove[1]);
                     string possibleCellName = possibleX + possibleY;
                     possibleCell.Name = possibleCellName;
                     possibleCells.Add(possibleCell);
@@ -122,7 +122,7 @@ namespace Quoridor.Models
                     string currentCellName = AIPlayer.Pawn.Cell.Name;
                     int possibleXind = Array.IndexOf(letters, currentCellName.Substring(0, 1)) + possibleMove[0];
                     string possibleX = letters[possibleXind];
-                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName[1]) + possibleMove[1]);
+                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName.Substring(1, 1)) + possibleMove[1]);
                     string possibleCellName = possibleX + possibleY;
                     possibleCell.Name = possibleCellName;
                     possibleCells.Add(possibleCell);

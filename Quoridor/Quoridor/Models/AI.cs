@@ -22,6 +22,8 @@ namespace Quoridor.Models
         private List<int[]> possiblePawnMoves { get; set; }
         private List<string> possibleFences { get; set; }
 
+        readonly string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
+
         public AI(Cell[,] cells, Fence[] AllFences, Player AIPlayer, Player humanPlayer)
         {
             this.cells = cells;
@@ -89,15 +91,53 @@ namespace Quoridor.Models
                 //for each possible cell move:
                 //  ShortestPathDiff() should be called with:
                 //      AI POSSIBLE cell and humanPlayer CURRENT cell
+                List<Cell> possibleCells = new List<Cell>();
+                foreach(int[] possibleMove in possiblePawnMoves) {
+                    Cell possibleCell = new Cell();
+                    string currentCellName = AIPlayer.Pawn.Cell.Name;
+                    int possibleXind = Array.IndexOf(letters, currentCellName.Substring(0, 1)) + possibleMove[0];
+                    string possibleX = letters[possibleXind];
+                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName[1]) + possibleMove[1]);
+                    string possibleCellName = possibleX + possibleY;
+                    possibleCells.Add(possibleCell);
+                }
+                int maxSEF = 0;
+                int maxSEFindex = 0;
+                foreach(Cell possibleCell in possibleCells) {
+                    int tempSEF = SEF(possibleCell, humanPlayer.Pawn.Cell, cells, AllFences);
+                    if(tempSEF > maxSEF) {
+                        maxSEF = tempSEF;
+                        maxSEFindex = possibleCells.IndexOf(possibleCell);
+                    }
+                }
+                return possibleCells[maxSEFindex].Name;
             }
             //ход пешкой
             else {
                 //for each possible cell move:
                 //  ShortestPathDiff() should be called with:
                 //      AI POSSIBLE cell and humanPlayer CURRENT cell
+                List<Cell> possibleCells = new List<Cell>();
+                foreach(int[] possibleMove in possiblePawnMoves) {
+                    Cell possibleCell = new Cell();
+                    string currentCellName = AIPlayer.Pawn.Cell.Name;
+                    int possibleXind = Array.IndexOf(letters, currentCellName.Substring(0, 1)) + possibleMove[0];
+                    string possibleX = letters[possibleXind];
+                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName[1]) + possibleMove[1]);
+                    string possibleCellName = possibleX + possibleY;
+                    possibleCells.Add(possibleCell);
+                }
+                int maxSEF = 0;
+                int maxSEFindex = 0;
+                foreach(Cell possibleCell in possibleCells) {
+                    int tempSEF = SEF(possibleCell, humanPlayer.Pawn.Cell, cells, AllFences);
+                    if(tempSEF > maxSEF) {
+                        maxSEF = tempSEF;
+                        maxSEFindex = possibleCells.IndexOf(possibleCell);
+                    }
+                }
+                return possibleCells[maxSEFindex].Name;
             }
-
-            return "<- Can't find needed turn";
         }
 
         //static evaluation function

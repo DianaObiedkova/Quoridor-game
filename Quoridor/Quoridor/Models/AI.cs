@@ -32,11 +32,9 @@ namespace Quoridor.Models
             this.humanPlayer = humanPlayer;
         }
 
-        public void AIUpdate(Fence[] AllFences, Player AIPlayer, Player humanPlayer, List<int[]> possiblePawnMoves, List<string> possibleFences)
+        public void AIUpdate(Fence[] AllFences, List<int[]> possiblePawnMoves, List<string> possibleFences)
         {
             this.AllFences = AllFences;
-            this.AIPlayer = AIPlayer;
-            this.humanPlayer = humanPlayer;
             this.possiblePawnMoves = possiblePawnMoves;
             this.possibleFences = possibleFences;
         }

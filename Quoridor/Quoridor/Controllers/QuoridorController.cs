@@ -386,7 +386,7 @@ namespace Quoridor.Controllers
 
             //}
 
-            //Game.AIinstance.AIUpdate();
+            Game.AIinstance.AIUpdate(Game.Fences, Game.PossiblePawnMoves(), Game.PossibleFences());
 
             string move = Game.AIinstance.Decision();
 

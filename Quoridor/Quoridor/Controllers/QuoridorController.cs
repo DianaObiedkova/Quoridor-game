@@ -354,36 +354,66 @@ namespace Quoridor.Controllers
 
         public void BestAITurn()
         {
-            Game.PossiblePawnMoves();
-            Random ran = new Random();
-            int i = ran.Next(2);
+            //Game.PossiblePawnMoves();
+            //Random ran = new Random();
+            //int i = ran.Next(2);
 
-            if (i == 1)
+            //if (i == 1)
+            //{
+            //    var x = Game.Moves.FirstOrDefault();
+            //    MovePawnConsole(x);
+            //    Console.WriteLine("<- move " + x);
+            //}
+            //else
+            //{
+            //    List<string> fences = Game.PossibleFences();
+
+            //    int r = ran.Next(fences.Count - 1);
+
+            //    string cell1Name = fences[r].Substring(0, 2);
+            //    string cell2Name = fences[r].Substring(2, 2);
+
+            //    SetFence(cell1Name,cell2Name);
+
+            //    if (cell1Name[0] == cell2Name[0])
+            //    {
+            //        Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString()+(Convert.ToInt32(cell1Name.Substring(1)) + 1) +"h");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "v");
+            //    }
+
+            //}
+
+            //Game.AIinstance.AIUpdate();
+
+            string move = Game.AIinstance.Decision();
+
+            if(move.Length == 9)
             {
-                var x = Game.Moves.FirstOrDefault();
-                MovePawnConsole(x);
-                Console.WriteLine("<- move " + x);
-            }
-            else
-            {
-                List<string> fences = Game.PossibleFences();
+                string cell1Name = move.Substring(0, 2);
+                string cell2Name = move.Substring(2, 2);
 
-                int r = ran.Next(fences.Count - 1);
-
-                string cell1Name = fences[r].Substring(0, 2);
-                string cell2Name = fences[r].Substring(2, 2);
-
-                SetFence(cell1Name,cell2Name);
+                SetFence(cell1Name, cell2Name);
 
                 if (cell1Name[0] == cell2Name[0])
                 {
-                    Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString()+(Convert.ToInt32(cell1Name.Substring(1)) + 1) +"h");
+                    Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "h");
                 }
                 else
                 {
                     Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "v");
                 }
-                
+            }
+            else if(move.Length == 2)
+            {
+                MovePawnConsole(move);
+                Console.WriteLine("<- move " + move);
+            }
+            else
+            {
+                Console.WriteLine("<- move " + move);
             }
         }
     }

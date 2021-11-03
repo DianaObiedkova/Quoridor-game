@@ -42,7 +42,7 @@ namespace Quoridor.Models
         //decision function
         //uses ShortestPathDiff(...) and FencesSquaredDiff(...) to choose pawn/fence strategy
         //uses SEF(...)
-        public void Decision() 
+        public string Decision() 
         {
             int currentShortestPathDiff = ShortestPathDiff(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, cells, AllFences);
             double currentFencesSquaredDiff = FencesSquaredDiff(AIPlayer.CurrentFences, humanPlayer.CurrentFences);
@@ -82,7 +82,7 @@ namespace Quoridor.Models
                         maxSEFindex = Array.IndexOf(AllFences, possibleFence);
                     }
                 }
-                //return AllFences[maxSEFindex]; //string
+                return AllFences[maxSEFindex].Name; //string
             }
             //ход пешкой
             else if(currentFencesSquaredDiff > fencesDiffLimit) {
@@ -96,11 +96,13 @@ namespace Quoridor.Models
                 //  ShortestPathDiff() should be called with:
                 //      AI POSSIBLE cell and humanPlayer CURRENT cell
             }
+
+            return "<- Can't find needed turn";
         }
 
         //static evaluation function
         //uses ShortestPathDiff(...)
-        public static int SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
+        private static int SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
         {   
             return ShortestPathDiff(possibleCell, enemyCell, cells, AllFences);
         }

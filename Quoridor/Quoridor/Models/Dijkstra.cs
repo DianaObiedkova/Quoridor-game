@@ -10,14 +10,14 @@ namespace Quoridor.Models
     {
         public int Id { get; set; }  //добавлено для StartQuoridorDijkstra
         public string Name { get; set; }
-        public int value;
+        public int Value { get; set; }
         public bool IsChecked { get; set; }
         public Vertex PrevVertex { get; set; }
 
         public Vertex(string name, int value, bool IsChecked)
         {
-            this.Name = name;
-            this.value = value;
+            Name = name;
+            Value = value;
             this.IsChecked = IsChecked;
             PrevVertex = null;
         }
@@ -28,9 +28,9 @@ namespace Quoridor.Models
 
         public void resetVertex()
         {
-            this.value = int.MaxValue;
-            this.IsChecked = false;
-            this.PrevVertex = null;
+            Value = int.MaxValue;
+            IsChecked = false;
+            PrevVertex = null;
         }
     }
 
@@ -75,7 +75,7 @@ namespace Quoridor.Models
 
             //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
             startVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
-            startVertex.value = 0;
+            startVertex.Value = 0;
 
             Edges = new Edge[144]; //9*8*2
             for(int i = 0; i < 9; i++)
@@ -173,7 +173,7 @@ namespace Quoridor.Models
 
             //отловить в Vertices currentCell в виде Vertex по имени и установить её value=0
             startVertex = Array.Find(Vertices, v => v.Name == currentCell.Name);
-            startVertex.value = 0;
+            startVertex.Value = 0;
 
             Edges = new Edge[144]; //9*8*2
             for(int i = 0; i < 9; i++)
@@ -247,7 +247,7 @@ namespace Quoridor.Models
             {
                 vert.resetVertex();
             }
-            startVertex.value = 0;
+            startVertex.Value = 0;
 
             //первая итерация
             IterateDijkstra(startVertex);
@@ -271,18 +271,14 @@ namespace Quoridor.Models
             {
                 if(!item.IsChecked)
                 {
-                    int newvalue = currentVertex.value + GetEdge(item, currentVertex).Weight;
-                    if(item.value > newvalue)
+                    int newvalue = currentVertex.Value + GetEdge(item, currentVertex).Weight;
+                    if(item.Value > newvalue)
                     {
-                        item.value = newvalue;
+                        item.Value = newvalue;
 
                         Vertex temp_curr = Array.Find(Vertices, v => v.Name == currentVertex.Name);
                         int ind = Array.IndexOf(Vertices, temp_curr);
                         item.PrevVertex = Vertices[ind];
-                    }
-                    else
-                    {
-
                     }
                 }
             }
@@ -358,12 +354,12 @@ namespace Quoridor.Models
             if(@unchecked.Any())
             {
                 Vertex minVertex = @unchecked.First();
-                int minValue = @unchecked.First().value;
+                int minValue = @unchecked.First().Value;
                 foreach (Vertex vert in @unchecked)
                 {
-                    if(vert.value < minValue)
+                    if(vert.Value < minValue)
                     {
-                        minValue = vert.value;
+                        minValue = vert.Value;
                         minVertex = vert;
                     }
                 }

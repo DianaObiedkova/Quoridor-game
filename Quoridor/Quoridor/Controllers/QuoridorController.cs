@@ -44,11 +44,11 @@ namespace Quoridor.Controllers
         {
             if (color == "white")
             {
-                Game = new Game(new HumanPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new AIPlayer(new Pawn()) { Id = 2, Name = "Player 2" });
+                Game = new Game(new HumanPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new AIPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
             }
             else
             {
-                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1" }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2" });
+                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
                 BestAITurn();
             }
             Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
@@ -236,6 +236,7 @@ namespace Quoridor.Controllers
                 {
                     Game.MovePawn(direction);
                     Console.WriteLine("Ok!");
+                    CheckWinner();
                 }
             }
             else
@@ -293,6 +294,7 @@ namespace Quoridor.Controllers
                 if (direction != 0)
                 {
                     Game.MovePawn(direction);
+                    CheckWinner();
                 }
             }
             else
@@ -301,6 +303,13 @@ namespace Quoridor.Controllers
             }
         }
 
+        private void CheckWinner()
+        {
+            if (!(Game.Winner is null))
+            {
+                Console.WriteLine("Game is ended! the winner is: " + Game.Winner.Name);
+            }
+        }
 
         public void SetFenceConsole(string fenceName)
         {
@@ -347,6 +356,7 @@ namespace Quoridor.Controllers
             if (res)
             {
                 Console.WriteLine("Ok!");
+                CheckWinner();
             }
             else
                 Console.WriteLine("Invalid wall placement!");

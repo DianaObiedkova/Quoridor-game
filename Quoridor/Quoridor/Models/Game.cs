@@ -89,7 +89,7 @@ namespace Quoridor.Models
                 CurrentP.PlayFence();
                 SwitchPlayers();
                 Moves.Clear();
-
+                CheckGameEnd();
                 FieldUpdated?.Invoke(GetCells());
             }
 
@@ -514,16 +514,15 @@ namespace Quoridor.Models
         {
             Winner = winner;
             IsEnded = true;
-            Console.WriteLine("Game is ended! the winner is: " + Winner.Name);
         }
 
         private void CheckGameEnd()
         {
-            if (secondP.Pawn.Cell.Y == Board.Size - secondP.StartRow)
+            if (secondP.Pawn.Cell.Y == (Board.Size - 1) - secondP.StartRow)
             {
                 EndGame(secondP);
             }
-            else if (firstP.Pawn.Cell.Y == Board.Size - secondP.StartRow)
+            else if (firstP.Pawn.Cell.Y == (Board.Size - 1) - firstP.StartRow)
             {
                 EndGame(firstP);
             }

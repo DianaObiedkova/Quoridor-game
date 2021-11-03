@@ -19,17 +19,22 @@ namespace Quoridor.Models
         private Player AIPlayer { get; set; }
         private Player humanPlayer { get; set; }
 
+        //false for white AI
+        //true for black AI
+        private bool sideIndicator;
+
         private List<int[]> possiblePawnMoves { get; set; }
         private List<string> possibleFences { get; set; }
 
         readonly string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
 
-        public AI(Cell[,] cells, Fence[] AllFences, Player AIPlayer, Player humanPlayer)
+        public AI(Cell[,] cells, Fence[] AllFences, Player AIPlayer, Player humanPlayer, bool sideIndicator)
         {
             this.cells = cells;
             this.AllFences = AllFences;
             this.AIPlayer = AIPlayer;
             this.humanPlayer = humanPlayer;
+            this.sideIndicator = sideIndicator;
         }
 
         public void AIUpdate(Fence[] AllFences, List<int[]> possiblePawnMoves, List<string> possibleFences)
@@ -141,25 +146,31 @@ namespace Quoridor.Models
         }
 
         //static evaluation function
-        private static int SEF(Cell possibleCell, Cell[,] cells, Fence[] AllFences) 
+        private int SEF(Cell possibleCell, Cell[,] cells, Fence[] AllFences) 
         {   
             return ShortestAIPath(possibleCell, cells, AllFences);
         }
 
         //uses ShortestPathDiff(...)
-        private static int DiffSEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
+        private int DiffSEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
         {   
             return ShortestPathDiff(possibleCell, enemyCell, cells, AllFences);
         }
 
-        private static int ShortestAIPath(Cell currentAICell, Cell[,] cells, Fence[] AllFences)
+        private int ShortestAIPath(Cell currentAICell, Cell[,] cells, Fence[] AllFences)
         {
             Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentAICell, cells.Cast<Cell>().ToArray(), AllFences);
 
             List<Vertex> finalVertices = new List<Vertex>();
             for (int i = 0; i < 9; i++)
             {
-                Vertex sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                Vertex sideVertex;
+                if(sideIndicator) {
+                    sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                }
+                else {
+                sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                }
                 finalVertices.Add(sideVertex);
             }
 
@@ -177,7 +188,7 @@ namespace Quoridor.Models
 
         //the first SEF variable: int
         //players' order (1/2) is permanent
-        private static int ShortestPathDiff(Cell currentCell1, Cell currentCell2, Cell[,] cells, Fence[] AllFences)
+        private int ShortestPathDiff(Cell currentCell1, Cell currentCell2, Cell[,] cells, Fence[] AllFences)
         {
             Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
 
@@ -185,9 +196,17 @@ namespace Quoridor.Models
             List<Vertex> finalVertices2 = new List<Vertex>();
             for (int i = 0; i < 9; i++)
             {
-                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                Vertex sideVertex1;
+                Vertex sideVertex2;
+                if(sideIndicator) {
+                    sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                    sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                }
+                else {
+                    sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                    sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                }
                 finalVertices1.Add(sideVertex1);
-                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
                 finalVertices2.Add(sideVertex2);
             }
 
@@ -215,7 +234,7 @@ namespace Quoridor.Models
 
         //the second SEF variable: double
         //players' order (1/2) is permanent
-        private static double FencesSquaredDiff(int player1CurrentFences, int player2CurrentFences)
+        private double FencesSquaredDiff(int player1CurrentFences, int player2CurrentFences)
         {
             double result = Math.Pow((player1CurrentFences-player2CurrentFences), 2);
             return result;
@@ -223,7 +242,7 @@ namespace Quoridor.Models
 
         //returns minimal length
         //uses Dijkstra.cs
-        private static int GetPathLength(Cell currentCell, List<Vertex> finalVertices, Cell[,] cells, Fence[] AllFences)
+        private int GetPathLength(Cell currentCell, List<Vertex> finalVertices, Cell[,] cells, Fence[] AllFences)
         {
             Vertex currentVertex = Dijkstra.StartAIDijkstra(currentCell, cells.Cast<Cell>().ToArray(), AllFences);
 

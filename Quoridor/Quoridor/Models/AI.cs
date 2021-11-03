@@ -97,6 +97,7 @@ namespace Quoridor.Models
                     string possibleX = letters[possibleXind];
                     string possibleY = Convert.ToString(Convert.ToInt32(currentCellName[1]) + possibleMove[1]);
                     string possibleCellName = possibleX + possibleY;
+                    possibleCell.Name = possibleCellName;
                     possibleCells.Add(possibleCell);
                 }
                 int maxSEF = 0;
@@ -123,6 +124,7 @@ namespace Quoridor.Models
                     string possibleX = letters[possibleXind];
                     string possibleY = Convert.ToString(Convert.ToInt32(currentCellName[1]) + possibleMove[1]);
                     string possibleCellName = possibleX + possibleY;
+                    possibleCell.Name = possibleCellName;
                     possibleCells.Add(possibleCell);
                 }
                 int maxSEF = 0;
@@ -150,14 +152,14 @@ namespace Quoridor.Models
         private static int ShortestPathDiff(Cell currentCell1, Cell currentCell2, Cell[,] cells, Fence[] AllFences)
         {
             Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
-            
+
             List<Vertex> finalVertices1 = new List<Vertex>();
             List<Vertex> finalVertices2 = new List<Vertex>();
             for (int i = 0; i < 9; i++)
             {
-                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                Vertex sideVertex1 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
                 finalVertices1.Add(sideVertex1);
-                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                Vertex sideVertex2 = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
                 finalVertices2.Add(sideVertex2);
             }
 

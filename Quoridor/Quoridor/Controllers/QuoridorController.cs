@@ -220,7 +220,8 @@ namespace Quoridor.Controllers
                     }
                     else
                     {
-                        Console.WriteLine("You entered inappropriate cell value, try again in format 'e1' or nearly your position.");
+                        JumpPawnConsole(new_cellname);
+                        //Console.WriteLine("You entered inappropriate cell value, try again in format 'e1' or nearly your position.");
                         return;
                     }
                 }

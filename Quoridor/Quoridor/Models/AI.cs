@@ -79,7 +79,7 @@ namespace Quoridor.Models
                     int tempSEF = SEF(AIPlayer.Pawn.Cell, cells, tempFences);
                     if(tempSEF < minSEF) {
                         minSEF = tempSEF;
-                        minSEFindex = Array.IndexOf(AllFences, possibleFence);
+                        minSEFindex = Array.FindIndex(AllFences, f => f.Name == possibleFence.Name);
                     }
                 }
                 return AllFences[minSEFindex].Name; //string
@@ -106,7 +106,7 @@ namespace Quoridor.Models
                     int tempSEF = SEF(possibleCell, cells, AllFences);
                     if(tempSEF < minSEF) {
                         minSEF = tempSEF;
-                        minSEFindex = possibleCells.IndexOf(possibleCell);
+                        minSEFindex = possibleCells.FindIndex(c => c.Name == possibleCell.Name);
                     }
                 }
                 return possibleCells[minSEFindex].Name;
@@ -131,15 +131,11 @@ namespace Quoridor.Models
                 int minSEFindex = 0;
                 foreach(Cell possibleCell in possibleCells) {
                     int tempSEF = SEF(possibleCell, cells, AllFences);
-                    Console.WriteLine("cell name: " + possibleCell.Name + " SEF: " + tempSEF);
                     if(tempSEF < minSEF) {
                         minSEF = tempSEF;
-                        Console.WriteLine("possible minSEF index: " + possibleCells.IndexOf(possibleCell));
-                        minSEFindex = possibleCells.IndexOf(possibleCell);
+                        minSEFindex = possibleCells.FindIndex(c => c.Name == possibleCell.Name);
                     }
-                    Console.WriteLine("current minSEF: " + minSEF);
                 }
-                Console.WriteLine("final minSEF cell: " + possibleCells[minSEFindex].Name);
                 return possibleCells[minSEFindex].Name;
             }
         }

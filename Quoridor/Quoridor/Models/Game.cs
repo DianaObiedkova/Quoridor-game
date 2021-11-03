@@ -34,9 +34,9 @@ namespace Quoridor.Models
             SecondPWalls = secondP.CurrentFences;
             Moves = new List<string>();
             if(this.firstP is AIPlayer)
-                AIinstance = new AI(this.board, this.firstP, this.secondP);
+                AIinstance = new AI(this.board.cells, this.board.AllFences, this.firstP, this.secondP);
             else if(this.secondP is AIPlayer)
-                AIinstance = new AI(this.board, this.secondP, this.firstP);
+                AIinstance = new AI(this.board.cells, this.board.AllFences, this.secondP, this.firstP);
             StartGame();
         }
 

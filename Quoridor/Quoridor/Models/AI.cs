@@ -14,22 +14,29 @@ namespace Quoridor.Models
         //      Players' info:
         //      current players' cells (Player.Pawn.Cell) for ShortestPathDiff()
         //      players' available walls counters (Player.CurrentFences) for FencesSquaredDiff()
-        private Board board { get; set; } //cells, AllFences
+        private Cell[,] cells { get; set; }
+        private Fence[] AllFences { get; set; }
         private Player AIPlayer { get; set; }
         private Player humanPlayer { get; set; }
 
-        public AI(Board board, Player AIPlayer, Player humanPlayer)
+        private List<int[]> possiblePawnMoves { get; set; }
+        private List<string> possibleFences { get; set; }
+
+        public AI(Cell[,] cells, Fence[] AllFences, Player AIPlayer, Player humanPlayer)
         {
-            this.board = board;
+            this.cells = cells;
+            this.AllFences = AllFences;
             this.AIPlayer = AIPlayer;
             this.humanPlayer = humanPlayer;
         }
 
-        public void AIUpdate(Board board, Player AIPlayer, Player humanPlayer)
+        public void AIUpdate(Fence[] AllFences, Player AIPlayer, Player humanPlayer, List<int[]> possiblePawnMoves, List<string> possibleFences)
         {
-            this.board = board;
+            this.AllFences = AllFences;
             this.AIPlayer = AIPlayer;
             this.humanPlayer = humanPlayer;
+            this.possiblePawnMoves = possiblePawnMoves;
+            this.possibleFences = possibleFences;
         }
 
         //decision function
@@ -37,7 +44,7 @@ namespace Quoridor.Models
         //uses SEF(...)
         public void Decision() 
         {
-            int currentShortestPathDiff = ShortestPathDiff(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, board.cells, board.AllFences);
+            int currentShortestPathDiff = ShortestPathDiff(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, cells, AllFences);
             double currentFencesSquaredDiff = FencesSquaredDiff(AIPlayer.CurrentFences, humanPlayer.CurrentFences);
 
             //range: (0-79)
@@ -54,7 +61,28 @@ namespace Quoridor.Models
                 //  ShortestPathDiff() should be called with:
                 //      CURRENT cells and
                 //      a modified COPY of the AllFences (a possible fence is added)
-
+                int maxSEF = 0;
+                int maxSEFindex = 0;
+                foreach(Fence possibleFence in AllFences) {
+                    Fence[] tempFences = new Fence[20];
+                    Array.Copy(AllFences, tempFences, 20);
+                    int index = 0;
+                    if (Array.Exists(tempFences, x => x == null))
+                    {
+                        index = Array.FindIndex(tempFences, i => i == null);
+                    }
+                    tempFences[index] = new Fence()
+                    {
+                        Id = AllFences.Count(x => x != null),
+                        Name = possibleFence.Name
+                    };               
+                    int tempSEF = SEF(AIPlayer.Pawn.Cell, humanPlayer.Pawn.Cell, cells, tempFences);
+                    if(tempSEF > maxSEF) {
+                        maxSEF = tempSEF;
+                        maxSEFindex = Array.IndexOf(AllFences, possibleFence);
+                    }
+                }
+                //return AllFences[maxSEFindex]; //string
             }
             //ход пешкой
             else if(currentFencesSquaredDiff > fencesDiffLimit) {
@@ -72,7 +100,7 @@ namespace Quoridor.Models
 
         //static evaluation function
         //uses ShortestPathDiff(...)
-        public static double SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
+        public static int SEF(Cell possibleCell, Cell enemyCell, Cell[,] cells, Fence[] AllFences) 
         {   
             return ShortestPathDiff(possibleCell, enemyCell, cells, AllFences);
         }
@@ -124,5 +152,7 @@ namespace Quoridor.Models
 
             return minpath;
         }
+
+        
     }
 }

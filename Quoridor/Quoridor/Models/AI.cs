@@ -149,6 +149,8 @@ namespace Quoridor.Models
         //players' order (1/2) is permanent
         private static int ShortestPathDiff(Cell currentCell1, Cell currentCell2, Cell[,] cells, Fence[] AllFences)
         {
+            Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
+            
             List<Vertex> finalVertices1 = new List<Vertex>();
             List<Vertex> finalVertices2 = new List<Vertex>();
             for (int i = 0; i < 9; i++)
@@ -160,7 +162,6 @@ namespace Quoridor.Models
             }
 
             int minResult1 = int.MaxValue;
-            Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentCell1, cells.Cast<Cell>().ToArray(), AllFences);
             foreach (Vertex final in finalVertices1)
             {
                 Dijkstra.FindShortestPath(currentVertex1);

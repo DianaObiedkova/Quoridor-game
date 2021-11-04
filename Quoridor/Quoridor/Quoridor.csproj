@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifier>ubuntu.18.04-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>

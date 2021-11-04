@@ -66,7 +66,7 @@ namespace Quoridor.Models
                 newFence = "h"; 
 
                 //goes to 8th row, enemy is in the topRight
-                if(!sideIndicator) {
+                if(sideIndicator) {
                     string bottomRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
                     int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
@@ -89,7 +89,7 @@ namespace Quoridor.Models
                 newFence = "v"; 
 
                 //goes to 0 row, in the bottomRight
-                if(!sideIndicator) {
+                if(sideIndicator) {
                     string topRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
                     int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + AICellName.Substring(1, 1);
@@ -218,7 +218,7 @@ namespace Quoridor.Models
             for (int i = 0; i < 9; i++)
             {
                 Vertex sideVertex;
-                if(!sideIndicator) {
+                if(sideIndicator) {
                     sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
                 }
                 else {
@@ -247,7 +247,7 @@ namespace Quoridor.Models
             for (int i = 0; i < 9; i++)
             {
                 Vertex sideVertex;
-                if(!sideIndicator) {
+                if(sideIndicator) {
                     sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
                 }
                 else {

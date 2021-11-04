@@ -28,8 +28,8 @@ namespace Quoridor.Models
             board = new Board();
             this.firstP = firstP;
             this.secondP = secondP;
-            firstP.Pawn = new Pawn(){ Cell = (Cell)board.cells[0, 4].Clone() };
-            secondP.Pawn = new Pawn() { Cell = (Cell)board.cells[8, 4].Clone() };
+            firstP.Pawn = new Pawn(){ Cell = (Cell)board.cells[8, 4].Clone() };
+            secondP.Pawn = new Pawn() { Cell = (Cell)board.cells[0, 4].Clone() };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
             Moves = new List<string>();
@@ -43,8 +43,8 @@ namespace Quoridor.Models
         public Game()
         {
             board = new Board();
-            firstP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[8, 4].Clone() }) { Id = 1, Name = "Player 1" };
-            secondP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[0, 4].Clone() }) { Id = 2, Name = "Player 2" };
+            firstP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[0, 4].Clone() }) { Id = 1, Name = "Player 1" };
+            secondP = new HumanPlayer(new Pawn() { Cell = (Cell)board.cells[8, 4].Clone() }) { Id = 2, Name = "Player 2" };
             FirstPWalls = firstP.CurrentFences;
             SecondPWalls = secondP.CurrentFences;
             Moves = new List<string>();

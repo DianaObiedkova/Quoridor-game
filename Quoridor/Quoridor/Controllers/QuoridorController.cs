@@ -180,6 +180,7 @@ namespace Quoridor.Controllers
 
         public void MovePawnConsole(string name)
         {
+            name = name.Substring(0, 1) + Convert.ToString(Convert.ToInt32(name.Substring(1, 1)) - 1);
             if (IsMovePossible(name))
             {
                 string new_cellname = name;
@@ -247,6 +248,7 @@ namespace Quoridor.Controllers
 
         public void JumpPawnConsole(string name)
         {
+            name = name.Substring(0, 1) + Convert.ToString(Convert.ToInt32(name.Substring(1, 1)) - 1);
             if (IsMovePossible(name))
             {
                 string new_cellname = name;
@@ -421,17 +423,15 @@ namespace Quoridor.Controllers
                 if(Math.Abs(indexes[Game.CurrentP.Pawn.Cell.Name.Substring(0, 1)] - indexes[move.Substring(0, 1)]) > 1 || 
                     Math.Abs(Convert.ToInt32(Game.CurrentP.Pawn.Cell.Name.Substring(1, 1)) - Convert.ToInt32(move.Substring(1, 1))) > 1 )
                 {
-                    JumpPawnConsole(move);
-
                     move = move.Substring(0, 1) + Convert.ToString(Convert.ToInt32(move.Substring(1, 1)) + 1);
+                    JumpPawnConsole(move);
                     Console.WriteLine("jump " + move);
                     //CheckWinner();
                 }
                 else
                 {
-                    MovePawnConsole(move);
-
                     move = move.Substring(0, 1) + Convert.ToString(Convert.ToInt32(move.Substring(1, 1)) + 1);
+                    MovePawnConsole(move);
                     Console.WriteLine("move " + move);
                     //CheckWinner();
                 }

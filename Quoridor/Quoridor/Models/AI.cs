@@ -59,10 +59,11 @@ namespace Quoridor.Models
             //range: (0.0-100.0)
             //type: double
             int fencesDiffLimit = 80;
+            string newFence = "";
 
             if(ShortestEnemyPath(humanPlayer.Pawn.Cell, cells, AllFences) < 2) {
                 string enemyCellName = humanPlayer.Pawn.Cell.Name;
-                string newFence = "h"; 
+                newFence = "h"; 
 
                 //goes to 8th row, enemy is in the topRight
                 if(sideIndicator) {
@@ -82,19 +83,45 @@ namespace Quoridor.Models
 
                     newFence += topLeft + bottomLeft + topRight + enemyCellName;
                 }
-                
+            }
+            else if(ShortestAIPath(AIPlayer.Pawn.Cell, cells, AllFences) == 2) {
+                string AICellName = AIPlayer.Pawn.Cell.Name;
+                newFence = "v"; 
+
+                //goes to 0 row, in the bottomRight
+                if(sideIndicator) {
+                    string topRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
+                    int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
+                    string bottomLeft = letters[leftInd] + AICellName.Substring(1, 1);
+                    string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
+
+                    newFence += topLeft + topRight + bottomLeft + AICellName;
+                }
+                //goes to 8th row, in the topRight
+                else {
+                    string bottomRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
+                    int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
+                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
+                    string topLeft = letters[leftInd] + AICellName.Substring(1, 1);
+
+                    newFence += topLeft + AICellName + bottomLeft + bottomRight;
+                }
+            }
+
+            if(possibleFences.Contains(newFence))
+            {
                 return newFence;
             }
 
             //ход стенкой
-            else if(currentShortestPathDiff > pathDiffLimit) {
+            if(currentShortestPathDiff > pathDiffLimit) {
                 //for each possible fence:
                 //  ShortestPathDiff() should be called with:
                 //      CURRENT cells and
                 //      a modified COPY of the AllFences (a possible fence is added)
                 int minSEF = 0;
                 int minSEFindex = 0;
-                foreach(Fence possibleFence in AllFences) {
+                foreach(string possibleFence in possibleFences) {
                     Fence[] tempFences = new Fence[20];
                     Array.Copy(AllFences, tempFences, 20);
                     int index = 0;
@@ -105,15 +132,15 @@ namespace Quoridor.Models
                     tempFences[index] = new Fence()
                     {
                         Id = AllFences.Count(x => x != null),
-                        Name = possibleFence.Name
+                        Name = possibleFence
                     };               
                     int tempSEF = SEF(AIPlayer.Pawn.Cell, cells, tempFences);
                     if(tempSEF < minSEF) {
                         minSEF = tempSEF;
-                        minSEFindex = Array.FindIndex(AllFences, f => f.Name == possibleFence.Name);
+                        minSEFindex = possibleFences.FindIndex(f => f == possibleFence);
                     }
                 }
-                return AllFences[minSEFindex].Name; //string
+                return possibleFences[minSEFindex]; //string
             }
             //ход пешкой
             else if(currentFencesSquaredDiff > fencesDiffLimit) {

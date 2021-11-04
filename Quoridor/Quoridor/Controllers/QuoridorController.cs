@@ -51,8 +51,8 @@ namespace Quoridor.Controllers
                 Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
                 BestAITurn();
             }
-            Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
-            Game.FieldUpdated += OnFieldUpdated;
+            //Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
+            //Game.FieldUpdated += OnFieldUpdated;
         }
 
         private void OnFieldUpdated(Cell[,] cells)
@@ -235,8 +235,7 @@ namespace Quoridor.Controllers
                 if (direction != 0)
                 {
                     Game.MovePawn(direction);
-                    Console.WriteLine("Ok!");
-                    CheckWinner();
+                    //Console.WriteLine("Ok!");
                 }
             }
             else
@@ -294,7 +293,6 @@ namespace Quoridor.Controllers
                 if (direction != 0)
                 {
                     Game.MovePawn(direction);
-                    CheckWinner();
                 }
             }
             else
@@ -355,8 +353,7 @@ namespace Quoridor.Controllers
             bool res = Game.SetFence(c2, c1);
             if (res)
             {
-                Console.WriteLine("Ok!");
-                CheckWinner();
+                //Console.WriteLine("Ok!");
             }
             else
                 Console.WriteLine("Invalid wall placement!");
@@ -410,21 +407,35 @@ namespace Quoridor.Controllers
 
                 if (cell1Name[0] == cell2Name[0])
                 {
-                    Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "h");
+                    Console.WriteLine("wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "h");
+                    //CheckWinner();
                 }
                 else
                 {
-                    Console.WriteLine("<- wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "v");
+                    Console.WriteLine("wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "v");
+                    //CheckWinner();
                 }
             }
             else if(move.Length == 2)
             {
-                MovePawnConsole(move);
-                Console.WriteLine("<- move " + move);
+                if(Math.Abs(indexes[Game.CurrentP.Pawn.Cell.Name.Substring(0, 1)] - indexes[move.Substring(0, 1)]) > 1 || 
+                    Math.Abs(Convert.ToInt32(Game.CurrentP.Pawn.Cell.Name.Substring(1, 1)) - Convert.ToInt32(move.Substring(1, 1))) > 1 )
+                {
+                    JumpPawnConsole(move);
+                    Console.WriteLine("jump " + move);
+                    //CheckWinner();
+                }
+                else
+                {
+                    MovePawnConsole(move);
+                    Console.WriteLine("move " + move);
+                    //CheckWinner();
+                }
             }
             else
             {
-                Console.WriteLine("<- move " + move);
+                Console.WriteLine("move " + move);
+                //CheckWinner();
             }
         }
     }

@@ -44,12 +44,13 @@ namespace Quoridor.Controllers
         {
             if (color == "white")
             {
-                Game = new Game(new HumanPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new AIPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
+                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
+                BestAITurn();
             }
             else
             {
-                Game = new Game(new AIPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new HumanPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
-                BestAITurn();
+                Game = new Game(new HumanPlayer(new Pawn()) { Id = 1, Name = "Player 1", StartRow = 8 }, new AIPlayer(new Pawn()) { Id = 2, Name = "Player 2", StartRow = 0 });
+                
             }
             //Console.WriteLine(Game.CurrentP.Pawn.Cell.Name);
             //Game.FieldUpdated += OnFieldUpdated;

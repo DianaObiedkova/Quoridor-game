@@ -27,9 +27,9 @@
                     case "exit":
                         break;
                     case "move":
-                        var x = splitCommand[1].ToLower();
-                        x = x.Substring(0, 1) + Convert.ToString(Convert.ToInt32(x.Substring(1, 1)) - 1);
-                        game.MovePawnConsole(x);
+                        var x1 = splitCommand[1].ToLower();
+                        x1 = x1.Substring(0, 1) + Convert.ToString(Convert.ToInt32(x1.Substring(1, 1)) - 1);
+                        game.MovePawnConsole(x1);
                         //game.CheckWinner();
                         game.BestAITurn();
                         break;
@@ -39,9 +39,9 @@
                         game.BestAITurn();
                         break;
                     case "jump":
-                        var x = splitCommand[1].ToLower();
-                        x = x.Substring(0, 1) + Convert.ToString(Convert.ToInt32(x.Substring(1, 1)) - 1);
-                        game.JumpPawnConsole(x);
+                        var x2 = splitCommand[1].ToLower();
+                        x2 = x2.Substring(0, 1) + Convert.ToString(Convert.ToInt32(x2.Substring(1, 1)) - 1);
+                        game.JumpPawnConsole(x2);
                         //game.CheckWinner();
                         game.BestAITurn();
                         break;

@@ -60,8 +60,34 @@ namespace Quoridor.Models
             //type: double
             int fencesDiffLimit = 80;
 
+            if(ShortestEnemyPath(humanPlayer.Pawn.Cell, cells, AllFences) < 2) {
+                string enemyCellName = humanPlayer.Pawn.Cell.Name;
+                string newFence = "h"; 
+
+                //goes to 8th row, enemy is in the topRight
+                if(sideIndicator) {
+                    string bottomRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
+                    int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
+                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
+                    string topLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
+
+                    newFence += topLeft + bottomLeft + enemyCellName + bottomRight;
+                }
+                //goes to 0 row, enemy is in the bottomRight
+                else {
+                    string topRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
+                    int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
+                    string bottomLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
+                    string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
+
+                    newFence += topLeft + bottomLeft + topRight + enemyCellName;
+                }
+                
+                return newFence;
+            }
+
             //ход стенкой
-            if(currentShortestPathDiff > pathDiffLimit) {
+            else if(currentShortestPathDiff > pathDiffLimit) {
                 //for each possible fence:
                 //  ShortestPathDiff() should be called with:
                 //      CURRENT cells and
@@ -179,6 +205,35 @@ namespace Quoridor.Models
             {
                 Dijkstra.FindShortestPath(currentVertex1);
                 int result1 = GetPathLength(currentAICell, finalVertices, cells, AllFences);
+                if(result1 < minResult)
+                    minResult = result1;
+            }
+
+            return minResult;
+        }
+
+        private int ShortestEnemyPath(Cell currentEnemyCell, Cell[,] cells, Fence[] AllFences)
+        {
+            Vertex currentVertex1 = Dijkstra.StartAIDijkstra(currentEnemyCell, cells.Cast<Cell>().ToArray(), AllFences);
+
+            List<Vertex> finalVertices = new List<Vertex>();
+            for (int i = 0; i < 9; i++)
+            {
+                Vertex sideVertex;
+                if(sideIndicator) {
+                    sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[8, i].Name);
+                }
+                else {
+                sideVertex = Array.Find(Dijkstra.Vertices, v => v.Name == cells[0, i].Name);
+                }
+                finalVertices.Add(sideVertex);
+            }
+
+            int minResult = int.MaxValue;
+            foreach (Vertex final in finalVertices)
+            {
+                Dijkstra.FindShortestPath(currentVertex1);
+                int result1 = GetPathLength(currentEnemyCell, finalVertices, cells, AllFences);
                 if(result1 < minResult)
                     minResult = result1;
             }

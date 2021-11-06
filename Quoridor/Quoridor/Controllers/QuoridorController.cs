@@ -174,7 +174,12 @@ namespace Quoridor.Controllers
             
             foreach(var item in Game.Moves)
             {
-                if (item == cName) return true;
+                string currCellName = Game.CurrentP.Pawn.Cell.Name;
+                string newX = letters[Convert.ToInt32(currCellName.Substring(0, 1)) + item[0]];
+                string newY = Convert.ToString(Convert.ToInt32(currCellName.Substring(1, 1)) + item[1]);
+                string newCellName = newX + newY;
+                if(newCellName == cName) return true;
+                //if (item == cName) return true;
             }
             return false;
         }

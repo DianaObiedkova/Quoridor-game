@@ -13,7 +13,7 @@ namespace Quoridor.Controllers
     {
         public static Game Game { get; set; }
         readonly string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
-        readonly string[] fencesLetters = { "s", "t", "u", "v", "w", "x", "y", "z" };
+        readonly string[] fencesLetters = { "S", "T", "U", "V", "W", "X", "Y", "Z" };
         public readonly Dictionary<string, int> indexes = new Dictionary<string, int>();
         public readonly Dictionary<string, int> fencesIndexes = new Dictionary<string, int>();
         public QuoridorController()

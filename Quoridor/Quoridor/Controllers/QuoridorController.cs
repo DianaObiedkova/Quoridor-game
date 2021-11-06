@@ -193,13 +193,15 @@ namespace Quoridor.Controllers
                 string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
                 Direction direction = 0;
 
+                var cellsDiff = indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()];
+
                 if (Convert.ToInt32(new_cellname.Substring(1, 1)) <= 8 && Convert.ToInt32(new_cellname.Substring(1, 1)) >= 0)
                 {
                     if ((cur_cellname[1]) == (new_cellname[1]))
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        if (cellsDiff == 1)
                             direction = Direction.West;
-                        else if (indexes[new_cellname[0].ToString()] -  indexes[cur_cellname[0].ToString()] == 1)
+                        else if (-cellsDiff == 1)
                             direction = Direction.East;
                         else
                         {
@@ -209,18 +211,18 @@ namespace Quoridor.Controllers
                     }
                     else if (Convert.ToInt32(cur_cellname.Substring(1, 1)) - Convert.ToInt32(new_cellname.Substring(1, 1)) == 1)
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        if (cellsDiff == 1)
                             direction = Direction.NorthWest;
-                        else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                        else if (-cellsDiff == 1)
                             direction = Direction.NorthEast;
                         else
                             direction = Direction.North;
                     }
                     else if (Convert.ToInt32(new_cellname.Substring(1, 1)) - Convert.ToInt32(cur_cellname.Substring(1, 1)) == 1)
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        if (cellsDiff == 1)
                             direction = Direction.SouthWest;
-                        else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                        else if (-cellsDiff == 1)
                             direction = Direction.SouthEast;
                         else
                             direction = Direction.South;

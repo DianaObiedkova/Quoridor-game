@@ -113,10 +113,25 @@ namespace Quoridor.Models
             {
                 tempNewFence = newFence.Substring(1, 2) + newFence.Substring(5, 2);
             }
-            
+
+            List<string> overlapFences = new List<string>();
+            if(newFence[0] == 'h') {
+                overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] +  tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
+                overlapFences.Add(tempNewFence.Substring(2, 2) + letters[Array.IndexOf(letters, tempNewFence.Substring(2, 1)) + 1] +  tempNewFence.Substring(1, 1));
+                overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(2, 2)) + 1));
+            }
+            if(newFence[0] == 'v') {
+
+            }
             if(possibleFences.Contains(tempNewFence))
             {
-                return newFence;
+                bool skip = false;
+                foreach(string fence in overlapFences) {
+                    if(!possibleFences.Contains(fence)) 
+                        skip = true;
+                }
+                if(!skip)
+                    return newFence;
             }
 
             //ход стенкой

@@ -121,7 +121,9 @@ namespace Quoridor.Models
                 overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(2, 2)) + 1));
             }
             if(newFence[0] == 'v') {
-
+                overlapFences.Add(tempNewFence.Substring(0, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(1, 1)) - 1) + tempNewFence.Substring(0, 2));
+                overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(2, 2)) + 1));
+                overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] + tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
             }
             if(possibleFences.Contains(tempNewFence))
             {

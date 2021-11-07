@@ -415,7 +415,7 @@ namespace Quoridor.Controllers
 
                 SetFence(cell1Name, cell2Name);
 
-                if (cell1Name[0] == cell2Name[0])
+                if (cell1Name[1] == cell2Name[1])
                 {
                     Console.WriteLine("wall " + fencesLetters[Array.IndexOf(letters, cell1Name.Substring(0, 1))].ToString() + (Convert.ToInt32(cell1Name.Substring(1)) + 1) + "h");
                     //CheckWinner();

@@ -107,8 +107,12 @@ namespace Quoridor.Models
                     newFence += topLeft + AICellName + bottomLeft + bottomRight;
                 }
             }
-
-            string tempNewFence = newFence.Substring(1, 2) + newFence.Substring(5, 2);
+            string tempNewFence= string.Empty;
+            if (!string.IsNullOrEmpty(newFence))
+            {
+                tempNewFence = newFence.Substring(1, 2) + newFence.Substring(5, 2);
+            }
+            
             if(possibleFences.Contains(tempNewFence))
             {
                 return newFence;

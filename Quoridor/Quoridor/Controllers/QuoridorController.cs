@@ -188,13 +188,17 @@ namespace Quoridor.Controllers
                 string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
                 Direction direction = 0;
 
-                if (Convert.ToInt32(new_cellname.Substring(1, 1)) <= 8 && Convert.ToInt32(new_cellname.Substring(1, 1)) >= 0)
+                var cellsXDiff = indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()];
+                var newCellSecondDigit = Convert.ToInt32(new_cellname.Substring(1, 1));
+                var curCellSecondDigit = Convert.ToInt32(cur_cellname.Substring(1, 1));
+
+                if (newCellSecondDigit <= 8 && newCellSecondDigit >= 0)
                 {
-                    if ((cur_cellname[1]) == (new_cellname[1]))
+                    if (cur_cellname[1] == new_cellname[1])
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        if (cellsXDiff == 1)
                             direction = Direction.West;
-                        else if (indexes[new_cellname[0].ToString()] -  indexes[cur_cellname[0].ToString()] == 1)
+                        else if (-cellsXDiff == 1)
                             direction = Direction.East;
                         else
                         {
@@ -202,20 +206,20 @@ namespace Quoridor.Controllers
                             return;
                         }
                     }
-                    else if (Convert.ToInt32(cur_cellname.Substring(1, 1)) - Convert.ToInt32(new_cellname.Substring(1, 1)) == 1)
+                    else if (curCellSecondDigit - newCellSecondDigit == 1)
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        if (cellsXDiff == 1)
                             direction = Direction.NorthWest;
-                        else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                        else if (-cellsXDiff == 1)
                             direction = Direction.NorthEast;
                         else
                             direction = Direction.North;
                     }
-                    else if (Convert.ToInt32(new_cellname.Substring(1, 1)) - Convert.ToInt32(cur_cellname.Substring(1, 1)) == 1)
+                    else if (newCellSecondDigit - curCellSecondDigit == 1)
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 1)
+                        if (cellsXDiff == 1)
                             direction = Direction.SouthWest;
-                        else if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 1)
+                        else if (-cellsXDiff == 1)
                             direction = Direction.SouthEast;
                         else
                             direction = Direction.South;
@@ -237,7 +241,6 @@ namespace Quoridor.Controllers
                 if (direction != 0)
                 {
                     Game.MovePawn(direction);
-                    //Console.WriteLine("Ok!");
                 }
             }
             else
@@ -256,13 +259,17 @@ namespace Quoridor.Controllers
                 string cur_cellname = Game.CurrentP.Pawn.Cell.Name;
                 Direction direction = 0;
 
-                if (Convert.ToInt32(new_cellname.Substring(1, 1)) <= 8 && Convert.ToInt32(new_cellname.Substring(1, 1)) >= 0)
+                var cellsXDiff = indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()];
+                var newCellSecondDigit = Convert.ToInt32(new_cellname.Substring(1, 1));
+                var curCellSecondDigit = Convert.ToInt32(cur_cellname.Substring(1, 1));
+
+                if (newCellSecondDigit <= 8 && newCellSecondDigit >= 0)
                 {
                     if ((cur_cellname[1]) == (new_cellname[1]))
                     {
-                        if (indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] == 2)
+                        if (-cellsXDiff == 2)
                             direction = Direction.West;
-                        else if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] == 2)
+                        else if (cellsXDiff == 2)
                             direction = Direction.East;
                         else
                         {
@@ -270,14 +277,14 @@ namespace Quoridor.Controllers
                             return;
                         }
                     }
-                    else if (Convert.ToInt32(cur_cellname.Substring(1, 1)) - Convert.ToInt32(new_cellname.Substring(1, 1)) == 2)
+                    else if (curCellSecondDigit - newCellSecondDigit == 2)
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] != 1 && indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] != 1)
+                        if (cellsXDiff != 1 && -cellsXDiff != 1)
                             direction = Direction.North;
                     }
-                    else if (Convert.ToInt32(new_cellname.Substring(1, 1)) - Convert.ToInt32(cur_cellname.Substring(1, 1)) == 2)
+                    else if (newCellSecondDigit - curCellSecondDigit == 2)
                     {
-                        if (indexes[cur_cellname[0].ToString()] - indexes[new_cellname[0].ToString()] != 1 && indexes[new_cellname[0].ToString()] - indexes[cur_cellname[0].ToString()] != 1)
+                        if (cellsXDiff != 1 && -cellsXDiff != 1)
                             direction = Direction.South;
                     }
                     else

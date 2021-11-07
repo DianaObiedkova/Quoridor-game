@@ -127,6 +127,16 @@ namespace Quoridor.Models
                     overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] + tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
                 }
 
+                string shiftedNewFence = "";
+                if(letters[Array.IndexOf(letters, newFence.Substring(5, 1))] != "i")    
+                    shiftedNewFence =letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
+                                    newFence.Substring(6, 1) + 
+                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
+                                    newFence.Substring(8, 1) +
+                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 2] +
+                                    newFence.Substring(6, 1) + 
+                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 2] +
+                                    newFence.Substring(8, 1);
                 if (possibleFences.Contains(tempNewFence))
                 {
                     bool skip = false;
@@ -137,18 +147,10 @@ namespace Quoridor.Models
                     }
                     if (!skip)
                         return newFence;
-                    else {
-                        if(letters[Array.IndexOf(letters, newFence.Substring(5, 1))] != "i")
-                            return
-                                letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
-                                newFence.Substring(6, 1) + 
-                                letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
-                                newFence.Substring(8, 1) +
-                                letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 2] +
-                                newFence.Substring(6, 1) + 
-                                letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 2] +
-                                newFence.Substring(8, 1);
-                    }
+                }
+                else if(possibleFences.Contains(shiftedNewFence.Substring(1, 2) + shiftedNewFence.Substring(5, 2)))
+                {
+                    return shiftedNewFence;
                 }
             }
 

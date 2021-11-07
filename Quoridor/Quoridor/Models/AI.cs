@@ -65,8 +65,8 @@ namespace Quoridor.Models
                 string enemyCellName = humanPlayer.Pawn.Cell.Name;
                 newFence = "h"; 
 
-                //goes to 8th row, enemy is in the topRight
-                if(!sideIndicator) {
+                //goes to 0th row, enemy is in the topRight
+                if(sideIndicator) {
                     string bottomRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
                     int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
@@ -74,12 +74,12 @@ namespace Quoridor.Models
 
                     newFence += topLeft + bottomLeft + enemyCellName + bottomRight;
                 }
-                //goes to 0 row, enemy is in the bottomRight
+                //goes to 8 row, enemy is in the bottomRight
                 else {
                     string topRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
                     int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
-                    string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
+                    string topLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
 
                     newFence += topLeft + bottomLeft + topRight + enemyCellName;
                 }
@@ -88,20 +88,20 @@ namespace Quoridor.Models
                 string AICellName = AIPlayer.Pawn.Cell.Name;
                 newFence = "v"; 
 
-                //goes to 0 row, in the bottomRight
+                //goes to 8 row, in the bottomRight
                 if(sideIndicator) {
-                    string topRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
+                    string topRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
                     int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + AICellName.Substring(1, 1);
-                    string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
+                    string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
 
                     newFence += topLeft + topRight + bottomLeft + AICellName;
                 }
-                //goes to 8th row, in the topRight
+                //goes to 0th row, in the topRight
                 else {
-                    string bottomRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
+                    string bottomRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
                     int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
-                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
+                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
                     string topLeft = letters[leftInd] + AICellName.Substring(1, 1);
 
                     newFence += topLeft + AICellName + bottomLeft + bottomRight;

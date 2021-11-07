@@ -59,7 +59,7 @@ namespace Quoridor.Models
             //range: (0.0-100.0)
             //type: double
             int fencesDiffLimit = 80;
-            string newFence = "";
+            /*string newFence = "";
 
             if(ShortestEnemyPath(humanPlayer.Pawn.Cell, cells, AllFences) < 2) {
                 string enemyCellName = humanPlayer.Pawn.Cell.Name;
@@ -134,7 +134,7 @@ namespace Quoridor.Models
                 }
                 if(!skip)
                     return newFence;
-            }
+            }*/
 
             //ход стенкой
             if(currentShortestPathDiff > pathDiffLimit) {

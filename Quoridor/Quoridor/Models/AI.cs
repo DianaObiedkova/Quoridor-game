@@ -59,7 +59,7 @@ namespace Quoridor.Models
             //range: (0.0-100.0)
             //type: double
             int fencesDiffLimit = 80;
-            /*string newFence = "";
+            string newFence = "";
 
             if(ShortestEnemyPath(humanPlayer.Pawn.Cell, cells, AllFences) < 2) {
                 string enemyCellName = humanPlayer.Pawn.Cell.Name;
@@ -84,60 +84,64 @@ namespace Quoridor.Models
                     newFence += bottomLeft + topLeft + enemyCellName + topRight;
                 }
             }
-            else if(ShortestAIPath(AIPlayer.Pawn.Cell, cells, AllFences) == 2) {
-                string AICellName = AIPlayer.Pawn.Cell.Name;
-                newFence = "v"; 
+            //else if(ShortestAIPath(AIPlayer.Pawn.Cell, cells, AllFences) == 2) {
+            //    string AICellName = AIPlayer.Pawn.Cell.Name;
+            //    newFence = "v"; 
 
-                //goes to 8 row, in the bottomRight
-                if(sideIndicator) {
-                    string topRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
-                    int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
-                    string bottomLeft = letters[leftInd] + AICellName.Substring(1, 1);
-                    string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
+            //    //goes to 8 row, in the bottomRight
+            //    if(sideIndicator) {
+            //        string topRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
+            //        int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
+            //        string bottomLeft = letters[leftInd] + AICellName.Substring(1, 1);
+            //        string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
 
-                    newFence += topLeft + topRight + bottomLeft + AICellName;
-                    newFence += bottomLeft + AICellName + topLeft + topRight;
-                }
-                //goes to 0th row, in the topRight
-                else {
-                    string bottomRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
-                    int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
-                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
-                    string topLeft = letters[leftInd] + AICellName.Substring(1, 1);
+            //        newFence += topLeft + topRight + bottomLeft + AICellName;
+            //        newFence += bottomLeft + AICellName + topLeft + topRight;
+            //    }
+            //    //goes to 0th row, in the topRight
+            //    else {
+            //        string bottomRight = AICellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
+            //        int leftInd = Array.IndexOf(letters, AICellName.Substring(0, 1)) - 1;
+            //        string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
+            //        string topLeft = letters[leftInd] + AICellName.Substring(1, 1);
 
-                    newFence += bottomRight + bottomLeft + AICellName + topLeft;
-                }
-            }
+            //        newFence += bottomRight + bottomLeft + AICellName + topLeft;
+            //    }
+            //}
             string tempNewFence= string.Empty;
             if (!string.IsNullOrEmpty(newFence))
             {
                 tempNewFence = newFence.Substring(1, 2) + newFence.Substring(5, 2);
-            }
 
-            List<string> overlapFences = new List<string>();
-            if(newFence[0] == 'h') {
-                overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] +  tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
-                overlapFences.Add(tempNewFence.Substring(2, 2) + letters[Array.IndexOf(letters, tempNewFence.Substring(2, 1)) + 1] +  tempNewFence.Substring(1, 1));
-                overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(2, 2)) + 1));
-            }
-            if(newFence[0] == 'v') {
-                overlapFences.Add(tempNewFence.Substring(0, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(1, 1)) - 1) + tempNewFence.Substring(0, 2));
-                overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(2, 2)) + 1));
-                overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] + tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
-            }
-            if(possibleFences.Contains(tempNewFence))
-            {
-                bool skip = false;
-                foreach(string fence in overlapFences) {
-                    if(!possibleFences.Contains(fence)) 
-                        skip = true;
+                List<string> overlapFences = new List<string>();
+                if (newFence[0] == 'h')
+                {
+                    overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] + tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
+                    overlapFences.Add(tempNewFence.Substring(2, 2) + letters[Array.IndexOf(letters, tempNewFence.Substring(2, 1)) + 1] + tempNewFence.Substring(1, 1));
+                    overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(3, 1)) + 1));
                 }
-                if(!skip)
-                    return newFence;
-            }*/
+                if (newFence[0] == 'v')
+                {
+                    overlapFences.Add(tempNewFence.Substring(0, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(1, 1)) - 1) + tempNewFence.Substring(0, 2));
+                    overlapFences.Add(tempNewFence.Substring(2, 2) + tempNewFence.Substring(2, 1) + Convert.ToString(Convert.ToInt32(tempNewFence.Substring(1, 1)) + 1));
+                    overlapFences.Add(letters[Array.IndexOf(letters, tempNewFence.Substring(0, 1)) - 1] + tempNewFence.Substring(1, 1) + tempNewFence.Substring(0, 2));
+                }
+
+                if (possibleFences.Contains(tempNewFence))
+                {
+                    bool skip = false;
+                    foreach (string fence in overlapFences)
+                    {
+                        if (!possibleFences.Contains(fence))
+                            skip = true;
+                    }
+                    if (!skip)
+                        return newFence;
+                }
+            }
 
             //ход стенкой
-            if(currentShortestPathDiff > pathDiffLimit) {
+            if (currentShortestPathDiff > pathDiffLimit) {
                 //for each possible fence:
                 //  ShortestPathDiff() should be called with:
                 //      CURRENT cells and
@@ -166,32 +170,32 @@ namespace Quoridor.Models
                 return possibleFences[minSEFindex]; //string
             }
             //ход пешкой
-            else if(currentFencesSquaredDiff > fencesDiffLimit) {
-                //for each possible cell move:
-                //  ShortestPathDiff() should be called with:
-                //      AI POSSIBLE cell and humanPlayer CURRENT cell
-                List<Cell> possibleCells = new List<Cell>();
-                foreach(int[] possibleMove in possiblePawnMoves) {
-                    Cell possibleCell = new Cell();
-                    string currentCellName = AIPlayer.Pawn.Cell.Name;
-                    int possibleXind = Array.IndexOf(letters, currentCellName.Substring(0, 1)) + possibleMove[0];
-                    string possibleX = letters[possibleXind];
-                    string possibleY = Convert.ToString(Convert.ToInt32(currentCellName.Substring(1, 1)) + possibleMove[1]);
-                    string possibleCellName = possibleX + possibleY;
-                    possibleCell.Name = possibleCellName;
-                    possibleCells.Add(possibleCell);
-                }
-                int minSEF = int.MaxValue;
-                int minSEFindex = 0;
-                foreach(Cell possibleCell in possibleCells) {
-                    int tempSEF = SEF(possibleCell, cells, AllFences);
-                    if(tempSEF < minSEF) {
-                        minSEF = tempSEF;
-                        minSEFindex = possibleCells.FindIndex(c => c.Name == possibleCell.Name);
-                    }
-                }
-                return possibleCells[minSEFindex].Name;
-            }
+            //else if(currentFencesSquaredDiff > fencesDiffLimit) {
+            //    //for each possible cell move:
+            //    //  ShortestPathDiff() should be called with:
+            //    //      AI POSSIBLE cell and humanPlayer CURRENT cell
+            //    List<Cell> possibleCells = new List<Cell>();
+            //    foreach(int[] possibleMove in possiblePawnMoves) {
+            //        Cell possibleCell = new Cell();
+            //        string currentCellName = AIPlayer.Pawn.Cell.Name;
+            //        int possibleXind = Array.IndexOf(letters, currentCellName.Substring(0, 1)) + possibleMove[0];
+            //        string possibleX = letters[possibleXind];
+            //        string possibleY = Convert.ToString(Convert.ToInt32(currentCellName.Substring(1, 1)) + possibleMove[1]);
+            //        string possibleCellName = possibleX + possibleY;
+            //        possibleCell.Name = possibleCellName;
+            //        possibleCells.Add(possibleCell);
+            //    }
+            //    int minSEF = int.MaxValue;
+            //    int minSEFindex = 0;
+            //    foreach(Cell possibleCell in possibleCells) {
+            //        int tempSEF = SEF(possibleCell, cells, AllFences);
+            //        if(tempSEF < minSEF) {
+            //            minSEF = tempSEF;
+            //            minSEFindex = possibleCells.FindIndex(c => c.Name == possibleCell.Name);
+            //        }
+            //    }
+            //    return possibleCells[minSEFindex].Name;
+            //}
             //ход пешкой
             else {
                 //for each possible cell move:

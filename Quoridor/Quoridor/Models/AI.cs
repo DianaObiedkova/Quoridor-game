@@ -129,13 +129,13 @@ namespace Quoridor.Models
 
                 string shiftedNewFence = "";
                 if(letters[Array.IndexOf(letters, newFence.Substring(5, 1))] != "i")    
-                    shiftedNewFence =letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
+                    shiftedNewFence = "h" + letters[Array.IndexOf(letters, newFence.Substring(5, 1))] +
+                                    newFence.Substring(6, 1) + 
+                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1))] +
+                                    newFence.Substring(8, 1) +
+                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
                                     newFence.Substring(6, 1) + 
                                     letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
-                                    newFence.Substring(8, 1) +
-                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 2] +
-                                    newFence.Substring(6, 1) + 
-                                    letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 2] +
                                     newFence.Substring(8, 1);
                 if (possibleFences.Contains(tempNewFence))
                 {

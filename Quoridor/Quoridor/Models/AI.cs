@@ -137,6 +137,13 @@ namespace Quoridor.Models
                     }
                     if (!skip)
                         return newFence;
+                    else {
+                        return newFence.Substring(5, 4) + 
+                            letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
+                            newFence.Substring(6, 1) + 
+                            letters[Array.IndexOf(letters, newFence.Substring(5, 1)) + 1] +
+                            newFence.Substring(8, 1);
+                    }
                 }
             }
 

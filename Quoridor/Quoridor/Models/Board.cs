@@ -83,6 +83,18 @@ namespace Quoridor.Models
                     if (!(fence is null) && fence.Name.Substring(1, 4) == fences[i])
                     {
                         fences.Remove(fences[i]);
+                        if(fences[i][0] == fences[i][2])
+                        {
+                            fences.RemoveAll(f => fences[i][0] == fences[i][2] && 
+                                (f.Contains(fences[i].Substring(0, 2)) || f.Contains(fences[i].Substring(2, 2))));
+                            
+                        }
+                        if(fences[i][1] == fences[i][3])
+                        {
+                            fences.RemoveAll(f => fences[i][1] == fences[i][3] && 
+                                (f.Contains(fences[i].Substring(0, 2)) || f.Contains(fences[i].Substring(2, 2))));
+                            
+                        }
                     }
                 }
             }

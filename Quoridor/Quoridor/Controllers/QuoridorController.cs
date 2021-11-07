@@ -404,7 +404,7 @@ namespace Quoridor.Controllers
             if(move.Length == 9)
             {
                 string cell1Name = move.Substring(1, 2);
-                string cell2Name = move.Substring(3, 2);
+                string cell2Name = move.Substring(5, 2);
 
                 SetFence(cell1Name, cell2Name);
 

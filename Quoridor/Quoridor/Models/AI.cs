@@ -72,7 +72,7 @@ namespace Quoridor.Models
                     string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
                     string topLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
 
-                    newFence += topLeft + bottomLeft + enemyCellName + bottomRight;
+                    newFence += bottomLeft + topLeft + bottomRight + enemyCellName;
                 }
                 //goes to 8 row, enemy is in the bottomRight
                 else {
@@ -81,7 +81,7 @@ namespace Quoridor.Models
                     string bottomLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
                     string topLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
 
-                    newFence += topLeft + bottomLeft + topRight + enemyCellName;
+                    newFence += bottomLeft + topLeft + enemyCellName + topRight;
                 }
             }
             else if(ShortestAIPath(AIPlayer.Pawn.Cell, cells, AllFences) == 2) {
@@ -96,6 +96,7 @@ namespace Quoridor.Models
                     string topLeft = letters[leftInd] +  Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) + 1);
 
                     newFence += topLeft + topRight + bottomLeft + AICellName;
+                    newFence += bottomLeft + AICellName + topLeft + topRight;
                 }
                 //goes to 0th row, in the topRight
                 else {
@@ -104,7 +105,7 @@ namespace Quoridor.Models
                     string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
                     string topLeft = letters[leftInd] + AICellName.Substring(1, 1);
 
-                    newFence += AICellName + topLeft + bottomRight + bottomLeft;
+                    newFence += bottomRight + bottomLeft + AICellName + topLeft;
                 }
             }
             string tempNewFence= string.Empty;

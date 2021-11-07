@@ -104,7 +104,7 @@ namespace Quoridor.Models
                     string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(AICellName.Substring(1, 1)) - 1);
                     string topLeft = letters[leftInd] + AICellName.Substring(1, 1);
 
-                    newFence += topLeft + AICellName + bottomLeft + bottomRight;
+                    newFence += AICellName + topLeft + bottomRight + bottomLeft;
                 }
             }
             string tempNewFence= string.Empty;

@@ -67,19 +67,19 @@ namespace Quoridor.Models
 
                 //goes to 0th row, enemy is in the topRight
                 if(sideIndicator) {
-                    string bottomRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
+                    string bottomRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
                     int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
-                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
+                    string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
                     string topLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
 
                     newFence += topLeft + bottomLeft + enemyCellName + bottomRight;
                 }
                 //goes to 8 row, enemy is in the bottomRight
                 else {
-                    string topRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
+                    string topRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
                     int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + enemyCellName.Substring(1, 1);
-                    string topLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) - 1);
+                    string topLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
 
                     newFence += topLeft + bottomLeft + topRight + enemyCellName;
                 }

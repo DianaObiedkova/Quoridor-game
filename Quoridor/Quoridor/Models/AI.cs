@@ -66,7 +66,7 @@ namespace Quoridor.Models
                 newFence = "h"; 
 
                 //goes to 8th row, enemy is in the topRight
-                if(sideIndicator) {
+                if(!sideIndicator) {
                     string bottomRight = enemyCellName.Substring(0, 1) + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
                     int leftInd = Array.IndexOf(letters, enemyCellName.Substring(0, 1)) - 1;
                     string bottomLeft = letters[leftInd] + Convert.ToString(Convert.ToInt32(enemyCellName.Substring(1, 1)) + 1);
@@ -108,7 +108,8 @@ namespace Quoridor.Models
                 }
             }
 
-            if(possibleFences.Contains(newFence))
+            string tempNewFence = newFence.Substring(1, 2) + newFence.Substring(5, 2);
+            if(possibleFences.Contains(tempNewFence))
             {
                 return newFence;
             }

@@ -206,6 +206,7 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].EastWall && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].SouthWall)
                     {
                         result.Add(new int[] { 1, -1 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y  - 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name);
                     }
                 }
                 //справа вражеская пешка
@@ -213,6 +214,7 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall)
                 {
                     result.Add(new int[] { 1, -1 });
+                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name);
                 }
 
             }
@@ -225,6 +227,7 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].EastWall)
                     {
                         result.Add(new int[] { 1, 1 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name);
                     }
                 }
                 //справа вражеская пешка
@@ -232,6 +235,7 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall)
                 {
                     result.Add(new int[] { 1, 1 });
+                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name);
                 }
 
             }
@@ -244,6 +248,7 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].WestWall)
                     {
                         result.Add(new int[] { -1, 1 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name);
                     }
                 }
                 //слева вражеская пешка
@@ -251,6 +256,7 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].EastWall)
                 {
                     result.Add(new int[] { -1, 1 });
+                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name);
                 }
 
             }
@@ -263,12 +269,14 @@ namespace Quoridor.Models
                         && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].WestWall)
                     {
                         result.Add(new int[] { -1, -1 });
+                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name);
                     }
                 }
                 else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index - 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall || index == 1)
                         && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].EastWall)
                 {
                     result.Add(new int[] { -1, -1 });
+                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name);
                 }
 
             }

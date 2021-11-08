@@ -112,17 +112,14 @@ namespace Quoridor.Models
                     if (!CurrentP.Pawn.Cell.X.Contains("i")
                     && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).EastWall) // d3 -> e3
                     {
-                        result.Add(new int[] { 1, 0 });
-                        if (!Moves.Contains(cellRight.Name)) Moves.Add(cellRight.Name);
+                        AddMovesHelper(result, 1, 0, cellRight.Name);
                     }
                 }
                 else //если есть 
                 {
-                    if (!board.cells[CurrentP.Pawn.Cell.Y, index + 1].X.Contains("i")
-                   && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall) // d3 -> f3
+                    if (!cellRight.X.Contains("i") && !cellRight.EastWall) // d3 -> f3
                     {
-                        result.Add(new int[] { 2, 0 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y, index + 2].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y, index + 2].Name);
+                        AddMovesHelper(result, 2, 0, board.cells[CurrentP.Pawn.Cell.Y, index + 2].Name);
                     }
                 }
             }
@@ -136,17 +133,14 @@ namespace Quoridor.Models
                     if (!CurrentP.Pawn.Cell.X.Contains("a") &&
                     !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).WestWall) // e3 -> d3 //&& CurrentP.Pawn.Cell.WestWall //East
                     {
-                        result.Add(new int[] { -1, 0 });
-                        if (!Moves.Contains(cellLeft.Name)) Moves.Add(cellLeft.Name);
+                        AddMovesHelper(result, -1, 0, cellLeft.Name);
                     }
                 }
                 else //если есть 
                 {
-                    if (!board.cells[CurrentP.Pawn.Cell.Y, index - 1].X.Contains("a")
-                   && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall) // f3 -> d3 
+                    if (!cellLeft.X.Contains("a") && !cellLeft.WestWall) // f3 -> d3 
                     {
-                        result.Add(new int[] { -2, 0 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y, index - 2].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y, index - 2].Name);
+                        AddMovesHelper(result, -2, 0, board.cells[CurrentP.Pawn.Cell.Y, index - 2].Name);
                     }
                 }
             }
@@ -160,17 +154,14 @@ namespace Quoridor.Models
                     if (!CurrentP.Pawn.Cell.Y.Equals(0)
                     && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).NorthWall)// e3 -> e2
                     {
-                        result.Add(new int[] { 0, -1 });
-                        if (!Moves.Contains(cellUp.Name)) Moves.Add(cellUp.Name);
+                        AddMovesHelper(result, 0, -1, cellUp.Name);
                     }
                 }
                 else //если есть 
                 {
-                    if (!board.cells[CurrentP.Pawn.Cell.Y - 1, index].Y.Equals(0)
-                   && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall) // e3 -> e1
+                    if (!cellUp.Y.Equals(0) && !cellUp.NorthWall) // e3 -> e1
                     {
-                        result.Add(new int[] { 0, -2 });
-                        if(!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 2, index].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 2, index].Name);
+                        AddMovesHelper(result, 0, -2, board.cells[CurrentP.Pawn.Cell.Y - 2, index].Name);
                     }
                 }
             }
@@ -183,105 +174,109 @@ namespace Quoridor.Models
                     if (!CurrentP.Pawn.Cell.Y.Equals(Board.Size - 1)
                     && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).SouthWall)// e2 -> e3
                     {
-                        result.Add(new int[] { 0, 1 });
-                        if (!Moves.Contains(cellDown.Name)) Moves.Add(cellDown.Name);
+                        AddMovesHelper(result, 0, 1, cellDown.Name);
                     }
                 }
                 else //если есть 
                 {
-                    if (!board.cells[CurrentP.Pawn.Cell.Y + 1, index].Y.Equals(Board.Size - 1)
-                   && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall) // e1 -> e3
+                    if (!cellDown.Y.Equals(Board.Size - 1) && !cellDown.SouthWall) // e1 -> e3
                     {
-                        result.Add(new int[] { 0, 2 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 2, index].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 2, index].Name);
+                        AddMovesHelper(result, 0, 2, board.cells[CurrentP.Pawn.Cell.Y + 2, index].Name);
                     }
                 }
             }
             //северо-восток
             if (index + 1 < Board.Size && CurrentP.Pawn.Cell.Y - 1 > 0)
             {
-                if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y - 1, index]))//сверху вражеская пешка
+                var upEnemy = board.cells[CurrentP.Pawn.Cell.Y - 1, index];
+                var rightEnemy = board.cells[CurrentP.Pawn.Cell.Y, index + 1];
+                var moveCellName = board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name;
+
+                if (IsCellHasPawn(upEnemy))//сверху вражеская пешка
                 {
-                    if ((board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall || CurrentP.Pawn.Cell.Y == 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].EastWall && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].SouthWall)
+                    if ((upEnemy.NorthWall || CurrentP.Pawn.Cell.Y == 1) && !upEnemy.EastWall && !upEnemy.SouthWall)
                     {
-                        result.Add(new int[] { 1, -1 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y  - 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name);
+                        AddMovesHelper(result, 1, -1, moveCellName);
                     }
                 }
                 //справа вражеская пешка
-                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index + 1 == Board.Size - 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall)
+                else if (IsCellHasPawn(rightEnemy) && (rightEnemy.EastWall || index + 1 == Board.Size - 1)
+                        && !rightEnemy.NorthWall && !rightEnemy.WestWall)
                 {
-                    result.Add(new int[] { 1, -1 });
-                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index + 1].Name);
+                    AddMovesHelper(result, 1, -1, moveCellName);
                 }
 
             }
             //юго-восток
             if (index + 1 < Board.Size && CurrentP.Pawn.Cell.Y + 1 < Board.Size)
             {
-                if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y + 1, index]))//снизу вражеская пешка
+                var downEnemy = board.cells[CurrentP.Pawn.Cell.Y + 1, index];
+                var rightEnemy = board.cells[CurrentP.Pawn.Cell.Y, index + 1];
+                var moveCellName = board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name;
+
+                if (IsCellHasPawn(downEnemy))//снизу вражеская пешка
                 {
-                    if ((board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].EastWall)
+                    if ((downEnemy.SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1) && !downEnemy.NorthWall && !downEnemy.EastWall)
                     {
-                        result.Add(new int[] { 1, 1 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name);
+                        AddMovesHelper(result, 1, 1, moveCellName);
                     }
                 }
                 //справа вражеская пешка
-                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index + 1 == Board.Size - 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall)
+                else if (IsCellHasPawn(rightEnemy) && (rightEnemy.EastWall || index + 1 == Board.Size - 1) && !rightEnemy.SouthWall && !rightEnemy.WestWall)
                 {
-                    result.Add(new int[] { 1, 1 });
-                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index + 1].Name);
+                    AddMovesHelper(result, 1, 1, moveCellName);
                 }
 
             }
             //юго-запад
             if (index > 0 && CurrentP.Pawn.Cell.Y + 1 < Board.Size)
             {
-                if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y + 1, index]))//снизу вражеская пешка
+                var downCell = board.cells[CurrentP.Pawn.Cell.Y + 1, index];
+                var leftCell = board.cells[CurrentP.Pawn.Cell.Y, index - 1];
+                var moveCellName = board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name;
+
+                if (IsCellHasPawn(downCell))//снизу вражеская пешка
                 {
-                    if ((board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].WestWall)
+                    if ((downCell.SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1) && !downCell.NorthWall && !downCell.WestWall)
                     {
-                        result.Add(new int[] { -1, 1 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name);
+                        AddMovesHelper(result, -1, 1, moveCellName);
                     }
                 }
                 //слева вражеская пешка
-                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index - 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall || index == 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].EastWall)
+                else if (IsCellHasPawn(leftCell) && (leftCell.WestWall || index == 1) && !leftCell.SouthWall && !leftCell.EastWall)
                 {
-                    result.Add(new int[] { -1, 1 });
-                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y + 1, index - 1].Name);
+                    AddMovesHelper(result, -1, 1, moveCellName);
                 }
 
             }
             //северо-запад
             if (index > 0 && CurrentP.Pawn.Cell.Y > 0)
             {
-                if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y - 1, index]))//сверху вражеская пешка
+                var upCell = board.cells[CurrentP.Pawn.Cell.Y - 1, index];
+                var leftCell = board.cells[CurrentP.Pawn.Cell.Y, index - 1];
+                var moveCellName = board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name;
+
+                if (IsCellHasPawn(upCell))//сверху вражеская пешка
                 {
-                    if ((board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall || CurrentP.Pawn.Cell.Y == 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].WestWall)
+                    if ((upCell.NorthWall || CurrentP.Pawn.Cell.Y == 1)  && !upCell.SouthWall && !upCell.WestWall)
                     {
-                        result.Add(new int[] { -1, -1 });
-                        if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name);
+                        AddMovesHelper(result, -1, -1, moveCellName);
                     }
                 }
-                else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index - 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall || index == 1)
-                        && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].EastWall)
+                else if (IsCellHasPawn(leftCell) && (leftCell.WestWall || index == 1) && !leftCell.NorthWall && !leftCell.EastWall)
                 {
-                    result.Add(new int[] { -1, -1 });
-                    if (!Moves.Contains(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name)) Moves.Add(board.cells[CurrentP.Pawn.Cell.Y - 1, index - 1].Name);
+                    AddMovesHelper(result, -1, -1, moveCellName);
                 }
-
             }
 
             return result;
+        }
+
+        private void AddMovesHelper(List<int[]> arr, int offsetX, int offsetY, string cellName)
+        {
+            arr.Add(new int[] { offsetX, offsetY });
+            if (!Moves.Contains(cellName))
+                Moves.Add(cellName);
         }
 
         public void MovePawn(Direction direction)
@@ -294,7 +289,9 @@ namespace Quoridor.Models
                     {
                         if (index + 1 < Board.Size)//чтоб след.проверка и выборка по массиву не давала IndexOutOfRange
                         {
-                            if (!IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1])) //если рядом нет пешки
+                            var rightcell = board.cells[CurrentP.Pawn.Cell.Y, index + 1];
+
+                            if (!IsCellHasPawn(rightcell)) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.X.Contains("i")
                                 && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).EastWall) // d3 -> e3
@@ -305,8 +302,7 @@ namespace Quoridor.Models
                             }
                             else //если есть 
                             {
-                                if (!board.cells[CurrentP.Pawn.Cell.Y, index + 1].X.Contains("i")
-                               && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall) // d3 -> f3
+                                if (!rightcell.X.Contains("i") && !rightcell.EastWall) // d3 -> f3
                                 {
                                     CurrentP.Pawn.Cell.X = board.indexes[index + 2];
                                     CurrentP.Pawn.Cell.Name = board.indexes[index + 2] + CurrentP.Pawn.Cell.Y;
@@ -320,7 +316,9 @@ namespace Quoridor.Models
                     {
                         if (index > 0)//чтоб след.проверка и выборка по массиву не давала IndexOutOfRange
                         {
-                            if (!IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index - 1])) //если рядом нет пешки
+                            var leftcell = board.cells[CurrentP.Pawn.Cell.Y, index - 1];
+
+                            if (!IsCellHasPawn(leftcell)) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.X.Contains("a")
                                 && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).WestWall) // e3 -> d3
@@ -331,8 +329,7 @@ namespace Quoridor.Models
                             }
                             else //если есть 
                             {
-                                if (!board.cells[CurrentP.Pawn.Cell.Y, index - 1].X.Contains("a")
-                               && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall) // f3 -> d3
+                                if (!leftcell.X.Contains("a") && !leftcell.WestWall) // f3 -> d3
                                 {
                                     CurrentP.Pawn.Cell.X = board.indexes[index - 2];
                                     CurrentP.Pawn.Cell.Name = board.indexes[index - 2] + CurrentP.Pawn.Cell.Y;
@@ -346,7 +343,9 @@ namespace Quoridor.Models
                     {
                         if (CurrentP.Pawn.Cell.Y > 0)
                         {
-                            if (!IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y - 1, index])) //если рядом нет пешки
+                            var upCell = board.cells[CurrentP.Pawn.Cell.Y - 1, index];
+
+                            if (!IsCellHasPawn(upCell)) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.Y.Equals(0)
                                 && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).NorthWall)// e3 -> e2
@@ -357,8 +356,7 @@ namespace Quoridor.Models
                             }
                             else //если есть 
                             {
-                                if (!board.cells[CurrentP.Pawn.Cell.Y - 1, index].Y.Equals(0)
-                               && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall) // e3 -> e1
+                                if (!upCell.Y.Equals(0) && !upCell.NorthWall) // e3 -> e1
                                 {
                                     CurrentP.Pawn.Cell.Y -= 2;
                                     CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
@@ -372,22 +370,23 @@ namespace Quoridor.Models
                     {
                         if (CurrentP.Pawn.Cell.Y + 1 < Board.Size)
                         {
-                            if (!IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y + 1, index])) //если рядом нет пешки
+                            var downCell = board.cells[CurrentP.Pawn.Cell.Y + 1, index];
+
+                            if (!IsCellHasPawn(downCell)) //если рядом нет пешки
                             {
                                 if (!CurrentP.Pawn.Cell.Y.Equals(Board.Size - 1)
                                 && !Array.Find(board.cells.Cast<Cell>().ToArray(), x => x.Equals(CurrentP.Pawn.Cell)).SouthWall)// e2 -> e3
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
-                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
+                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + CurrentP.Pawn.Cell.Y.ToString();
                                 }
                             }
                             else //если есть 
                             {
-                                if (!board.cells[CurrentP.Pawn.Cell.Y + 1, index].Y.Equals(Board.Size - 1)
-                               && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall) // e1 -> e3
+                                if (!downCell.Y.Equals(Board.Size - 1) && !downCell.SouthWall) // e1 -> e3
                                 {
                                     CurrentP.Pawn.Cell.Y += 2;
-                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + (CurrentP.Pawn.Cell.Y).ToString();
+                                    CurrentP.Pawn.Cell.Name = CurrentP.Pawn.Cell.X + CurrentP.Pawn.Cell.Y.ToString();
                                 }
                             }
                         }
@@ -397,22 +396,24 @@ namespace Quoridor.Models
                     {
                         if (index + 1 < Board.Size && CurrentP.Pawn.Cell.Y - 1 > 0)
                         {
-                            if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y - 1, index]))//сверху вражеская пешка
+                            var upCell = board.cells[CurrentP.Pawn.Cell.Y - 1, index];
+                            var rightCell = board.cells[CurrentP.Pawn.Cell.Y, index + 1];
+
+                            if (IsCellHasPawn(upCell))//сверху вражеская пешка
                             {
-                                if ((board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall || CurrentP.Pawn.Cell.Y == 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].EastWall && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].SouthWall)
+                                if ((upCell.NorthWall || CurrentP.Pawn.Cell.Y == 1) && !upCell.EastWall && !upCell.SouthWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
                                     CurrentP.Pawn.Cell.X = board.indexes[index + 1];
-                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y.ToString(); //суть одна, но условия разные
                                 }
                             }
-                            else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index == Board.Size - 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall) //справа вражеская пешка
+                            else if (IsCellHasPawn(rightCell) && (rightCell.EastWall || index == Board.Size - 1)
+                                    && !rightCell.NorthWall && !rightCell.WestWall) //справа вражеская пешка
                             {
                                 CurrentP.Pawn.Cell.Y -= 1;
                                 CurrentP.Pawn.Cell.X = board.indexes[index + 1];
-                                CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y.ToString();  //суть/действия одни, но условия разные, needs to be revised
                             }
                             
 
@@ -423,22 +424,24 @@ namespace Quoridor.Models
                     {
                         if (index + 1 < Board.Size && CurrentP.Pawn.Cell.Y + 1 < Board.Size)
                         {
-                            if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y + 1, index]))//снизу вражеская пешка
+                            var downCell = board.cells[CurrentP.Pawn.Cell.Y + 1, index];
+                            var rightCell = board.cells[CurrentP.Pawn.Cell.Y, index + 1];
+
+                            if (IsCellHasPawn(downCell))//снизу вражеская пешка
                             {
-                                if ((board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].EastWall)
+                                if ((downCell.SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1) && !downCell.NorthWall && !downCell.EastWall)
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
                                     CurrentP.Pawn.Cell.X = board.indexes[index + 1];
-                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y.ToString(); //суть одна, но условия разные
                                 }
                             }
-                            else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index + 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index + 1].EastWall || index == Board.Size - 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index + 1].WestWall) //справа вражеская пешка
+                            else if (IsCellHasPawn(rightCell) && (rightCell.EastWall || index == Board.Size - 1)
+                                    && !rightCell.SouthWall && !rightCell.WestWall) //справа вражеская пешка
                             {
                                 CurrentP.Pawn.Cell.Y += 1;
                                 CurrentP.Pawn.Cell.X = board.indexes[index + 1];
-                                CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                CurrentP.Pawn.Cell.Name = board.indexes[index + 1] + CurrentP.Pawn.Cell.Y.ToString();  //суть/действия одни, но условия разные, needs to be revised
                             }
                             
 
@@ -449,22 +452,24 @@ namespace Quoridor.Models
                     {
                         if (index > 0 && CurrentP.Pawn.Cell.Y + 1 < Board.Size)
                         {
-                            if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y + 1, index]))//снизу вражеская пешка
+                            var downCell = board.cells[CurrentP.Pawn.Cell.Y + 1, index];
+                            var leftCell = board.cells[CurrentP.Pawn.Cell.Y, index - 1];
+
+                            if (IsCellHasPawn(downCell))//снизу вражеская пешка
                             {
-                                if ((board.cells[CurrentP.Pawn.Cell.Y + 1, index].SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y + 1, index].EastWall)
+                                if ((downCell.SouthWall || CurrentP.Pawn.Cell.Y == Board.Size - 1) && !downCell.NorthWall && !downCell.EastWall)
                                 {
                                     CurrentP.Pawn.Cell.Y += 1;
                                     CurrentP.Pawn.Cell.X = board.indexes[index - 1];
-                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y.ToString(); //суть одна, но условия разные
                                 }
                             }
-                            else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index - 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall || index == 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].EastWall) //слева вражеская пешка
+                            else if (IsCellHasPawn(leftCell) && (leftCell.WestWall || index == 1)
+                                    && !leftCell.SouthWall && !leftCell.EastWall) //слева вражеская пешка
                             {
                                 CurrentP.Pawn.Cell.Y += 1;
                                 CurrentP.Pawn.Cell.X = board.indexes[index - 1];
-                                CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y.ToString();  //суть/действия одни, но условия разные, needs to be revised
                             }
 
                         }
@@ -474,22 +479,24 @@ namespace Quoridor.Models
                     {
                         if (index > 0 && CurrentP.Pawn.Cell.Y > 0)
                         {
-                            if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y - 1, index]))//сверху вражеская пешка
+                            var upCell = board.cells[CurrentP.Pawn.Cell.Y - 1, index];
+                            var leftCell = board.cells[CurrentP.Pawn.Cell.Y, index - 1];
+
+                            if (IsCellHasPawn(upCell))//сверху вражеская пешка
                             {
-                                if ((board.cells[CurrentP.Pawn.Cell.Y - 1, index].NorthWall || CurrentP.Pawn.Cell.Y == 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].SouthWall && !board.cells[CurrentP.Pawn.Cell.Y - 1, index].WestWall)
+                                if ((upCell.NorthWall || CurrentP.Pawn.Cell.Y == 1) && !upCell.SouthWall && !upCell.WestWall)
                                 {
                                     CurrentP.Pawn.Cell.Y -= 1;
                                     CurrentP.Pawn.Cell.X = board.indexes[index - 1];
-                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString(); //суть одна, но условия разные
+                                    CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y.ToString(); //суть одна, но условия разные
                                 }
                             }
-                            else if (IsCellHasPawn(board.cells[CurrentP.Pawn.Cell.Y, index - 1]) && (board.cells[CurrentP.Pawn.Cell.Y, index - 1].WestWall || index == 1)
-                                    && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].NorthWall && !board.cells[CurrentP.Pawn.Cell.Y, index - 1].EastWall) //слева вражеская пешка
+                            else if (IsCellHasPawn(leftCell) && (leftCell.WestWall || index == 1)
+                                    && !leftCell.NorthWall && !leftCell.EastWall) //слева вражеская пешка
                             {
                                 CurrentP.Pawn.Cell.Y -= 1;
                                 CurrentP.Pawn.Cell.X = board.indexes[index - 1];
-                                CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + (CurrentP.Pawn.Cell.Y).ToString();  //суть/действия одни, но условия разные, needs to be revised
+                                CurrentP.Pawn.Cell.Name = board.indexes[index - 1] + CurrentP.Pawn.Cell.Y.ToString();  //суть/действия одни, но условия разные, needs to be revised
                             }
 
                         }
@@ -510,7 +517,7 @@ namespace Quoridor.Models
 
         private bool IsCellHasPawn(Cell cell)
         {
-            var opPlayer = (CurrentP == secondP ? firstP : secondP);
+            var opPlayer = CurrentP == secondP ? firstP : secondP;
             if (opPlayer.Pawn.Cell.Equals(cell))
             {
                 return true;

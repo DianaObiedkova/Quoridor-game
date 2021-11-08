@@ -436,6 +436,12 @@ namespace Quoridor.Controllers
                     Console.WriteLine("jump " + move);
                     //CheckWinner();
                 }
+                else if(Math.Abs(indexes[Game.CurrentP.Pawn.Cell.Name.Substring(0, 1)] - indexes[move.Substring(0, 1)]) == 1 &&
+                    Math.Abs(Convert.ToInt32(Game.CurrentP.Pawn.Cell.Name.Substring(1, 1)) - Convert.ToInt32(move.Substring(1, 1))) == 1){
+                    move = move.Substring(0, 1) + Convert.ToString(Convert.ToInt32(move.Substring(1, 1)) + 1);
+                    MovePawnConsole(move);
+                    Console.WriteLine("jump " + move);
+                }
                 else
                 {
                     move = move.Substring(0, 1) + Convert.ToString(Convert.ToInt32(move.Substring(1, 1)) + 1);

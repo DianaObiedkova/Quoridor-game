@@ -80,7 +80,7 @@ namespace Quoridor.Models
             {
                 for(int i=0;i<fences.Count;i++)
                 {
-                    if (!(fence is null) && fence.Name.Substring(1, 4) == fences[i])
+                    if (!(fence is null) && fence.Name.Substring(1, 2) + fence.Name.Substring(5, 2) == fences[i])
                     {
                         fences.Remove(fences[i]);
                         if(fences[i][0] == fences[i][2])

@@ -148,7 +148,7 @@ namespace Quoridor.Models
                     if (!skip)
                         return newFence;
                 }
-                else if(possibleFences.Contains(shiftedNewFence.Substring(1, 2) + shiftedNewFence.Substring(5, 2)))
+                if(possibleFences.Contains(shiftedNewFence.Substring(1, 2) + shiftedNewFence.Substring(5, 2)))
                 {
                     return shiftedNewFence;
                 }

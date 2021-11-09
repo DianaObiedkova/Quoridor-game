@@ -82,18 +82,49 @@ namespace Quoridor.Models
                 {
                     if (!(fence is null) && fence.Name.Substring(1, 2) + fence.Name.Substring(5, 2) == fences[i])
                     {
-                        fences.Remove(fences[i]);
-                        if(fences[i][0] == fences[i][2])
+                        var curFence = fences[i];
+
+                        fences.Remove(curFence);
+                        if(curFence[0] == curFence[2])//вертикаль
                         {
-                            fences.RemoveAll(f => fences[i][0] == fences[i][2] && 
-                                (f.Contains(fences[i].Substring(0, 2)) || f.Contains(fences[i].Substring(2, 2))));
-                            
+                            var upCellIndex = int.Parse(curFence.Substring(1, 1));
+                            var downCellIndex = int.Parse(curFence.Substring(3, 1));
+                            var letterIndex = Array.IndexOf(letters, curFence.Substring(0, 1));
+
+                            fences.Remove(fences.Find(f => f == letters[letterIndex - 1] + upCellIndex + curFence.Substring(0, 2)));//cross
+                            if (upCellIndex > 0)
+                            {
+                                fences.Remove(fences.Find(f => f == curFence.Substring(0, 1) + (upCellIndex - 1).ToString() + curFence.Substring(0, 2)));//up
+                            }
+
+                            if (downCellIndex < 8)
+                            {
+                                fences.Remove(fences.Find(f => f == curFence.Substring(2, 2) + curFence.Substring(0, 1) + (downCellIndex + 1).ToString()));//down
+                            }
+
+
+                            //fences.RemoveAll(f => fences[i][0] == fences[i][2] &&
+                            //    (f.Contains(fences[i].Substring(0, 2)) || f.Contains(fences[i].Substring(2, 2))));
+
                         }
-                        if(fences[i][1] == fences[i][3])
+                        if(curFence[1] == curFence[3])//горизонт
                         {
-                            fences.RemoveAll(f => fences[i][1] == fences[i][3] && 
-                                (f.Contains(fences[i].Substring(0, 2)) || f.Contains(fences[i].Substring(2, 2))));
+                            var cellIndex = int.Parse(curFence.Substring(1, 1));// similar to both
+                            var letterIndex = Array.IndexOf(letters, curFence.Substring(2, 1));
+
+                            if (cellIndex > 0)
+                            {
+                                fences.Remove(fences.Find(f => f == letters[Array.IndexOf(letters, curFence.Substring(0, 1)) - 1] + cellIndex + curFence.Substring(0, 2)));//left
+                            }
+                            if (Array.IndexOf(letters, curFence.Substring(2, 1)) < 8)
+                            {
+                                fences.Remove(fences.Find(f => f == curFence.Substring(2, 2) + letters[Array.IndexOf(letters, curFence.Substring(2, 1)) + 1] + cellIndex));//right
+                            }
+                            fences.Remove(fences.Find(f => f == curFence.Substring(2, 2) + curFence.Substring(2, 1) + (cellIndex + 1).ToString()));//cross
                             
+                            //fences.RemoveAll(f => fences[i][1] == fences[i][3] &&
+                            //    (f.Contains(fences[i].Substring(0, 2)) || f.Contains(fences[i].Substring(2, 2))));
+
                         }
                     }
                 }

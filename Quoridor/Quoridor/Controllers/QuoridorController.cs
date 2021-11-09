@@ -287,6 +287,20 @@ namespace Quoridor.Controllers
                         if (cellsXDiff != 1 && -cellsXDiff != 1)
                             direction = Direction.South;
                     }
+                    else if (curCellSecondDigit - newCellSecondDigit == 1)
+                    {
+                        if (cellsXDiff == 1)
+                            direction = Direction.NorthWest;
+                        else if (-cellsXDiff == 1)
+                            direction = Direction.NorthEast;
+                    }
+                    else if (newCellSecondDigit - curCellSecondDigit == 1)
+                    {
+                        if (cellsXDiff == 1)
+                            direction = Direction.SouthWest;
+                        else if (-cellsXDiff == 1)
+                            direction = Direction.SouthEast;
+                    }
                     else
                     {
                         Console.WriteLine("You entered inappropriate cell value, try again in format 'e1' or nearly your position.");
